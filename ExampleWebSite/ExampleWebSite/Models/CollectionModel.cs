@@ -18,6 +18,6 @@ namespace ExampleWebSite.Models
         public ThemaModel Thema { get; set; }
         public int ThemaId { get; set; }
         public string Image { get; set; }
-        public IEnumerable<ItemsModel> Items { get; set; }
+        public IEnumerable<ItemModel> Items { get; set; }
     }
 }

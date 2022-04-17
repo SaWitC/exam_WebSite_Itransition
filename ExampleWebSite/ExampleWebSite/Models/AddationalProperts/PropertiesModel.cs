@@ -11,5 +11,9 @@ namespace ExampleWebSite.Models.AddationalProperts
         public string Title { get; set; }
         public string Type { get; set; }
         public string Value { get; set; }
+        public CollectionModel Collection { get; set; }
+        public int CollectionId { get; set; }
+        public ItemModel Item { get; set; }
+        public int ItemId { get; set; }
     }
 }

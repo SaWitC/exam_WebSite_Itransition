@@ -16,7 +16,7 @@ namespace ExampleWebSite.Models
         public string User { get; set; }
         public string UserId { get; set; }
         [ForeignKey("ItemId")]
-        public ItemsModel Item { get; set; }
+        public ItemModel Item { get; set; }
         public int ItemId { get; set; }
         public bool IsLiked { get; set; }
     }

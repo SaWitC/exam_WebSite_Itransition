@@ -18,10 +18,10 @@ namespace ExampleWebSite.Data
 
         }
 
-        DbSet<PropertiesModel> Properties { get; set; }
-        DbSet<CollectionModel> Collections { get; set; }
-        DbSet<ItemsModel> Items { get; set; }
-        DbSet<LikeModel> Likes { get; set; }
-        DbSet<ThemaModel> Themes { get; set; }
+        public DbSet<PropertiesModel> Properties { get; set; }
+        public DbSet<CollectionModel> Collections { get; set; }
+        public DbSet<ItemModel> Items { get; set; }
+        public DbSet<LikeModel> Likes { get; set; }
+        public DbSet<ThemaModel> Themes { get; set; }
     }
 }
