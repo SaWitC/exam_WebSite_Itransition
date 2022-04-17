@@ -7,19 +7,26 @@ using ExampleWebSite.Models.AddationalProperts;
 
 namespace ExampleWebSite.Data.Repositories
 {
-    public class PropertiesRepository : IpropertiseRepository
+    public class PropertiesRepository : IpropertiesRepository
     {
-        public Task Create(PropertiesModel model, int collectionId)
+        private readonly ExamWebSiteDBContext _context;
+        public PropertiesRepository(ExamWebSiteDBContext context)
+        {
+            _context = context;
+        }
+        public Task Create(PropertiesElementModel model, int collectionId)
+        {
+            //_context.Properties
+            throw new NotImplementedException();
+
+        }
+
+        public Task Delete(PropertiesElementModel model)
         {
             throw new NotImplementedException();
         }
 
-        public Task Delete(PropertiesModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Edit(PropertiesModel model)
+        public Task Edit(PropertiesElementModel model)
         {
             throw new NotImplementedException();
         }

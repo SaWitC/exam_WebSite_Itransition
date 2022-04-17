@@ -18,7 +18,7 @@ namespace ExampleWebSite.Data
 
         }
 
-        public DbSet<PropertiesModel> Properties { get; set; }
+        public DbSet<PropertiesElementModel> Properties { get; set; }
         public DbSet<CollectionModel> Collections { get; set; }
         public DbSet<ItemModel> Items { get; set; }
         public DbSet<LikeModel> Likes { get; set; }

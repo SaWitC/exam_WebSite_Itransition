@@ -8,6 +8,6 @@ namespace ExampleWebSite.ViewModels
 {
     public class CreatePropertiesViewModel
     {
-        public IEnumerable<PropertiesModel> properties { get; set; }
+        public IEnumerable<PropertiesElementModel> properties { get; set; }
     }
 }

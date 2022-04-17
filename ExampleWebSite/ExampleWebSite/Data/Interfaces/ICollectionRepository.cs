@@ -1,4 +1,5 @@
-﻿using ExampleWebSite.ViewModels;
+﻿using ExampleWebSite.Models;
+using ExampleWebSite.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace ExampleWebSite.Data.Interfaces
     {
        // public IActionResult Details(int? id);
         public Task Create(CreateCollectionViewModel model);
-
         public Task Delete(int Id);
+        public Task<IEnumerable<CollectionModel>> TakeAllAsync();
         
     }
 }

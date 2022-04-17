@@ -13,6 +13,6 @@ namespace ExampleWebSite.Models
         public string Tags { get; set; }
 
         //additional property
-        public IEnumerable<PropertiesModel> Additionalproperties { get; set; }
+        public IEnumerable<PropertiesElementModel> Additionalproperties { get; set; }
     }
 }

@@ -12,6 +12,9 @@ using ExampleWebSite.Models;
 using ExampleWebSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using ExampleWebSite.Data.Interfaces;
+using ExampleWebSite.Data.Repositories;
+
 
 namespace ExampleWebSite
 {
@@ -27,6 +30,10 @@ namespace ExampleWebSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddTransient<ICollectionRepository, CollectionRepository>();
+            services.AddTransient<IpropertiesRepository, PropertiesRepository>();
+
             services.AddControllersWithViews();
             services.AddDbContext<ExamWebSiteDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>()

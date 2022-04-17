@@ -33,5 +33,10 @@ namespace ExampleWebSite.Data.Repositories
             CollectionModel collection =await _context.Collections.FirstOrDefaultAsync(o => o.Id == Id);
             _context.Collections.Remove(collection);
         }
+
+        public async Task<IEnumerable<CollectionModel>> TakeAllAsync()
+        {
+            return await _context.Collections.ToListAsync();
+        }
     }
 }
