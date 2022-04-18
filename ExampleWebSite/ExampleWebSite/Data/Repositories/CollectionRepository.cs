@@ -22,7 +22,7 @@ namespace ExampleWebSite.Data.Repositories
             _context = context;
         }
 
-        public async Task Create(CreateCollectionViewModel model)
+        public async Task CreateAsync(CreateCollectionViewModel model)
         { 
             _context.Collections.Add(model.collection);
             await _context.SaveChangesAsync();
@@ -38,5 +38,9 @@ namespace ExampleWebSite.Data.Repositories
         {
             return await _context.Collections.ToListAsync();
         }
+
+        public async Task<CollectionModel> FindByTitleAsync(string title) => await _context.Collections.AsNoTracking().FirstOrDefaultAsync(o=>o.Title==title);
+
+        public async Task<CollectionModel> FindByIdAsync(int id)=> await _context.Collections.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id);
     }
 }

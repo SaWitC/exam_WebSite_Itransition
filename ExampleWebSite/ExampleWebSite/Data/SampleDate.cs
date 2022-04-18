@@ -10,12 +10,15 @@ namespace ExampleWebSite.Data
     {
         public static void InitialiseThemes(ExamWebSiteDBContext _context)
         {
-            _context.Themes.AddRange(
-                new ThemaModel {Id=1,Title ="Books",Description="coloctions of books"},
-                new ThemaModel { Id = 2, Title = "Minerals", Description = "coloctions of Minerals" },
-                new ThemaModel { Id = 3, Title = "alcohol", Description = "coloctions of alcohol" }
+            if (!_context.Themes.Any())
+            {
+                _context.Themes.AddRange(
+                new ThemaModel { Title = "Books", Description = "coloctions of books" },
+                new ThemaModel  {Title = "Minerals", Description = "coloctions of Minerals" },
+                new ThemaModel {Title = "alcohol", Description = "coloctions of alcohol" }
                 );
-            _context.SaveChangesAsync();
+                _context.SaveChanges();
+            }
         }
     }
 }

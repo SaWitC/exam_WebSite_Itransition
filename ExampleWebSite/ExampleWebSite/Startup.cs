@@ -32,7 +32,11 @@ namespace ExampleWebSite
         {
             services.AddTransient<IItemRepository, ItemRepository>();
             services.AddTransient<ICollectionRepository, CollectionRepository>();
-            services.AddTransient<IpropertiesRepository, PropertiesRepository>();
+            services.AddTransient<IpropertiesElementsRepository, PropertiesElementRepository>();
+            services.AddTransient<IpropertiesModelRepository, PropertiesModelRepository>();
+            //services.AddTransient<IpropertiesElementsRepository, PropertiesElementRepository>();
+            services.AddTransient<IThemeRepository, ThemaRepository>();
+
 
             services.AddControllersWithViews();
             services.AddDbContext<ExamWebSiteDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

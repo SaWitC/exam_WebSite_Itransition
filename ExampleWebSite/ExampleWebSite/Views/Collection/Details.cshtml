@@ -1,0 +1,11 @@
+﻿@model ExampleWebSite.ViewModels.CollectionDetailsViewModel
+
+<h1>Details</h1>
+
+@if (Model.items != null)
+{
+    foreach (var item in Model.items)
+    {
+        <h4>@item.Title</h4>
+    }
+}

@@ -9,10 +9,15 @@ namespace ExampleWebSite.Models.AddationalProperts
     public class PropertiesModel
     {
         public int Id { get; set; }
-        public IEnumerable<PropertiesElementModel> PropertiesElements { get; set; }
+        //public IEnumerable<PropertiesElementModel> PropertiesElements { get; set; }
         public CollectionModel Collection { get; set; }
         public int CollectionId { get; set; }
-        public ItemModel Item { get; set; }
-        public int ItemId { get; set; }
+        //public ItemModel Item { get; set; }
+        //public int ItemId { get; set; }
+
+
+        public string Title { get; set; }
+
+        public string Type { get; set; }
     }
 }

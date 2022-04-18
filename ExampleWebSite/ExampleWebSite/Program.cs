@@ -16,6 +16,8 @@ namespace ExampleWebSite
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+
+
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -23,14 +25,19 @@ namespace ExampleWebSite
                 {
                     var context = services.GetRequiredService<ExamWebSiteDBContext>();
 
-                    SampleDate.InitialiseThemes(context);
-                }
-                catch
-                {
+                    //var userManager = services.GetRequiredService<UserManager<User>>();//initialse admin
+                    //var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    //await RoleInitialiser.Initialiser(userManager, rolesManager);
 
+                    SampleDate.InitialiseThemes(context);//initialse category
+                }
+                catch (Exception ex)
+                {
+                    var loger = services.GetRequiredService<ILogger<Program>>();
+                    loger.LogError(ex, "Error in system");
                 }
             }
-                host.Run();
+            host.Run();
 
         }
 

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using ExampleWebSite.Models.AddationalProperts;
 
 namespace ExampleWebSite.Models
 {
@@ -19,6 +20,11 @@ namespace ExampleWebSite.Models
         public int ThemaId { get; set; }
         public string Image { get; set; }
         public IEnumerable<ItemModel> Items { get; set; }
+        //
+        //public PropertiesModel model { get; set; }
+
+        public IEnumerable<PropertiesModel> OptionalPropertiesTemplate { get; set; }
+
         //public IEnumerable<>
     }
 }

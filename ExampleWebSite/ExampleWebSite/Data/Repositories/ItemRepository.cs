@@ -7,6 +7,7 @@ using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExampleWebSite.Data.Repositories
 {
@@ -51,6 +52,11 @@ namespace ExampleWebSite.Data.Repositories
         public Task<IEnumerable<ItemModel>> TakeAll()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId)
+        {
+            return await _context.Items.AsNoTracking().Where(o => o.CollectionId == collectionId).ToListAsync();
         }
     }
 }
