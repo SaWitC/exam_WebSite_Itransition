@@ -205,6 +205,7 @@ namespace ExampleWebSite.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(nullable: true),
                     Tags = table.Column<string>(nullable: true),
+                    CollectionId = table.Column<int>(nullable: false),
                     CollectionModelId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -216,6 +217,27 @@ namespace ExampleWebSite.Migrations
                         principalTable: "Collections",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Properties",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CollectionId = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Properties", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Properties_Collections_CollectionId",
+                        column: x => x.CollectionId,
+                        principalTable: "Collections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -247,7 +269,7 @@ namespace ExampleWebSite.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Properties",
+                name: "PropertiesElement",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -255,17 +277,17 @@ namespace ExampleWebSite.Migrations
                     Title = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
                     Value = table.Column<string>(nullable: true),
-                    ItemsModelId = table.Column<int>(nullable: true)
+                    ItemId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Properties", x => x.Id);
+                    table.PrimaryKey("PK_PropertiesElement", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Properties_Items_ItemsModelId",
-                        column: x => x.ItemsModelId,
+                        name: "FK_PropertiesElement_Items_ItemId",
+                        column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -333,9 +355,14 @@ namespace ExampleWebSite.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_ItemsModelId",
+                name: "IX_Properties_CollectionId",
                 table: "Properties",
-                column: "ItemsModelId");
+                column: "CollectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PropertiesElement_ItemId",
+                table: "PropertiesElement",
+                column: "ItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -360,6 +387,9 @@ namespace ExampleWebSite.Migrations
 
             migrationBuilder.DropTable(
                 name: "Properties");
+
+            migrationBuilder.DropTable(
+                name: "PropertiesElement");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

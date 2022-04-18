@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ExampleWebSite.Models;
+using ExampleWebSite.Models.AddationalProperts;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using ExampleWebSite.Models;
 
 namespace ExampleWebSite.ViewModels
 {
@@ -11,7 +13,9 @@ namespace ExampleWebSite.ViewModels
     {
         [Required]
         public ItemModel Item { get; set; }
-        [Required]
-        public int CollectionId { get; set; }
+        public IEnumerable<PropertiesModel> TypicalElements { get; set; }
+
+        public List<PropertiesElementModel> Properties { get; set; }
+        public int collectionId { get; set; }
     }
 }

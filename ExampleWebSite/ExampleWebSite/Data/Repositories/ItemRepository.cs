@@ -21,8 +21,9 @@ namespace ExampleWebSite.Data.Repositories
             _context = context;
         }
 
-        public async Task Create( CreateItemViewModel model)
+        public async Task Create(CreateItemViewModel model)
         {
+            model.Item.CollectionId = model.collectionId;
             _context.Items.Add(model.Item);
             await _context.SaveChangesAsync();
         }
@@ -47,6 +48,11 @@ namespace ExampleWebSite.Data.Repositories
         public Task<IEnumerable<ItemModel>> Find(string SearschString, int themeId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ItemModel> FindByTitleAsync(string title)
+        {
+            return await _context.Items.FirstOrDefaultAsync(o=>o.Title ==title);
         }
 
         public Task<IEnumerable<ItemModel>> TakeAll()

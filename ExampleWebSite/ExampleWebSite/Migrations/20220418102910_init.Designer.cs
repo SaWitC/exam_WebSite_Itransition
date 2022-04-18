@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExampleWebSite.Migrations
 {
     [DbContext(typeof(ExamWebSiteDBContext))]
-    [Migration("20220416132516_init")]
+    [Migration("20220418102910_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,14 +21,14 @@ namespace ExampleWebSite.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ExampleWebSite.Models.AddationalProperts.PropertiesModel", b =>
+            modelBuilder.Entity("ExampleWebSite.Models.AddationalProperts.PropertiesElementModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ItemsModelId")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -42,7 +42,30 @@ namespace ExampleWebSite.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemsModelId");
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("PropertiesElement");
+                });
+
+            modelBuilder.Entity("ExampleWebSite.Models.AddationalProperts.PropertiesModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CollectionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollectionId");
 
                     b.ToTable("Properties");
                 });
@@ -79,12 +102,15 @@ namespace ExampleWebSite.Migrations
                     b.ToTable("Collections");
                 });
 
-            modelBuilder.Entity("ExampleWebSite.Models.ItemsModel", b =>
+            modelBuilder.Entity("ExampleWebSite.Models.ItemModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CollectionId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("CollectionModelId")
                         .HasColumnType("int");
@@ -351,11 +377,22 @@ namespace ExampleWebSite.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ExampleWebSite.Models.AddationalProperts.PropertiesElementModel", b =>
+                {
+                    b.HasOne("ExampleWebSite.Models.ItemModel", "Item")
+                        .WithMany("Additionalproperties")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ExampleWebSite.Models.AddationalProperts.PropertiesModel", b =>
                 {
-                    b.HasOne("ExampleWebSite.Models.ItemsModel", null)
-                        .WithMany("Additionalproperties")
-                        .HasForeignKey("ItemsModelId");
+                    b.HasOne("ExampleWebSite.Models.CollectionModel", "Collection")
+                        .WithMany("OptionalPropertiesTemplate")
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ExampleWebSite.Models.CollectionModel", b =>
@@ -371,7 +408,7 @@ namespace ExampleWebSite.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ExampleWebSite.Models.ItemsModel", b =>
+            modelBuilder.Entity("ExampleWebSite.Models.ItemModel", b =>
                 {
                     b.HasOne("ExampleWebSite.Models.CollectionModel", null)
                         .WithMany("Items")
@@ -380,7 +417,7 @@ namespace ExampleWebSite.Migrations
 
             modelBuilder.Entity("ExampleWebSite.Models.LikeModel", b =>
                 {
-                    b.HasOne("ExampleWebSite.Models.ItemsModel", "Item")
+                    b.HasOne("ExampleWebSite.Models.ItemModel", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)

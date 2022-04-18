@@ -1,0 +1,47 @@
+﻿@model ExampleWebSite.ViewModels.CreateItemViewModel
+
+<form method="post" asp-controller="Item" asp-action="Create">
+    <div>
+        <div class="form-group">
+            <label asp-for="Item.Title"></label>
+            <input asp-for="Item.Title" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Item.Tags"></label>
+            <input asp-for="Item.Tags" />
+        </div>
+    </div>
+
+    @if (Model.TypicalElements != null)
+    {
+        int i = 0;
+        foreach (var item in Model.TypicalElements)
+        {
+            if (item.Type == "number")
+            {
+                //<input asp-for="Properties" />
+                <h3>@item.Title</h3>
+                <input name="Properties[@i].type" value="@item.Type" type="text" />
+                <input name="Properties[@i].title" value="@item.Title" type="text" />
+                <input name="Properties[@i].value" type="number" />
+            }
+            if (item.Type == "string")
+            {
+                <h3>@item.Title</h3>
+                <input name="Properties[@i].type" value="@item.Type" type="text" />
+                <input  name="Properties[@i].title" value="@item.Title" type="text" />
+                <input name="Properties[@i].value" type="text" />
+            }
+            if (item.Type == "date")
+            {
+                <h3>@item.Title</h3>
+                <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
+                <input hidden name="Properties[@i].title" type="text" value="@item.Title" />
+                <input name="Properties[@i].value" type="datetime" />
+            }
+            i++;
+        }
+    }
+
+    <input type="submit" value="sent" />
+</form>

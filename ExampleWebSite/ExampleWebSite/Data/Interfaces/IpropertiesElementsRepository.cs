@@ -10,7 +10,7 @@ namespace ExampleWebSite.Data.Interfaces
     public interface IpropertiesElementsRepository
     {
         // public Task Create(CreatePropertiesViewModel model, int collectionId);
-        public Task Create(PropertiesElementModel model, int collectionId);
+        public Task AddRangeAsync(IEnumerable<PropertiesElementModel> model);
 
         public Task Delete(PropertiesElementModel model);
 

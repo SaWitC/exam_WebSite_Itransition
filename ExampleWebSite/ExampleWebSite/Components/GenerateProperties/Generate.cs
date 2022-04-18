@@ -27,7 +27,7 @@ namespace ExampleWebSite.Components.GenerateProperties
                 {
                     elements.Add(new PropertiesModel { Collection = collection, Title = item, Type = Datatype });
                 }
-                await _propertiesModel.AddRangeAsync(elements);
+                _propertiesModel.AddRange(elements);
             }
         }
     }

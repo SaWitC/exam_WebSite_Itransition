@@ -107,6 +107,9 @@ namespace ExampleWebSite.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CollectionId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CollectionModelId")
                         .HasColumnType("int");
 

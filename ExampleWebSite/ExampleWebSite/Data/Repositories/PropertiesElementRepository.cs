@@ -26,6 +26,12 @@ namespace ExampleWebSite.Data.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task AddRangeAsync(IEnumerable<PropertiesElementModel> model)
+        {
+            await _context.PropertiesElement.AddRangeAsync(model);
+            await _context.SaveChangesAsync();
+        }
+
         public Task Edit(PropertiesElementModel model)
         {
             throw new NotImplementedException();

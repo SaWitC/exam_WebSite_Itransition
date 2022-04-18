@@ -42,14 +42,14 @@ namespace ExampleWebSite.Controllers
         {
             if (id != null)
             {
-                var Items = await _item.FindByCollectionIdAsync((int)id);
+                //var Items = await _item.FindByCollectionIdAsync((int)id);
                 var collection = await _collection.FindByIdAsync((int)id);
 
                 if(collection!=null)
                 {
                     CollectionDetailsViewModel detailsModel = new CollectionDetailsViewModel();
                     detailsModel.collection = collection;
-                    detailsModel.items = Items;
+                   // detailsModel.items = Items;
                     return View(detailsModel);
                 }
                 return NotFound();    
@@ -70,17 +70,17 @@ namespace ExampleWebSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateCollectionViewModel model)
         {
-            try
-            {
+            //try
+            //{
                 if (ModelState.IsValid)
                 {
                     model.collection.Thema = await _Themes.FindByTitleAsync(model.ThemaTitle);
                     await _collection.CreateAsync(model);
-                    var collection =await _collection.FindByTitleAsync(model.collection.Title);
+                    //var collection = await _collection.FindByTitleAsync(model.collection.Title);
 
-                    Generate generate = new Generate(_collection,_propertiesModel);
+                    Generate generate = new Generate(_collection, _propertiesModel);
 
-                    await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesNumTitles,"number");
+                    await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesNumTitles, "number");
 
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesStrTitles, "string");
 
@@ -88,17 +88,19 @@ namespace ExampleWebSite.Controllers
 
                     return RedirectToAction(nameof(Index), "Home");
                 }
-            else
-            {
-                return View(model);
-            }
+                else
+                {
+                    return View(model);
+                }
 
+            //}
+            //catch
+            //{
+            //    return RedirectToAction("Privacy", "Home");
+            //}
         }
-            catch
-            {
-                return RedirectToAction("Privacy", "Home");
-    }
-}
+    
+
 
         // GET: CollectionController/Edit/5
         public ActionResult Edit(int id)

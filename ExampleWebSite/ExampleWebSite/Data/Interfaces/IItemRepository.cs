@@ -18,5 +18,6 @@ namespace ExampleWebSite.Data.Interfaces
         public Task<IEnumerable<ItemModel>> Find(string SearschString, int themeId);
         public Task<IEnumerable<ItemModel>> TakeAll();
         public Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId);
+        public Task<ItemModel> FindByTitleAsync(string title);
     }
 }

@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 using ExampleWebSite.Data;
 using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models.AddationalProperts;
-
-
-
+using Microsoft.EntityFrameworkCore;
 
 namespace ExampleWebSite.Data.Repositories
 {
@@ -19,10 +17,23 @@ namespace ExampleWebSite.Data.Repositories
         {
             _context = context;
         }
-        public async Task AddRangeAsync(IEnumerable<PropertiesModel> model)
+
+        public void AddRange(IEnumerable<PropertiesModel> model)
+        {
+            _context.Properties.AddRange(model);
+            _context.SaveChanges();
+        }
+
+        public async Task AddRnageAsync(IEnumerable<PropertiesModel> model)
         {
             _context.Properties.AddRange(model);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<PropertiesModel>> GetByIdAsync(int collectionid)
+        {
+            return await _context.Properties.Where(o => o.CollectionId == collectionid).ToListAsync();
+        }
+
     }
 }
