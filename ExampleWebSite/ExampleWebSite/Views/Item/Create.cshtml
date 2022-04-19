@@ -12,6 +12,8 @@
         </div>
     </div>
 
+    <input type="number" asp-for="collectionId" value="@Model.collectionId" />
+
     @if (Model.TypicalElements != null)
     {
         int i = 0;
@@ -19,17 +21,16 @@
         {
             if (item.Type == "number")
             {
-                //<input asp-for="Properties" />
                 <h3>@item.Title</h3>
-                <input name="Properties[@i].type" value="@item.Type" type="text" />
-                <input name="Properties[@i].title" value="@item.Title" type="text" />
+                <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
+                <input hidden name="Properties[@i].title" value="@item.Title" type="text" />
                 <input name="Properties[@i].value" type="number" />
             }
             if (item.Type == "string")
             {
                 <h3>@item.Title</h3>
-                <input name="Properties[@i].type" value="@item.Type" type="text" />
-                <input  name="Properties[@i].title" value="@item.Title" type="text" />
+                <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
+                <input hidden name="Properties[@i].title" value="@item.Title" type="text" />
                 <input name="Properties[@i].value" type="text" />
             }
             if (item.Type == "date")

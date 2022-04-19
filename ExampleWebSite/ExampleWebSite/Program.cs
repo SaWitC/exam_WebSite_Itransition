@@ -8,12 +8,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExampleWebSite.Data;
+using Microsoft.AspNetCore.Identity;
+using ExampleWebSite.Models;
 
 namespace ExampleWebSite
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
 
@@ -28,6 +30,9 @@ namespace ExampleWebSite
                     //var userManager = services.GetRequiredService<UserManager<User>>();//initialse admin
                     //var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     //await RoleInitialiser.Initialiser(userManager, rolesManager);
+                    var userManager = services.GetRequiredService<UserManager<User>>();//initialse admin
+                    var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    await AdminAccountInitialise.Initialiser(userManager,rolesManager);
 
                     SampleDate.InitialiseThemes(context);//initialse category
                 }

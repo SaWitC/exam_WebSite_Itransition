@@ -20,6 +20,7 @@ namespace ExampleWebSite.Models
         public int ThemaId { get; set; }
         public string Image { get; set; }
         public IEnumerable<ItemModel> Items { get; set; }
+        public string AvtorName { get;set; }
         //
         //public PropertiesModel model { get; set; }
 

@@ -38,9 +38,21 @@ namespace ExampleWebSite.Data.Repositories
         {
             return await _context.Collections.ToListAsync();
         }
-
         public async Task<CollectionModel> FindByTitleAsync(string title) => await _context.Collections.FirstOrDefaultAsync(o=>o.Title==title);
 
         public async Task<CollectionModel> FindByIdAsync(int id)=> await _context.Collections.FirstOrDefaultAsync(o => o.Id == id);
+
+        public async Task<IEnumerable<CollectionModel>> FindByAvtorIdAsync(string avtorName) => await _context.Collections.Where(o=>o.AvtorName== avtorName).ToListAsync();
+
+        public Task DeleteAsync(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UpdateAsync(CollectionModel model)
+        {
+            _context.Collections.Update(model);
+            await _context.SaveChangesAsync();
+        }
     }
 }

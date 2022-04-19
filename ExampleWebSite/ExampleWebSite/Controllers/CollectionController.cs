@@ -10,6 +10,7 @@ using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
 using ExampleWebSite.Models.AddationalProperts;
 using ExampleWebSite.Components.GenerateProperties;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExampleWebSite.Controllers
 {
@@ -42,14 +43,14 @@ namespace ExampleWebSite.Controllers
         {
             if (id != null)
             {
-                //var Items = await _item.FindByCollectionIdAsync((int)id);
                 var collection = await _collection.FindByIdAsync((int)id);
 
                 if(collection!=null)
                 {
                     CollectionDetailsViewModel detailsModel = new CollectionDetailsViewModel();
                     detailsModel.collection = collection;
-                   // detailsModel.items = Items;
+                    detailsModel.collection.Items = await _item.FindByCollectionIdAsync((int)id);
+
                     return View(detailsModel);
                 }
                 return NotFound();    
@@ -58,32 +59,31 @@ namespace ExampleWebSite.Controllers
                 return NotFound();  
         }
 
-        // GET: CollectionController/Create
+        //create -----------------------------------------------------------------------------
+        [Authorize]
+        [HttpGet]
         public ActionResult Create(CollectionModel model)
         {
             return View();
-            //return RedirectToAction("Error");
         }
 
-        // POST: CollectionController/Create
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateCollectionViewModel model)
         {
-            //try
-            //{
+            try
+            {
                 if (ModelState.IsValid)
                 {
                     model.collection.Thema = await _Themes.FindByTitleAsync(model.ThemaTitle);
+                    model.collection.AvtorName = User.Identity.Name;
                     await _collection.CreateAsync(model);
-                    //var collection = await _collection.FindByTitleAsync(model.collection.Title);
 
                     Generate generate = new Generate(_collection, _propertiesModel);
 
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesNumTitles, "number");
-
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesStrTitles, "string");
-
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesDateTitles, "date");
 
                     return RedirectToAction(nameof(Index), "Home");
@@ -92,38 +92,62 @@ namespace ExampleWebSite.Controllers
                 {
                     return View(model);
                 }
-
-            //}
-            //catch
-            //{
-            //    return RedirectToAction("Privacy", "Home");
-            //}
-        }
-    
-
-
-        // GET: CollectionController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CollectionController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction("Privacy", "Home");
+            }
+        }
+        
+        //edit -------------------------------------------------------------------------
+        [HttpGet]
+        public async Task<ActionResult> Edit(int? collectionid)
+        {
+            if (collectionid != null)
+            {    
+                EditCollectionViewModel collectionViewModel = new EditCollectionViewModel();
+                var oldModel = await _collection.FindByIdAsync((int)collectionid);
+
+                collectionViewModel.Title = oldModel.Title;
+                collectionViewModel.ShortDesc = oldModel.ShortDesc;
+                collectionViewModel.Collectionid = (int)collectionid;
+
+                return View(collectionViewModel);
+            }
+            else return NotFound();
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(EditCollectionViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var thema = await _Themes.FindByTitleAsync(model.ThemaTitle);
+                    if (thema != null)
+                    {
+
+                        var collection = await _collection.FindByIdAsync(model.Collectionid);
+                        collection.Title = model.Title;
+                        collection.ShortDesc = model.ShortDesc;
+                        collection.Thema = thema;
+
+                        await _collection.UpdateAsync(collection);
+                        return RedirectToAction("MyCollection", "Collection");
+                    }
+                    else return NotFound();
+                }
+                else return View(model);
+            }
+            catch
+            {
+                return RedirectToAction("index", "home");
             }
         }
 
-        // GET: CollectionController/Delete/5
+        //delete -------------------------------------------------------------
         public ActionResult Delete(int id)
         {
             return View();
@@ -143,7 +167,18 @@ namespace ExampleWebSite.Controllers
                 return View();
             }
         }
+        //MyCollection --------------------------------------------------------
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> MyCollection()
+        {
+            var collections = await _collection.FindByAvtorIdAsync(User.Identity.Name);
+            return View(collections);
+        }
 
-        
+        public async Task<IActionResult> FindCollection()
+        {
+            return View();
+        }
     }
 }

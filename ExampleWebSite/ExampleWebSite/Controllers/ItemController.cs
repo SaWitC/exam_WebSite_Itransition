@@ -9,6 +9,7 @@ using ExampleWebSite.Models.AddationalProperts;
 using ExampleWebSite.ViewModels;
 using ExampleWebSite.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExampleWebSite.Controllers
 {
@@ -31,22 +32,33 @@ namespace ExampleWebSite.Controllers
             _propertiesModel = propertiesModel;
         }
         // GET: ItemController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id != null)
+            {
+                var item = _item.GetItemById((int)id);
+                return View(item);
+            }
+            return NotFound();
         }
 
         // GET: ItemController/Create
-        public async Task<ActionResult> Create(int collectionid)
+        [Authorize]
+        public async Task<ActionResult> Create(int? collectionid)
         {
-            CreateItemViewModel model = new CreateItemViewModel();
-            model.TypicalElements = await _propertiesModel.GetByIdAsync(collectionid);
-            model.collectionId = collectionid;
-            return View(model);
+            if (collectionid != null)
+            {
+                CreateItemViewModel model = new CreateItemViewModel();
+                model.TypicalElements = await _propertiesModel.GetByIdAsync((int)collectionid);
+                model.collectionId = (int)collectionid;
+                return View(model);
+            }
+            return NotFound();
         }
 
         // POST: ItemController/Create
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateItemViewModel model)
         {

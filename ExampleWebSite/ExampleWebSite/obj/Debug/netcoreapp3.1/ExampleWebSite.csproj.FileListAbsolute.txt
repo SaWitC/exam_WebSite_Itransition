@@ -154,7 +154,6 @@ D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\runtimes
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ViewModelResources.RegisterVM.ru.resources
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.csproj.GenerateResource.cache
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ru\ExampleWebSite.resources.dll
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
@@ -162,3 +161,13 @@ D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Vi
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\Create.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\Details.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Item\Create.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Partials\_headerPartial.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\en\ExampleWebSite.resources.dll
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ValidationMessagesResource.ValidationResource.en.resources
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ValidationMessagesResource.ValidationResource.ru.resources
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\en\ExampleWebSite.resources.dll
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\Edit.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\FindCollection.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\MyCollection.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Partials\_foterPartial.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Partials\_stylesPartial.cshtml.g.cs

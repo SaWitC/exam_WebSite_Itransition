@@ -2,12 +2,14 @@
 
 <h1>Details</h1>
 
-@if (Model.items != null)
+@if (Model.collection.Items != null)
 {
-    foreach (var item in Model.items)
+    foreach (var item in Model.collection.Items)
     {
         <h4>@item.Title</h4>
+        <a></a>
     }
 }
 
 <a asp-action="create" asp-controller="item" asp-route-collectionid="@Model.collection.Id">create Item</a>
+<a asp-action="Edit" asp-controller="Collection" asp-route-collectionid="@Model.collection.Id">create Item</a>

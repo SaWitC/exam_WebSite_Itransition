@@ -78,5 +78,10 @@ namespace ExampleWebSite.Controllers
             }
             return View(model);
         }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
+        } 
     }
 }

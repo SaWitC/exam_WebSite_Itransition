@@ -12,10 +12,13 @@ namespace ExampleWebSite.Data.Interfaces
     {
        // public IActionResult Details(int? id);
         public Task CreateAsync(CreateCollectionViewModel model);
-        public Task Delete(int Id);
+        public Task DeleteAsync(int Id);
+        public Task UpdateAsync(CollectionModel model);
         public Task<IEnumerable<CollectionModel>> TakeAllAsync();
         public Task<CollectionModel> FindByTitleAsync(string title);
         public Task<CollectionModel> FindByIdAsync(int id);
+        public Task<IEnumerable<CollectionModel>> FindByAvtorIdAsync(string avtorName);
+            
 
 
 

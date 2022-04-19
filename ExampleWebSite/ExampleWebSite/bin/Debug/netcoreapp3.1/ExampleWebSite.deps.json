@@ -307,6 +307,9 @@
           "ExampleWebSite.dll": {}
         },
         "resources": {
+          "en/ExampleWebSite.resources.dll": {
+            "locale": "en"
+          },
           "ru/ExampleWebSite.resources.dll": {
             "locale": "ru"
           }

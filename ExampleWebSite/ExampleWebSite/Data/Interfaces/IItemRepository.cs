@@ -16,7 +16,6 @@ namespace ExampleWebSite.Data.Interfaces
         public Task Update(CreateItemViewModel model);
         public Task Delete(ItemModel model);
         public Task<IEnumerable<ItemModel>> Find(string SearschString, int themeId);
-        public Task<IEnumerable<ItemModel>> TakeAll();
         public Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId);
         public Task<ItemModel> FindByTitleAsync(string title);
     }

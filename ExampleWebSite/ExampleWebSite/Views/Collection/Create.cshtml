@@ -1,7 +1,5 @@
 ﻿@model ExampleWebSite.ViewModels.CreateCollectionViewModel
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
 <script>
      $(document).ready(function () {
             $.ajax({
@@ -11,18 +9,15 @@
                 success: function (data) {
                     var arr = JSON.parse(data)
                     arr.forEach(el => $("#themes").append(`<option value="${el.title}">${el.title}</option>`));
-                    arr.forEach(el => $("#ffff").append(`<h1>${el.title}</h1>`));
-                    //alert(data);
                 },
                 error: function () {
-                   // alert("error");
-                   // document.getElementById("status_w").innerHTML = "error";
                 }
             })
         })
 </script>
 
 <h1>Create Collection</h1>
+
 <form asp-action="Create" asp-controller="Collection" method="post">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="form-group">
@@ -35,11 +30,13 @@
         <input asp-for="collection.ShortDesc" />
         <span asp-validation-for="collection.ShortDesc"></span>
     </div>
+
     @*<div class="form-group">
             <label asp-for="collection.Image"></label>
             <input type="file" asp-for="collection.Image" />
             <span asp-validation-for="collection.Image"></span>
         </div>*@
+
     <div class="form-group">
         <input type="text" asp-for="ThemaTitle" list="themes" />
     </div>
@@ -48,20 +45,9 @@
 
     </div>
 
-    @*<input id="num" value="0" type="number" asp-for="PropertiesNum" />
-        <input hidden id="str" value="0" type="number" asp-for="PropertiesStr" />
-        <input hidden id="date" value="0" type="number" asp-for="PropertiesDate" />*@
-
-    <input id="num" value="0" type="number" />
+    <input hidden id="num" value="0" type="number" />
     <input hidden id="str" value="0" type="number" />
     <input hidden id="date" value="0" type="number" />
-
-
-    @*<input hidden id="" asp-for=""/>*@
-
-
-    @* <input type="text" asp-for="ThemaTitle" name="ThemaTitle" list="themes">*@
-
 
     <datalist id="themes" name="">
     </datalist>
