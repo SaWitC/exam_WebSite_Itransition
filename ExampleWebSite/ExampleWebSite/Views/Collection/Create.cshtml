@@ -18,7 +18,7 @@
 
 <h1>Create Collection</h1>
 
-<form asp-action="Create" asp-controller="Collection" method="post">
+<form enctype="multipart/form-data" asp-action="Create" asp-controller="Collection" method="post">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="form-group">
         <label asp-for="collection.Title"></label>
@@ -29,6 +29,10 @@
         <label asp-for="collection.ShortDesc"></label>
         <input asp-for="collection.ShortDesc" />
         <span asp-validation-for="collection.ShortDesc"></span>
+    </div>
+    <div class="form-group">
+        <label>image</label>
+        <input asp-for="ImageFile" accept="image/jpg,image/jpeg" />
     </div>
 
     @*<div class="form-group">

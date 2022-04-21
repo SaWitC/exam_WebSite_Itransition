@@ -1,4 +1,5 @@
 ﻿using ExampleWebSite.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,5 +18,8 @@ namespace ExampleWebSite.ViewModels
         public string ShortDesc { get; set; }
         [Required]
         public string ThemaTitle { get; set; }
+
+        public IFormFile ImageFile { get; set; }
+
     }
 }

@@ -112,24 +112,28 @@ namespace ExampleWebSite.Controllers
         }
 
         // GET: ItemController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id != null)
+            {
+                var item = _item.GetItemById((int)id);
+                return View(item);
+            }
+
+            return NotFound();
+
         }
 
-        // POST: ItemController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Authorize]
+        [ActionName("Delete")]
+        public async Task<ActionResult> DeleteConfirmed(int id)//edit
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var item = _item.GetItemById((int)id);
+            await _item.Delete(item);
+            return RedirectToAction("index","home");
         }
     }
 }

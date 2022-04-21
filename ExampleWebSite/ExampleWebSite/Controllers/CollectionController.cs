@@ -11,6 +11,7 @@ using ExampleWebSite.ViewModels;
 using ExampleWebSite.Models.AddationalProperts;
 using ExampleWebSite.Components.GenerateProperties;
 using Microsoft.AspNetCore.Authorization;
+using ExampleWebSite.Components.YandexDisk;
 
 namespace ExampleWebSite.Controllers
 {
@@ -48,6 +49,9 @@ namespace ExampleWebSite.Controllers
                 if(collection!=null)
                 {
                     CollectionDetailsViewModel detailsModel = new CollectionDetailsViewModel();
+                    var link = await CollectionImage.GetImageLinkAsync("AQAAAABgW19JAAfYg2ZC-Ml1M0I4vHLmlumOb_c", $"collection_{collection.Id}_", $"logo_{collection.Id}");
+                    detailsModel.ImageUrl = link.Href;
+
                     detailsModel.collection = collection;
                     detailsModel.collection.Items = await _item.FindByCollectionIdAsync((int)id);
 
@@ -79,12 +83,16 @@ namespace ExampleWebSite.Controllers
                     model.collection.Thema = await _Themes.FindByTitleAsync(model.ThemaTitle);
                     model.collection.AvtorName = User.Identity.Name;
                     await _collection.CreateAsync(model);
-
+                    //propertiesElements 
                     Generate generate = new Generate(_collection, _propertiesModel);
 
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesNumTitles, "number");
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesStrTitles, "string");
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesDateTitles, "date");
+                    //yandex disk
+                    var Collection = await _collection.FindByTitleAsync(model.collection.Title);
+
+                    await CollectionImage.UploadImageAsync("AQAAAABgW19JAAfYg2ZC-Ml1M0I4vHLmlumOb_c",$"collection_{Collection.Id}_",model.ImageFile,$"logo_{Collection.Id}");
 
                     return RedirectToAction(nameof(Index), "Home");
                 }
@@ -128,6 +136,7 @@ namespace ExampleWebSite.Controllers
                     var thema = await _Themes.FindByTitleAsync(model.ThemaTitle);
                     if (thema != null)
                     {
+                        await CollectionImage.UploadImageAsync("AQAAAABgW19JAAfYg2ZC-Ml1M0I4vHLmlumOb_c", $"collection_{model.Collectionid}_", model.ImageFile, $"logo_{model.Collectionid}");
 
                         var collection = await _collection.FindByIdAsync(model.Collectionid);
                         collection.Title = model.Title;

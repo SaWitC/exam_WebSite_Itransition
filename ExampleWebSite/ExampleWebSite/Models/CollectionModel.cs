@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using ExampleWebSite.Models.AddationalProperts;
+using Microsoft.AspNetCore.Http;
 
 namespace ExampleWebSite.Models
 {
@@ -21,11 +22,6 @@ namespace ExampleWebSite.Models
         public string Image { get; set; }
         public IEnumerable<ItemModel> Items { get; set; }
         public string AvtorName { get;set; }
-        //
-        //public PropertiesModel model { get; set; }
-
         public IEnumerable<PropertiesModel> OptionalPropertiesTemplate { get; set; }
-
-        //public IEnumerable<>
     }
 }

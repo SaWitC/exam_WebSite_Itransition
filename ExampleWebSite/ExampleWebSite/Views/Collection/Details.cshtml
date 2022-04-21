@@ -4,10 +4,15 @@
 
 @if (Model.collection.Items != null)
 {
+    if (Model.ImageUrl != null)
+    {
+        <img src="@Model.ImageUrl">
+    }
     foreach (var item in Model.collection.Items)
     {
+
         <h4>@item.Title</h4>
-        <a></a>
+        <a class="btn" asp-action="Delete" asp-controller="Item" asp-route-id="@item.Id">Удалить</a>
     }
 }
 

@@ -44,9 +44,11 @@ namespace ExampleWebSite.Data.Repositories
 
         public async Task<IEnumerable<CollectionModel>> FindByAvtorIdAsync(string avtorName) => await _context.Collections.Where(o=>o.AvtorName== avtorName).ToListAsync();
 
-        public Task DeleteAsync(int Id)
+        public async Task DeleteAsync(int Id)
         {
-            throw new NotImplementedException();
+            var collection = _context.Collections.FirstOrDefaultAsync(o => o.Id == Id);
+            _context.Remove(collection);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(CollectionModel model)

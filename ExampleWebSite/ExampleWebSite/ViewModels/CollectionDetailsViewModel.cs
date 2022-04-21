@@ -12,5 +12,7 @@ namespace ExampleWebSite.ViewModels
     {
         public CollectionModel collection { get; set; }
         public IEnumerable<ItemModel> items { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }
