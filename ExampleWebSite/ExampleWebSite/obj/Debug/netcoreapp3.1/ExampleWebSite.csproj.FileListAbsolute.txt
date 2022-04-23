@@ -175,3 +175,4 @@ D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Vi
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\YandexDisk.Client.dll
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Partials\_wysiwyg_Markdown_editorPartial.cshtml.g.cs

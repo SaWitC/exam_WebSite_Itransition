@@ -17,6 +17,8 @@
         @RenderBody()
     </main>
 
+    @await Html.PartialAsync("Partials/_wysiwyg_Markdown_editorPartial.cshtml")
+
     @await Html.PartialAsync("Partials/_foterPartial.cshtml")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
