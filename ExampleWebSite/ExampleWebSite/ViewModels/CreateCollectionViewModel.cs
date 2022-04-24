@@ -12,6 +12,8 @@ namespace ExampleWebSite.ViewModels
     public class CreateCollectionViewModel
     {
         public CollectionModel collection { get; set; }
+        [Display(Name = "ThemaTitle")]
+        [Required(ErrorMessage = "ReqiredThema")]
         public string ThemaTitle { get; set; }
 
        // public int PropertiesNum { get; set; }

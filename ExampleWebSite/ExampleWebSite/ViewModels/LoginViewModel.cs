@@ -8,14 +8,16 @@ namespace ExampleWebSite.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
-        [MinLength(5),MaxLength(25)]
+        [Required(ErrorMessage = "Required")]
+        [Display(Name = "UserName")]
+        [MinLength(5,ErrorMessage = "UserNameMinLenght5"),MaxLength(25,ErrorMessage = "UserNameMaxLenght25")]
         public string UserName { get; set; }
-        [Required]
-        [MinLength(7), MaxLength(25)]
+        [Required(ErrorMessage = "Required")]
+        [Display(Name ="Password")]
+        [MinLength(7,ErrorMessage = "PasswordMinLenght7"), MaxLength(25,ErrorMessage = "PasswordMaxLenght25")]
         public string Password { get; set; }
         public string ReturnURL { get; set; }
-
+        [Display(Name ="RememberMe")]
         public bool RememberMe { get; set; }
         
     }

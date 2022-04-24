@@ -18,8 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\ControllerResources\" />
-    <Folder Include="Resources\ModelResources\" />
     <Folder Include="wwwroot\wysiwyg_Markdown_editor\" />
   </ItemGroup>
 

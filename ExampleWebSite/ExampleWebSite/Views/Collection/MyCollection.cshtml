@@ -6,6 +6,6 @@
     {
         <h3>@item.Title</h3>
         <h3>@item.Thema</h3>
-        <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">Go</a>
+        <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">@ViewResourcesModel["Details"]</a>
     }
 }

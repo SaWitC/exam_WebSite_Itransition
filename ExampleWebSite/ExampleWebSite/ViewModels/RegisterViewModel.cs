@@ -8,18 +8,22 @@ namespace ExampleWebSite.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
-        [MinLength(5),MaxLength(25)]
+        [Required(ErrorMessage = "Required")]
+        [Display(Name = "UserName")]
+        [MinLength(5,ErrorMessage = "UserNameMinLenght5"),MaxLength(25,ErrorMessage = "UserNameMaxLenght25")]
         public string UserName { get; set; }
-        [Required]
-        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "Required")]
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress,ErrorMessage = "EmailValid")]
         public string Email { get; set; }
-        [Required]
-        [MinLength(7), MaxLength(25)]
+        [Required(ErrorMessage = "Required")]
+        [Display(Name = "Password")]
+        [MinLength(7,ErrorMessage = "PasswordMinLenght7"), MaxLength(25,ErrorMessage = "PasswordMaxLenght25")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Required]
-        [MinLength(7), MaxLength(25)]
+        [Required(ErrorMessage = "Required")]
+        [Display(Name = "ConfirmPassword")]
+        [MinLength(7,ErrorMessage = "PasswordMinLenght7"), MaxLength(25,ErrorMessage = "PasswordMaxLenght25")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
     }

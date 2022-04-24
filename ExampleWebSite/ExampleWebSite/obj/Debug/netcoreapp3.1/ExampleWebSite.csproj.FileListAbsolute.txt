@@ -8,7 +8,6 @@ D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\ExampleW
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\ExampleWebSite.pdb
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\ExampleWebSite.Views.dll
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\ExampleWebSite.Views.pdb
-D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.csproj.AssemblyReference.cache
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.GeneratedMSBuildEditorConfig.editorconfig
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.AssemblyInfoInputs.cache
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.AssemblyInfo.cs
@@ -163,8 +162,6 @@ D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Vi
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Item\Create.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Partials\_headerPartial.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\en\ExampleWebSite.resources.dll
-D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ValidationMessagesResource.ValidationResource.en.resources
-D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ValidationMessagesResource.ValidationResource.ru.resources
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\en\ExampleWebSite.resources.dll
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\Edit.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\FindCollection.cshtml.g.cs
@@ -176,3 +173,10 @@ D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\System.N
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\YandexDisk.Client.dll
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Partials\_wysiwyg_Markdown_editorPartial.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\Index.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\Delete.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\_writeMoreCollections.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ResourcesModels.ModelRes.ru.resources
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ResourcesModels.ModelRes.en.resources
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.csproj.AssemblyReference.cache
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ResourcesModels.ViewResourcesModel.ru.resources

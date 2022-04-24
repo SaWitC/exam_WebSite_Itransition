@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CollectionModel>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            @if (item.Image != null)
+            {
+                <img class="card-img-top" src="@item.Image" alt="Card image cap">
+            }
+            <div class="card-body">
+                <h5 class="card-title">@item.Title</h5>
+                <p class="card-text">@item.Thema</p>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">Go</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h1>Empty</h1>
+}
+

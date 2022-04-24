@@ -26,8 +26,22 @@ using ExampleWebSite.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ResourcesModels;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Mvc.Localization;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0ff3b2c9e419b71221219dbbe26adaf90cff40d1", @"/Views/Shared/Partials/_foterPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"77237891c8079adff88ce49f18d453913556fda2", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"52afb33a926818ca5cf84157f0db3931590e243c", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Partials__foterPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-area", "", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -58,7 +72,7 @@ using ExampleWebSite.Models;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("<footer class=\"border-top footer text-muted\">\r\n    <div class=\"container\">\r\n        &copy; 2022 - ExampleWebSite - ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0ff3b2c9e419b71221219dbbe26adaf90cff40d14142", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0ff3b2c9e419b71221219dbbe26adaf90cff40d14521", async() => {
                 WriteLiteral("Privacy");
             }
             );
@@ -80,6 +94,8 @@ using ExampleWebSite.Models;
             WriteLiteral("\r\n    </div>\r\n</footer>");
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
+        public IHtmlLocalizer<ViewResourcesModel> ViewResourcesModel { get; private set; }
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
         public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]

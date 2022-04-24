@@ -4,29 +4,29 @@
 <div class="col-12">
 
     <div id="login" class="text-white simple-login-container card-body w-media mx-auto bg-dark mt-5" style="width:22rem">
-        <h2>Авторизация</h2>
+        <h2>@ViewResourcesModel["Login"]</h2>
         <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnURL">
             <fieldset class="clearfix">
                 <div asp-validation-summary="ModelOnly"></div>
                 <label asp-for="UserName"></label>
                 <p>
                     <span class="fontawesome-user"></span>
-                    <input class="input-group-text input-group" placeholder="Имя автора" type="text" asp-for="UserName">
+                    <input class="input-group-text input-group" placeholder="User Name" type="text" asp-for="UserName">
                 </p>
                 <label asp-for="Password"></label>
                 <p>
                     <span class="fontawesome-lock"></span>
-                    <input class="input-group-text input-group" placeholder="Пароль" type="password" asp-for="Password">
+                    <input class="input-group-text input-group" placeholder="Password" type="password" asp-for="Password">
                 </p>
                 <div class="form-group">
                     <label asp-for="RememberMe"></label><br />
                     <input asp-for="RememberMe">
                 </div>
-                <p><input class="btn bg" type="submit" value="Войти"></p>
+                <p><input class="btn bg" type="submit" value="@ViewResourcesModel["Enter"]"></p>
             </fieldset>
         </form>
-        <p class="text-white">Нет аккаунта?<a asp-controller="Account" asp-action="Register">Зарегистрироватся</a><span class="fontawesome-arrow-right"></span></p>
-        <a asp-action="SendEmailMessageforChangePass" asp-controller="Account">Забыл пароль</a>
+        <p class="text-white">@ViewResourcesModel["NoHaveAccount"]<a asp-controller="Account" asp-action="Register">@ViewResourcesModel["Register"]</a><span class="fontawesome-arrow-right"></span></p>
+        <a asp-action="SendEmailMessageforChangePass" asp-controller="Account">@ViewResourcesModel["ForgotPassword"]</a>
     </div>
 </div>
 

@@ -14,7 +14,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Data.Repositories;
-
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using ExampleWebSite.ResourcesModels;
 
 namespace ExampleWebSite
 {
@@ -30,6 +32,8 @@ namespace ExampleWebSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options=>options.ResourcesPath = "Resources");
+
             services.AddTransient<IItemRepository, ItemRepository>();
             services.AddTransient<ICollectionRepository, CollectionRepository>();
             services.AddTransient<IpropertiesElementsRepository, PropertiesElementRepository>();
@@ -37,8 +41,15 @@ namespace ExampleWebSite
             //services.AddTransient<IpropertiesElementsRepository, PropertiesElementRepository>();
             services.AddTransient<IThemeRepository, ThemaRepository>();
 
+            services.AddControllersWithViews()
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(ModelRes));
+                })
+                .AddViewLocalization();
 
-            services.AddControllersWithViews();
+
             services.AddDbContext<ExamWebSiteDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ExamWebSiteDBContext>()
@@ -48,6 +59,19 @@ namespace ExampleWebSite
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var suportedCulture = new[]
+           {
+                new CultureInfo("ru"),
+                new CultureInfo("en")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture =new RequestCulture("en"),
+                SupportedCultures = suportedCulture,
+                SupportedUICultures =suportedCulture
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -49,13 +49,11 @@ namespace ExampleWebSite.Components.YandexDisk
                // return null;
             }
         }
-        public static async Task<Link> GetImageLinkAsync(string Token, string DiskFolderPath, string fileNameNotExtension)
+        public static async Task<string> GetImageLinkAsync(string Token, string DiskFolderPath, string fileNameNotExtension)
         {
             try
             {
                 var api = new DiskHttpApi(Token);
-
-                var rootFolderData = await api.MetaInfo.GetInfoAsync(new ResourceRequest { Path = "/" });
 
                 var testFolder = await api.MetaInfo.GetInfoAsync(new ResourceRequest { Path = "/" + DiskFolderPath });
 
@@ -63,7 +61,8 @@ namespace ExampleWebSite.Components.YandexDisk
                 {
                     if (item.Name.Contains(fileNameNotExtension))
                     {
-                        return  await api.Files.GetDownloadLinkAsync(item.Path);
+                        var link = await api.Files.GetDownloadLinkAsync(item.Path);
+                        return link.Href;
                     }
                 }
                 return null;
@@ -72,6 +71,17 @@ namespace ExampleWebSite.Components.YandexDisk
             {
                 return null;
             }
+        }
+
+        public static async Task DeleteImageAsync(string Token, string DiskFolderPath)
+        {
+            var api = new DiskHttpApi(Token);
+
+  //          var rootFolderData = await api.MetaInfo.GetInfoAsync(new ResourceRequest { Path="/"});
+
+//            var testFolder = await api.MetaInfo.GetInfoAsync(new ResourceRequest { Path = "/" + DiskFolderPath });
+
+            await api.Commands.DeleteAsync(new DeleteFileRequest { Path="/" + DiskFolderPath });
         }
 
 

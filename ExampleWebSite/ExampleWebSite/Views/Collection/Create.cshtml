@@ -27,9 +27,26 @@
     </div>
     <div class="form-group">
         <label asp-for="collection.ShortDesc"></label>
-        <input asp-for="collection.ShortDesc" />
+        @*<input asp-for="collection.ShortDesc" />*@
+
+        <textarea asp-for="collection.ShortDesc" id="kv-01" rows="15" class="markdown" required data-bs-version="3" data-theme="fa4" title="Krajee Markdown Editor">
+    </textarea>
+        <hr>
+        <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-check"></i> Submit</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="reset" class="btn btn-block btn-default"><i class="fa fa-ban"></i> Reset</button>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
         <span asp-validation-for="collection.ShortDesc"></span>
     </div>
+
     <div class="form-group">
         <label>image</label>
         <input asp-for="ImageFile" accept="image/jpg,image/jpeg" />
@@ -56,10 +73,11 @@
     <datalist id="themes" name="">
     </datalist>
 
-    <input type="submit" value="Sent" />
+    <input type="submit" value="@ViewResourcesModel["Create"]" />
 </form>
 
-<h1>wanna you add new data</h1>
+<h1>@ViewResourcesModel["AddNewPropertiesMessage"]</h1>
+<p>@ViewResourcesModel["AddNewPropertiesMessageDetails"]</p>
 <button onclick="createNum()">number</button>
 <button onclick="createStr()">String</button>
 <button onclick="createDate()">Date</button>

@@ -44,7 +44,7 @@ namespace ExampleWebSite.Data.Repositories
 
         public async Task<IEnumerable<CollectionModel>> FindByAvtorIdAsync(string avtorName) => await _context.Collections.Where(o=>o.AvtorName== avtorName).ToListAsync();
 
-        public async Task DeleteAsync(int Id)
+        public async Task DeleteAsyncById(int Id)
         {
             var collection = _context.Collections.FirstOrDefaultAsync(o => o.Id == Id);
             _context.Remove(collection);
@@ -54,6 +54,18 @@ namespace ExampleWebSite.Data.Repositories
         public async Task UpdateAsync(CollectionModel model)
         {
             _context.Collections.Update(model);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CollectionModel>> TakeCollection_SkipAsync(int skip,int pageSize)
+        {
+            return await _context.Collections.OrderBy(t => t.Id).Skip(skip).
+                Take(pageSize).ToListAsync();
+        }
+
+        public async Task DeleteAsync(CollectionModel collection)
+        {
+            _context.Collections.Remove(collection);
             await _context.SaveChangesAsync();
         }
     }

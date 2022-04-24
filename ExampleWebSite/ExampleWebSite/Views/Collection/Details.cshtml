@@ -2,19 +2,44 @@
 
 <h1>Details</h1>
 
+
 @if (Model.collection.Items != null)
 {
     if (Model.ImageUrl != null)
     {
         <img src="@Model.ImageUrl">
     }
+
+<textarea hidden id="markdownText">@Model.collection.ShortDesc</textarea>
+    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.1/dist/showdown.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(() => {
+
+            var text = $("#markdownText").val();
+            target = document.getElementById('ShortDesk'),
+                converter = new showdown.Converter(),
+                html = converter.makeHtml(text);
+            target.innerHTML = html;
+    })
+    </script>
+
+
+    <div id="ShortDesk">
+
+    </div>
+
+
     foreach (var item in Model.collection.Items)
     {
 
         <h4>@item.Title</h4>
-        <a class="btn" asp-action="Delete" asp-controller="Item" asp-route-id="@item.Id">Удалить</a>
+        <h4>@item.Title</h4>
+
+        <a class="btn" asp-action="Delete" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Delete"]</a>
     }
 }
 
 <a asp-action="create" asp-controller="item" asp-route-collectionid="@Model.collection.Id">create Item</a>
-<a asp-action="Edit" asp-controller="Collection" asp-route-collectionid="@Model.collection.Id">create Item</a>
+<a asp-action="Edit" asp-controller="Collection" asp-route-collectionid="@Model.collection.Id">@ViewResourcesModel["Edit"]</a>
+<a asp-action="Delete" asp-controller="Collection" asp-route-id="@Model.collection.Id">@ViewResourcesModel["Delete"]</a>

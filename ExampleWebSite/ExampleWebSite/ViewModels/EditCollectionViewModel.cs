@@ -12,11 +12,16 @@ namespace ExampleWebSite.ViewModels
     {
         [Required]
         public int Collectionid { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required")]
+        [Display(Name = "TitleName")]
+        [MaxLength(100, ErrorMessage = "MaxLenghtTitle100"), MinLength(3, ErrorMessage = "MinLenghtTitle3")]
         public string Title { get; set; }
-        [Required]
+        [MinLength(100, ErrorMessage = "ShortDeskMinLenght100"), MaxLength(1000, ErrorMessage = "ShortDeskMaxLenght1000")]
+        [Display(Name = "ShortDeskName")]
+        [Required(ErrorMessage = "Required")]
         public string ShortDesc { get; set; }
-        [Required]
+        [Required(ErrorMessage = "ReqiredThema")]
+        [Display(Name = "ThemaTitle")]
         public string ThemaTitle { get; set; }
 
         public IFormFile ImageFile { get; set; }
