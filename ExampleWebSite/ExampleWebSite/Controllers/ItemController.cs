@@ -15,6 +15,7 @@ namespace ExampleWebSite.Controllers
 {
     public class ItemController : Controller
     {
+        private readonly ICommentRepository _comment;
         private readonly ICollectionRepository _collection;
         private readonly IpropertiesElementsRepository _properties;
         private readonly IpropertiesModelRepository _propertiesModel;
@@ -22,8 +23,11 @@ namespace ExampleWebSite.Controllers
         private readonly IItemRepository _item;
         private readonly UserManager<User> _userManager;
 
-        public ItemController(UserManager<User> userManager, IItemRepository item, IpropertiesElementsRepository properties, ICollectionRepository collection, IThemeRepository theme, IpropertiesModelRepository propertiesModel)
+        private int CommentCount =2;
+
+        public ItemController(UserManager<User> userManager, IItemRepository item, IpropertiesElementsRepository properties, ICollectionRepository collection, IThemeRepository theme, IpropertiesModelRepository propertiesModel, ICommentRepository comment)
         {
+            _comment = comment;
             _collection = collection;
             _properties = properties;
             _item = item;
@@ -32,18 +36,26 @@ namespace ExampleWebSite.Controllers
             _propertiesModel = propertiesModel;
         }
         // GET: ItemController/Details/5
-        public ActionResult Details(int? id)
+        [HttpGet]
+        public ActionResult Details(int? id,int? p)
         {
-            if (id != null)
+            int page = p ?? 0;
+            var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            if (isAjax)
             {
-                var item = _item.GetItemById((int)id);
-                return View(item);
+                return PartialView("_WriteMoreComments", GetComments((int)id, page));
             }
-            return NotFound();
+
+            var itemViewModel = new ItemDetailsViewModel();
+            itemViewModel.Item = _item.GetItemById((int)id);
+            itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0,CommentCount,(int)id);
+            return View(itemViewModel);
         }
+
 
         // GET: ItemController/Create
         [Authorize]
+        [HttpGet]
         public async Task<ActionResult> Create(int? collectionid)
         {
             if (collectionid != null)
@@ -62,32 +74,35 @@ namespace ExampleWebSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateItemViewModel model)
         {
-            try
-            {
+            //try
+            //{
+                model.Item.Collection = await _collection.FindByIdAsync(model.collectionId);
                 if (ModelState.IsValid)
                 {
                     await _item.Create(model);
                     var item = await _item.FindByTitleAsync(model.Item.Title);
-
-                    var propertiesElements = new List<PropertiesElementModel>();
-                    if (model.Properties.Count > 1)
+                    if (model.Properties != null)
                     {
-                        foreach (var x in model.Properties)
+                        if (model.Properties.Count > 1)
                         {
-                            x.Item = item;
-                            propertiesElements.Add(x);
-                        }
+                            var propertiesElements = new List<PropertiesElementModel>();
+                            foreach (var x in model.Properties)
+                            {
+                                x.Item = item;
+                                propertiesElements.Add(x);
+                            }
 
-                        await _properties.AddRangeAsync(propertiesElements);
-                        return RedirectToAction("Index", "Home");
+                            await _properties.AddRangeAsync(propertiesElements);
+                        }
                     }
-                }
+                return RedirectToAction("Index", "Home");
+            }
                 return View(model);
-            }
-            catch
-            {
-                return View();
-            }
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: ItemController/Edit/5
@@ -134,6 +149,18 @@ namespace ExampleWebSite.Controllers
             var item = _item.GetItemById((int)id);
             await _item.Delete(item);
             return RedirectToAction("index","home");
+        }
+
+        public PartialViewResult _WriteMoreComments()
+        {
+            return PartialView();
+        }
+
+        private ItemDetailsViewModel GetComments(int itemId,int page = 1)
+        {
+            var CommentToSkip = page * CommentCount;
+
+            return new ItemDetailsViewModel() { comments = _comment.TakeCommentsByBlogId_Skip(CommentToSkip, CommentCount, itemId) };
         }
     }
 }

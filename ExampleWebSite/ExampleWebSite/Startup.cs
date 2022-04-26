@@ -34,6 +34,7 @@ namespace ExampleWebSite
         {
             services.AddLocalization(options=>options.ResourcesPath = "Resources");
 
+            services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<IItemRepository, ItemRepository>();
             services.AddTransient<ICollectionRepository, CollectionRepository>();
             services.AddTransient<IpropertiesElementsRepository, PropertiesElementRepository>();

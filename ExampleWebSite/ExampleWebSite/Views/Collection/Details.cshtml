@@ -21,7 +21,7 @@
                 converter = new showdown.Converter(),
                 html = converter.makeHtml(text);
             target.innerHTML = html;
-    })
+        })
     </script>
 
 
@@ -37,6 +37,8 @@
         <h4>@item.Title</h4>
 
         <a class="btn" asp-action="Delete" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Delete"]</a>
+        <a class="btn" asp-action="Details" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Enter"]</a>
+
     }
 }
 

@@ -1,0 +1,99 @@
+﻿@model ItemDetailsViewModel
+
+<h1>@Model.Item.Title</h1>
+@*<h1>@</h1>*@
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    @await Html.PartialAsync("Partials/_WriteCommentPartial.cshtml");
+}
+else
+{
+    <h3>you are is not autentiacted</h3>
+}
+<div id="renderScope">
+    @await Html.PartialAsync("_WriteMoreComments.cshtml")
+</div>
+
+<button onclick="LoadComments()">load Mode</button>
+
+<script>
+    var page = 0;
+    var _inCallback = false;
+    window.addEventListener('scroll', function () {
+      
+        if (page > -1 && !_inCallback) {
+            _inCallback = true;
+            page++;
+            $('div#loading').show();
+            console.log(page);
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("Details","Item")",
+                data: { id: @Model.Item.Id, p: page },
+                success: function (data, textstatus) {
+                    if (data != '') {
+                        $("#renderScope").append(data);
+                    }
+                    else {
+                        page = -1;
+                    }
+                    _inCallback = false;
+                    $("div#loading").hide();
+                }
+            });
+        }
+    });
+
+    var page = 0;
+    var _inCallback = false;
+    function LoadComments() {
+        if (page > -1 && !_inCallback) {
+            _inCallback = true;
+            page++;
+            $('div#loading').show();
+            console.log(page);
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("Details","Item")",
+                data: { id: @Model.Item.Id,p:page },
+                success: function (data, textstatus) {
+                    if (data != '') {
+                        $("#renderScope").append(data);
+                    }
+                    else {
+                        page = -1;
+                    }
+                    _inCallback = false;
+                    $("div#loading").hide();
+                }
+            });
+        }
+    }
+
+</script>
+
+<script>
+   function SentComment() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("CreateComent", "Comment")",
+            data: { message: $("#message").val(), itemId:@Model.Item.Id },
+            dataType: "text",
+            success: function () {
+                location.reload();
+            },
+            error: function () {
+                 alert("error");
+                // document.getElementById("status_w").innerHTML = "error";
+            }
+        })
+    }
+</script>
+
+<div>
+    <input id="id" value="@Model.Item.Id" />
+    <textarea type="text" id="message" maxlength="500" placeholder="@ViewResourcesModel["MaxCommentLenght500"]"></textarea>
+    <button onclick="SentComment()" class="btn">@ViewResourcesModel["Enter"]</button>
+</div>

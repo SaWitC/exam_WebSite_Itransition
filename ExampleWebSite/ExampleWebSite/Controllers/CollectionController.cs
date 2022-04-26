@@ -219,10 +219,17 @@ namespace ExampleWebSite.Controllers
         }
 
         
-        public async Task<IEnumerable<CollectionModel>> GetCollections(int page=1)
+        public async Task<IEnumerable<CollectionMinViewModel>> GetCollections(int page=1)
         {
             var CollectionsToSkip = page * PageSize;
-            return await _collection.TakeCollection_SkipAsync(CollectionsToSkip, PageSize);
+            var collectionList= await _collection.TakeCollectionMin_SkipAsync(CollectionsToSkip, PageSize);
+            var collection = new List<CollectionMinViewModel>();
+            foreach (var item in collectionList)
+            {
+                item.ImageUrl = await CollectionImage.GetImageLinkAsync("AQAAAABgW19JAAfYg2ZC-Ml1M0I4vHLmlumOb_c", $"collection_{item.Id}_", $"logo_{item.Id}");
+                collection.Add(item);
+            }
+            return collection;
         }
     }
 }

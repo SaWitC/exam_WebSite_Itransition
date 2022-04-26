@@ -1,0 +1,10 @@
+﻿@model IEnumerable<CommentModel>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <h1>@item.AvtorName</h1>
+        <h2>@item.Message</h2>
+    }
+}

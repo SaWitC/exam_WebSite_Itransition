@@ -69,3 +69,16 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.raz{
+    width:20rem;
+    margin-left: auto;
+    margin-right: 0;
+}
+@media (min-width: 768px) {
+    .raz {
+        /*width: 20rem;*/
+        /*margin-left: auto;*/
+        /*margin-right: auto;*/
+    }
+}

@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <input type="number" asp-for="collectionId" value="@Model.collectionId" />
+    <input hidden type="number" asp-for="collectionId" value="@Model.collectionId" />
 
     @if (Model.TypicalElements != null)
     {

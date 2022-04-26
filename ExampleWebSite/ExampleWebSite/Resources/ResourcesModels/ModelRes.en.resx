@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CommentMessageMaxLen500" xml:space="preserve">
+    <value>The length of the Title cannot be more than 500 characters</value>
+  </data>
+  <data name="CommentMessageMinLenght20" xml:space="preserve">
+    <value>The minimum length of a comment is 20</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm your password</value>
   </data>

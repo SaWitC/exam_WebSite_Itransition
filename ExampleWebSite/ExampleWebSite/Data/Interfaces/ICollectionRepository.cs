@@ -14,7 +14,7 @@ namespace ExampleWebSite.Data.Interfaces
         public Task CreateAsync(CreateCollectionViewModel model);
         public Task DeleteAsyncById(int Id);
         public Task DeleteAsync(CollectionModel collection);
-
+        public Task<IQueryable<CollectionMinViewModel>> TakeCollectionMin_SkipAsync(int skip, int pageSize);
         public Task UpdateAsync(CollectionModel model);
         public Task<IEnumerable<CollectionModel>> TakeAllAsync();
         public Task<CollectionModel> FindByTitleAsync(string title);

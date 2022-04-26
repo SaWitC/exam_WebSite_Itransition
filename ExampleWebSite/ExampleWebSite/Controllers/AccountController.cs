@@ -1,5 +1,6 @@
 ﻿ using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -83,5 +84,21 @@ namespace ExampleWebSite.Controllers
         {
             await _signInManager.SignOutAsync();
         } 
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            return View(user);
+        }
+
+        public async Task<IActionResult> PersonalData(int? id)
+        {
+            if (id != null)
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                return View(user);
+            }
+            return View();
+        }
     }
 }

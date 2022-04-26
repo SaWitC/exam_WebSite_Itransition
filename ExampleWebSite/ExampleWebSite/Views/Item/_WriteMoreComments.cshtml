@@ -1,0 +1,8 @@
+﻿@model ItemDetailsViewModel
+
+@if (Model.comments != null) { 
+    foreach (var item in Model.comments)
+    {
+        <h6>@item.Message</h6>
+    }
+}

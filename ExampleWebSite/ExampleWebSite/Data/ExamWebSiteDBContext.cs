@@ -25,5 +25,7 @@ namespace ExampleWebSite.Data
         public DbSet<ThemaModel> Themes { get; set; }
         public DbSet<PropertiesModel> Properties { get; set; }
 
+        public DbSet<CommentModel> Comments { get; set; }
+
     }
 }

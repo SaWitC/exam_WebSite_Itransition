@@ -1,0 +1,24 @@
+﻿@model CommentModel
+
+<script type="text/javascript">
+const { url } = require("inspector");
+
+    function SentComment() {
+        $.ajax({
+            type: "Post",
+            url: "@Url.Action("CreateComent", "Comment")",
+            dataType: "text",
+            success: function () {
+                location.reload();
+            },
+            error: function () {
+                alert("Exception");
+            }
+        })
+    }
+</script>
+
+<div>
+    <textarea type="text" maxlength="500" placeholder="@ViewResourcesModel["MaxCommentLenght500"]"></textarea>
+    <input type="submit" onclick="SentComment()" class="btn" value="@ViewResourcesModel["Enter"]" />
+</div>

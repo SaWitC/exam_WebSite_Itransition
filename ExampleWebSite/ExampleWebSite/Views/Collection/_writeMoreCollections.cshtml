@@ -1,17 +1,18 @@
-﻿@model IEnumerable<CollectionModel>
+﻿@model IEnumerable<CollectionMinViewModel>
 
 @if (Model != null)
 {
     foreach (var item in Model)
     {
         <div class="card" style="width: 18rem;">
-            @if (item.Image != null)
+            @if (item.ImageUrl != null)
             {
-                <img class="card-img-top" src="@item.Image" alt="Card image cap">
+                <img class="card-img-top" src="@item.ImageUrl" alt="Card image cap">
             }
             <div class="card-body">
                 <h5 class="card-title">@item.Title</h5>
-                <p class="card-text">@item.Thema</p>
+                <p>@item.Thema</p>
+                <p class="card-text">@item.ShortDesc</p>
             </div>
             <div class="card-body">
                 <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">Go</a>

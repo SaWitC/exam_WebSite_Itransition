@@ -56,7 +56,9 @@ namespace ExampleWebSite.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -85,14 +87,17 @@ namespace ExampleWebSite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortDesc")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
 
                     b.Property<int>("ThemaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -106,6 +111,34 @@ namespace ExampleWebSite.Migrations
                     b.ToTable("Collections");
                 });
 
+            modelBuilder.Entity("ExampleWebSite.Models.CommentModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AvtorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AvtorName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AvtorId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("ExampleWebSite.Models.ItemModel", b =>
                 {
                     b.Property<int>("Id")
@@ -117,9 +150,11 @@ namespace ExampleWebSite.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Tags")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -191,8 +226,8 @@ namespace ExampleWebSite.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("DarkTheme")
-                        .HasColumnType("bit");
+                    b.Property<string>("CultureCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
@@ -202,9 +237,6 @@ namespace ExampleWebSite.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsBaned")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsEnglishLanguages")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -231,6 +263,9 @@ namespace ExampleWebSite.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThemeCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -413,6 +448,19 @@ namespace ExampleWebSite.Migrations
                     b.HasOne("ExampleWebSite.Models.User", null)
                         .WithMany("Collections")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ExampleWebSite.Models.CommentModel", b =>
+                {
+                    b.HasOne("ExampleWebSite.Models.User", "Avtor")
+                        .WithMany()
+                        .HasForeignKey("AvtorId");
+
+                    b.HasOne("ExampleWebSite.Models.ItemModel", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ExampleWebSite.Models.ItemModel", b =>
