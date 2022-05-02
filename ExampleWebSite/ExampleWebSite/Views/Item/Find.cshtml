@@ -1,0 +1,20 @@
+﻿@model ExampleWebSite.ViewModels.Items.FindItemsViewModel
+
+@if (Model != null)
+{
+    if (Model.Items != null)
+    {
+
+        foreach (var item in Model.Items)
+        {
+            <h1>@item.Title</h1>
+        }
+    }
+}
+
+@*@foreach (var item in Model.stt)
+{
+    <h1>@item.value</h1>
+    <h2>@item.v2</h2>
+
+}*@

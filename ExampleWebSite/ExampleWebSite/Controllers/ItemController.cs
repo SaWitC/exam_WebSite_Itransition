@@ -10,50 +10,76 @@ using ExampleWebSite.ViewModels;
 using ExampleWebSite.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Korzh.EasyQuery.Linq;
+using ExampleWebSite.ViewModels.Items;
+
+using ExampleWebSite.Data;
+using Korzh.EasyQuery.Services;
 
 namespace ExampleWebSite.Controllers
 {
     public class ItemController : Controller
     {
+        private readonly ExamWebSiteDBContext _context;
+
         private readonly ICommentRepository _comment;
         private readonly ICollectionRepository _collection;
         private readonly IpropertiesElementsRepository _properties;
         private readonly IpropertiesModelRepository _propertiesModel;
-        private readonly IThemeRepository _Themes;
+
+        //private readonly IThemeRepository _Themes;
         private readonly IItemRepository _item;
-        private readonly UserManager<User> _userManager;
+        //private readonly UserManager<User> _userManager;
 
         private int CommentCount =2;
 
-        public ItemController(UserManager<User> userManager, IItemRepository item, IpropertiesElementsRepository properties, ICollectionRepository collection, IThemeRepository theme, IpropertiesModelRepository propertiesModel, ICommentRepository comment)
+        public ItemController(IItemRepository item, IpropertiesElementsRepository properties, ICollectionRepository collection, IpropertiesModelRepository propertiesModel, ICommentRepository comment,ExamWebSiteDBContext context)
         {
+            _context = context;
+
             _comment = comment;
             _collection = collection;
             _properties = properties;
             _item = item;
-            _userManager = userManager;
-            _Themes = theme;
+            //_userManager = userManager;
+            //_Themes = theme;
             _propertiesModel = propertiesModel;
         }
-        // GET: ItemController/Details/5
+        // detatils =============================================================
         [HttpGet]
         public ActionResult Details(int? id,int? p)
         {
-            int page = p ?? 0;
-            var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
-            if (isAjax)
+            if (id != null)
             {
-                return PartialView("_WriteMoreComments", GetComments((int)id, page));
-            }
+                int page = p ?? 0;
+                var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+                if (isAjax)
+                {
+                    return PartialView("_WriteMoreComments", GetComments((int)id, page));
+                }
 
-            var itemViewModel = new ItemDetailsViewModel();
-            itemViewModel.Item = _item.GetItemById((int)id);
-            itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0,CommentCount,(int)id);
-            return View(itemViewModel);
+                var itemViewModel = new ItemDetailsViewModel();
+                itemViewModel.Properties = _properties.GetPropertiesByItemId((int)id);
+                itemViewModel.Item = _item.GetItemById((int)id);
+                itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentCount, (int)id);
+                return View(itemViewModel);
+            }
+            else
+                return NotFound();
+        }
+        public PartialViewResult _WriteMoreComments()
+        {
+            return PartialView();
+        }
+        private ItemDetailsViewModel GetComments(int itemId, int page = 1)
+        {
+            var CommentToSkip = page * CommentCount;
+
+            return new ItemDetailsViewModel() { comments = _comment.TakeCommentsByBlogId_Skip(CommentToSkip, CommentCount, itemId) };
         }
 
 
-        // GET: ItemController/Create
+        //Create ================================================================================
         [Authorize]
         [HttpGet]
         public async Task<ActionResult> Create(int? collectionid)
@@ -67,15 +93,13 @@ namespace ExampleWebSite.Controllers
             }
             return NotFound();
         }
-
-        // POST: ItemController/Create
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateItemViewModel model)
         {
-            //try
-            //{
+            try
+            {
                 model.Item.Collection = await _collection.FindByIdAsync(model.collectionId);
                 if (ModelState.IsValid)
                 {
@@ -98,20 +122,18 @@ namespace ExampleWebSite.Controllers
                 return RedirectToAction("Index", "Home");
             }
                 return View(model);
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
+            }
+            catch
+            {
+                return View();
+            }
         }
-
-        // GET: ItemController/Edit/5
+        //Edit ======================================================================
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ItemController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -125,8 +147,8 @@ namespace ExampleWebSite.Controllers
                 return View();
             }
         }
-
-        // GET: ItemController/Delete/5
+        
+        //Delete ====================================================================
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -151,16 +173,114 @@ namespace ExampleWebSite.Controllers
             return RedirectToAction("index","home");
         }
 
-        public PartialViewResult _WriteMoreComments()
-        {
-            return PartialView();
+        //Find =======================================================================
+       // [HttpPost]
+        //public IActionResult Find(FindItemsViewModel model,string SearchString)
+        //{
+        //    if (!string.IsNullOrEmpty(SearchString))
+        //    {
+        //        var items = _context.Themes.AsQueryable();
+
+        //        model.Items = items.FullTextSearchQuery(SearchString);
+        //        return View(model);
+        //    }
+        //    //if (!string.IsNullOrEmpty(Tag))
+        //    //{
+
+        //    //}
+
+        //    return View(model);
+        //}
+
+        //[HttpGet]
+        //public IActionResult Find(string SearchString)
+        //{
+        //    //var options = new FullTextSearchOptions
+        //    //{
+        //    //    Depth = 2,
+        //    //    Filter = (propinfo) =>
+        //    //    {
+        //    //        //if (propinfo.DeclaringType == (typeof(ItemModel){
+        //    //        //    return propinfo.PropertyType == typeof(Cus)
+        //    //        //}
+        //    //        if (propinfo.PropertyType == typeof(string))
+        //    //        {
+
+        //    //        }
+
+        //    //    }
+        //    //};
+
+        //    FindItemsViewModel mode = new FindItemsViewModel();
+        //    var items =_context.Items;
+        //    if (!string.IsNullOrEmpty(SearchString))
+        //    {
+        //        var arr = new test[4]
+        //        {
+        //            new test{value="first" },
+        //            new test{value="second" },
+        //            new test{value="threed" },
+        //            new test{value="fourth" },
+
+        //        };
+        //        var arr2 =arr.AsQueryable().FullTextSearchQuery("f");
+
+
+        //        //List<ItemModel> items = new List<ItemModel>();
+        //        //mode.Items= items.FullTextSearchQuery<ItemModel>(SearchString);
+        //        //mode.Items = _context.Items.Where(i => (i.Title != null && i.Title.ToLower().Contains("t") | i.Tags != null && i.Tags.ToLower().Contains("t"))).ToList();
+
+               
+        //    }
+        //    else
+        //    {
+        //        mode.Items = _context.Items.ToList();
+        //    }
+        //    return View(mode);
+        //}
+        [HttpGet]
+        public IActionResult Find ()
+        {     
+            FindItemsViewModel mode = new FindItemsViewModel();
+            mode.Items = _context.Themes.AsQueryable();
+        
+            return View(mode);
         }
 
-        private ItemDetailsViewModel GetComments(int itemId,int page = 1)
+        [HttpPost]
+        public IActionResult Find(string SearchString)
         {
-            var CommentToSkip = page * CommentCount;
+            FindItemsViewModel mode = new FindItemsViewModel();
+            //var items = _context.Items.ToList();
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                //test t = new test { value = "first", v2=23 };
+                //test t2 = new test { value = "second",v2=11 };
+                //test t3 = new test { value = "222222",v2=45 };
+                //test t4 = new test { value = "4444f",v2=99 };
 
-            return new ItemDetailsViewModel() { comments = _comment.TakeCommentsByBlogId_Skip(CommentToSkip, CommentCount, itemId) };
+
+
+                //List<test> arr = new List<test>();
+                //arr.Add(t);
+                //arr.Add(t2);
+                //arr.Add(t3);
+                //arr.Add(t4);
+
+                // var arr2 = arr.AsQueryable().FullTextSearchQuery(SearchString);
+                //mode.stt = arr2.ToList();
+
+                var items = _context.Themes.AsQueryable().Where(t =>  t.Title != null && t.Title.ToLower().Contains("b") || t.Description != null && t.Description.ToLower().Contains("b")).AsQueryable();
+                mode.Items = items;
+                // var list = items.ToPagedList(_eqManager.Chunk.Page, 15);
+                return View(mode);
+
+            }
+            else
+            {
+                mode.Items = _context.Themes.AsQueryable();
+            }
+            return View(mode);
         }
     }
 }

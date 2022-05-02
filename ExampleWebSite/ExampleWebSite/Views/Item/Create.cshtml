@@ -1,5 +1,11 @@
 ﻿@model ExampleWebSite.ViewModels.CreateItemViewModel
 
+<script>
+    $(document).ready(function () {
+        $('#datePicker').val(new Date().toDateInputValue());
+    });
+</script>
+
 <form method="post" asp-controller="Item" asp-action="Create">
     <div>
         <div class="form-group">
@@ -33,12 +39,19 @@
                 <input hidden name="Properties[@i].title" value="@item.Title" type="text" />
                 <input name="Properties[@i].value" type="text" />
             }
+            if (item.Type == "bool")
+            {
+                <h3>@item.Title</h3>
+                <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
+                <input hidden name="Properties[@i].title" type="text" value="@item.Title" />
+                <input name="Properties[@i].value" type="checkbox" />
+            }
             if (item.Type == "date")
             {
                 <h3>@item.Title</h3>
                 <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                 <input hidden name="Properties[@i].title" type="text" value="@item.Title" />
-                <input name="Properties[@i].value" type="datetime" />
+                <input id="datePicker" name="Properties[@i].value" type="date"/>
             }
             i++;
         }

@@ -1,36 +1,7 @@
-﻿<header>
+﻿
+<header>
     <nav class="navbar navbar-expand-md navbar-toggleable-sm navbar-light HeadStyle box-shadow mb-3">
         <div class="container">
-
-            @*<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-                </a>
-
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Collection" asp-action="Index">@ViewResourcesModel["NewCollections"]</a></li>
-                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Collection" asp-action="MyCollection">@ViewResourcesModel["MyCollections"]</a></li>
-                    <li><a class="nav-link text-dark" asp-area="" asp-controller="collection" asp-action="Create">@ViewResourcesModel["Create"]</a></li>
-
-                    <li><a asp-action="Login" asp-controller="Account">@ViewResourcesModel["Login"]</a></li>
-                    <li><a asp-action="Login" asp-controller="Account">@ViewResourcesModel["Register"]</a></li>
-
-                </ul>
-                     <div class="text-end">
-
-                    </div>
-
-                <form class="form-inline mt-2 mt-md-0 mr-5">
-                    <input class="bg-dark form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <input class="bg-dark text-white btn my-2 my-sm-0" value="@ViewResourcesModel["Searsh"]" type="submit" />
-                </form>
-
-            </div>*@
-
-
-
-
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ExampleWebSite</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +24,10 @@
         </div>
         @if (User.Identity.IsAuthenticated)
         {
+            if (User.IsInRole("admin"))
+            {
+                <a asp-action="AdminPage" asp-controller="Account">@ViewResourcesModel["AdminPage"]</a>
+            }
             <a asp-action="Index" asp-controller="Account"><img style="width:50px;height:50px;" type="image" src="~/icons/4-40070_user-staff-man-profile-user-account-icon-jpg.png"/></a>
         }
         else
@@ -62,10 +37,31 @@
         }
     </nav>
     <div>
-        <form  class=" raz form-inline mt-2 mt-md-0 mr-5">
-            <input class="bg-dark form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <input class="bg-dark text-white btn my-2 my-sm-0" value="@ViewResourcesModel["Searsh"]" type="submit" />
-        </form>
+
+
+        @*<form method="post" asp-controller="Item" asp-action="Find" class=" raz form-inline mt-2 mt-md-0 mr-5">
+            <input name="SearchString" class="bg-dark form-control mr-sm-2" type="text" placeholder="@ViewResourcesModel["SearchString"]">
+            <input class="bg-dark text-white btn my-2 my-sm-0" value="@ViewResourcesModel["Search"]" type="submit" />
+        </form>*@
     </div>
     <hr size="3">
+</header>
+
+<header class="p-3">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+         
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <div class="row">
+                    <div class="col-md-10">
+                        <input name="SearchString" class="bg-dark form-control mr-sm-2" type="text" placeholder="@ViewResourcesModel["SearchString"]">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-warning">@ViewResourcesModel["Search"]</button>
+                    </div>
+                </div>
+               
+            </form>
+        </div>
+    </div>
 </header>

@@ -62,6 +62,8 @@
     <input hidden id="num" value="0" type="number" />
     <input hidden id="str" value="0" type="number" />
     <input hidden id="date" value="0" type="number" />
+    <input hidden id="bool" value="0" type="number" />
+
 
     <datalist id="themes" name="">
     </datalist>
@@ -71,9 +73,11 @@
 
 <h1>@ViewResourcesModel["AddNewPropertiesMessage"]</h1>
 <p>@ViewResourcesModel["AddNewPropertiesMessageDetails"]</p>
-<button onclick="createNum()">number</button>
-<button onclick="createStr()">String</button>
-<button onclick="createDate()">Date</button>
+<button onclick="createNum()">@ViewResourcesModel["numberPropertiesEl"]</button>
+<button onclick="createStr()">@ViewResourcesModel["stringPropertiesEl"]</button>
+<button onclick="createDate()">@ViewResourcesModel["datePropertiesEl"]</button>
+<button onclick="createBool()">@ViewResourcesModel["boolPropertiesEl"]</button>
+
 
 <button>string</button>
 
@@ -105,5 +109,13 @@
             $("#date").val(val)
         }
         else $("#date").val(3)
+    }
+    function createBool() {
+        var val = parseInt($("#bool").val()) + 1
+        if (val < 4) {
+            $("#generateElement").append(`<input type="text" name="PropertiesBoolTitles" placeholder="name B"/>`);
+            $("#bool").val(val)
+        }
+        else $("#bool").val(3)
     }
 </script>

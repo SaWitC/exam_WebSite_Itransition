@@ -39,8 +39,8 @@ namespace ExampleWebSite
             services.AddTransient<ICollectionRepository, CollectionRepository>();
             services.AddTransient<IpropertiesElementsRepository, PropertiesElementRepository>();
             services.AddTransient<IpropertiesModelRepository, PropertiesModelRepository>();
-            //services.AddTransient<IpropertiesElementsRepository, PropertiesElementRepository>();
             services.AddTransient<IThemeRepository, ThemaRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddControllersWithViews()
                 .AddDataAnnotationsLocalization(options =>
@@ -86,6 +86,7 @@ namespace ExampleWebSite
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            
             app.UseRouting();
 
             app.UseAuthentication();

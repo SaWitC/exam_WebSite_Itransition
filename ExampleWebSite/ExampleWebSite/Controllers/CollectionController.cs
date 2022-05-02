@@ -37,15 +37,15 @@ namespace ExampleWebSite.Controllers
             _propertiesModel = propertiesModel;
         }
         // GET: CollectionController
-        public async Task<ActionResult> Index(int? id=0)
+        public ActionResult Index(int? id=0)
         {
             int page = id ?? 0;
             var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
             if (isAjax)
             {
-                return PartialView("_writeMoreCollections",await GetCollections(page));
+                return PartialView("_writeMoreCollections",GetCollections(page));
             }
-            return View(await GetCollections(page));
+            return View(GetCollections(page));
         }
 
         // GET: CollectionController/Details/5
@@ -97,6 +97,8 @@ namespace ExampleWebSite.Controllers
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesNumTitles, "number");
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesStrTitles, "string");
                     await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesDateTitles, "date");
+                    await generate.GeneratePropertiesAsync(model.collection.Title, model.PropertiesBoolTitles, "bool");
+
                     //yandex disk
                     var Collection = await _collection.FindByTitleAsync(model.collection.Title);
 
@@ -212,24 +214,18 @@ namespace ExampleWebSite.Controllers
             var collections = await _collection.FindByAvtorIdAsync(User.Identity.Name);
             return View(collections);
         }
-
-        public async Task<IActionResult> FindCollection()
-        {
-            return View();
-        }
-
         
-        public async Task<IEnumerable<CollectionMinViewModel>> GetCollections(int page=1)
+        public IEnumerable<CollectionMinViewModel> GetCollections(int page=1)
         {
             var CollectionsToSkip = page * PageSize;
-            var collectionList= await _collection.TakeCollectionMin_SkipAsync(CollectionsToSkip, PageSize);
-            var collection = new List<CollectionMinViewModel>();
-            foreach (var item in collectionList)
-            {
-                item.ImageUrl = await CollectionImage.GetImageLinkAsync("AQAAAABgW19JAAfYg2ZC-Ml1M0I4vHLmlumOb_c", $"collection_{item.Id}_", $"logo_{item.Id}");
-                collection.Add(item);
-            }
-            return collection;
+            var collectionList= _collection.TakeCollectionMin_Skip(CollectionsToSkip, PageSize);
+            //var collection = new List<CollectionMinViewModel>();
+            //foreach (var item in collectionList)
+            //{
+            //    //item.ImageUrl = await CollectionImage.GetImageLinkAsync("AQAAAABgW19JAAfYg2ZC-Ml1M0I4vHLmlumOb_c", $"collection_{item.Id}_", $"logo_{item.Id}");
+            //    collection.Add(item);
+            //}
+            return collectionList;
         }
     }
 }

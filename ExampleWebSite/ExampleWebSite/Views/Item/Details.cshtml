@@ -1,7 +1,25 @@
 ﻿@model ItemDetailsViewModel
 
 <h1>@Model.Item.Title</h1>
-@*<h1>@</h1>*@
+
+@if (Model.Properties != null) {
+    foreach (var item in Model.Properties)
+    {
+        if (item.Type == "number"|| item.Type == "date")
+        {
+                <p><b>@item.Title</b> @item.Value</p>
+        }
+        if(item.Type == "bool")
+        {
+            <p><b>@item.Title</b></p>
+            if (item.Value == "on")
+            {<input type="checkbox" checked disabled />}
+            else {<input type="checkbox" disabled />}
+        }
+        <hr size="3" class="hr_custom"/>
+
+    }
+}
 
 
 @if (User.Identity.IsAuthenticated)

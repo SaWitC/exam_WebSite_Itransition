@@ -69,15 +69,14 @@ namespace ExampleWebSite.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IQueryable<CollectionMinViewModel>> TakeCollectionMin_SkipAsync(int skip, int pageSize)
+        public IQueryable<CollectionMinViewModel> TakeCollectionMin_Skip(int skip, int pageSize)
         {
-            var x =
-            await _context.Collections.AsNoTracking()
-            .Include(o=>o.Thema)
-            .OrderBy(o=>o.Id).Skip(skip)
+            IQueryable<CollectionMinViewModel> collections = _context.Collections.AsNoTracking()
+            //.Include(o => o.Thema)
+            .OrderBy(o => o.Id)
+            .Skip(skip)
             .Take(pageSize)
-            .Select(x => new { x.Id,x.AvtorName,x.ShortDesc,x.Title,x.Thema}).ToListAsync();
-            IQueryable<CollectionMinViewModel> collections = _context.Collections.AsNoTracking().Select(x => new CollectionMinViewModel {Id=x.Id,Title=x.Title,AvtorName=x.AvtorName,ShortDesc=x.ShortDesc,Thema =x.Thema.Title});
+            .Select(x => new CollectionMinViewModel {Id=x.Id,Title=x.Title,AvtorName=x.AvtorName,ShortDesc=x.ShortDesc,Thema =x.Thema.Title});
 
             return collections;
         }

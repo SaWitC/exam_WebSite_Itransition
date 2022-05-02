@@ -5,4 +5,8 @@
 @using ExampleWebSite.ViewModels;
 @inject IHtmlLocalizer<ViewResourcesModel> ViewResourcesModel
 
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+@inject SignInManager<User> SignInManager
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

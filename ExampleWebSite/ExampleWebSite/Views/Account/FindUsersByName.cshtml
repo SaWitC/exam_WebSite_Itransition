@@ -1,0 +1,56 @@
+﻿@model ExampleWebSite.ViewModels.Account.FindUserViewModel
+
+<div>
+    <form asp-action="FindUsersByName" asp-controller="Account">
+        <div class=" d-inline-flex">
+            <input class="input-group" asp-for="SearchString" type="text">
+            <input class="btn" type="submit" value="@ViewResourcesModel["Find"]" />
+        </div>
+    </form>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>@ViewResourcesModel["UserName"]</th>
+                    <th>@ViewResourcesModel["PhoneNumber"]</th>
+                    <th>@ViewResourcesModel["CreateCollection"]</th>
+                    <th>@ViewResourcesModel["Ban"]</th>
+                    <th>@ViewResourcesModel["IsBaned"]</th>
+                </tr>
+            </thead>
+            <tbody id="RenderUsers">
+                @await Html.PartialAsync("_WriteMoreUsers.cshtml")
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    var pageus = 0;
+    var _inCallback = false;
+    window.addEventListener('scroll', function () {
+
+        if (pageus > -1 && !_inCallback) {
+            _inCallback = true;
+            pageus++;
+            $('div#loading').show();
+            console.log(pageus);
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("FindUsersByName","Account")",
+                data: { },
+                success: function (data, textstatus) {
+                    if (data != '') {
+                        $("#RenderUsers").append(data);
+                    }
+                    else {
+                        page = -1;
+                    }
+                    _inCallback = false;
+                    $("div#loading").hide();
+                }
+            });
+        }
+    });
+</script>

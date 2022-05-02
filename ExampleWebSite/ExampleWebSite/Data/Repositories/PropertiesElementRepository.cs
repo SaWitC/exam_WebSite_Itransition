@@ -36,5 +36,10 @@ namespace ExampleWebSite.Data.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<PropertiesElementModel> GetPropertiesByItemId(int itemId)
+        {
+            return _context.PropertiesElement.Where(o => o.ItemId == itemId).ToList();
+        }
     }
 }

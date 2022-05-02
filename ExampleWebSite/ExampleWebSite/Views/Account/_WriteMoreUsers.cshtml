@@ -1,0 +1,32 @@
+﻿@model ExampleWebSite.ViewModels.Account.FindUserViewModel
+
+@if (Model != null) {
+    @foreach (var item in Model.Users)
+    {
+<tr>
+    <td><p>@item.UserName</p></td>
+    <td><p>@item.PhoneNumber</p></td>
+    <td> <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">@ViewResourcesModel["CreateCollectionFromUser"]</a></td>
+    <td>
+        @if (item.IsBaned)
+        {
+            <form method="post" asp-action="UnBan" asp-controller="Account">
+                <input hidden name="FindUserViewModel" value="@Model" />
+                <input hidden name="User" value="@item.UserName" />
+                <input class="btn" type="submit" value="@ViewResourcesModel["UnBan"]" />
+            </form>
+        }
+        else
+        {
+            <form method="post" asp-action="Ban" asp-controller="Account">
+                <input hidden name="FindUserViewModel" value="@Model" />
+                <input hidden name="User" value="@item.UserName" />
+                <input class="btn" type="submit" value="@ViewResourcesModel["Ban"]" />
+            </form>
+        }
+
+    </td>
+    <td><p>@item.IsBaned</p></td>
+</tr>
+    }
+}

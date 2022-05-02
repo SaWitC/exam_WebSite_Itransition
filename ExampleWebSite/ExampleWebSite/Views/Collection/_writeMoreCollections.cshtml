@@ -4,7 +4,15 @@
 {
     foreach (var item in Model)
     {
-        <div class="card" style="width: 18rem;">
+
+        <tr>
+            <th><p>@item.Title</p></th>
+            <td><p>@item.Thema</p></td>
+            <td> <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">Go</a></td>
+            <td>@item.AvtorName</td>
+        </tr>
+
+        @*<div class="card" style="width: 18rem;">
             @if (item.ImageUrl != null)
             {
                 <img class="card-img-top" src="@item.ImageUrl" alt="Card image cap">
@@ -17,11 +25,11 @@
             <div class="card-body">
                 <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">Go</a>
             </div>
-        </div>
+        </div>*@
     }
 }
 else
 {
-    <h1>Empty</h1>
+    @*<h1>Empty</h1>*@
 }
 

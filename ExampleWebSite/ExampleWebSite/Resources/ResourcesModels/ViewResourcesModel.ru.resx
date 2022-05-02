@@ -123,8 +123,41 @@
   <data name="AddNewPropertiesMessageDetails" xml:space="preserve">
     <value>вы можете использовать дополнительные поля для того чтобы указать дополнительные данные о элементах колекции например для книг год издания</value>
   </data>
+  <data name="AdminCanDoText1" xml:space="preserve">
+    <value>Админ сайта может блокировать и разблокировать акаунты пользователей</value>
+  </data>
+  <data name="AdminCanDoText2" xml:space="preserve">
+    <value>Может создавать Коллекции и элементы коллекций от имени пользователей сайта. Для этого нужно найти пользователя от имени которого нужно создать коллекцию или элемент и нажать на кнопку создать коллекцию или же зайти в коллекцию и нажать добавить  элемент</value>
+  </data>
+  <data name="AdminPage" xml:space="preserve">
+    <value>Админ панель</value>
+  </data>
+  <data name="Avtor" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Заблокировать пользователя</value>
+  </data>
+  <data name="BanedUsers" xml:space="preserve">
+    <value>Забаненые авторы</value>
+  </data>
+  <data name="boolrPropertiesEl" xml:space="preserve">
+    <value>Дополнительное поле переключатель</value>
+  </data>
+  <data name="CollectionTheme" xml:space="preserve">
+    <value>Тема Коллекции</value>
+  </data>
+  <data name="CollectionTitle" xml:space="preserve">
+    <value>Название коллекции</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Создать</value>
+  </data>
+  <data name="CreateCollectionFromUser" xml:space="preserve">
+    <value>Создать коллекцию от имени пользователя</value>
+  </data>
+  <data name="datePropertiesEl" xml:space="preserve">
+    <value>Дополнительное поле дата</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
@@ -133,6 +166,9 @@
     <value>Подробнее</value>
   </data>
   <data name="Edit" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="EditConfirm" xml:space="preserve">
     <value>Применить Изменения</value>
   </data>
   <data name="Email" xml:space="preserve">
@@ -140,6 +176,12 @@
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Войти</value>
+  </data>
+  <data name="ErrorLoadDataMessage" xml:space="preserve">
+    <value>Не удалось загрузить данные</value>
+  </data>
+  <data name="FindUser" xml:space="preserve">
+    <value>Найти автора</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Забыл пароль</value>
@@ -153,6 +195,12 @@
   <data name="Help" xml:space="preserve">
     <value>Помощь</value>
   </data>
+  <data name="IsBaned" xml:space="preserve">
+    <value>Статус Пользователя</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Язык</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Войти</value>
   </data>
@@ -162,6 +210,9 @@
   <data name="MaxCommentLenght500" xml:space="preserve">
     <value>Максимальная длина коментария 500символов</value>
   </data>
+  <data name="More_Info" xml:space="preserve">
+    <value>Больше информации</value>
+  </data>
   <data name="MyCollections" xml:space="preserve">
     <value>Мои коллекции</value>
   </data>
@@ -170,6 +221,9 @@
   </data>
   <data name="NoHaveAccount" xml:space="preserve">
     <value>Нет аккаунта?</value>
+  </data>
+  <data name="numberPropertiesEl" xml:space="preserve">
+    <value>Дополнительное числовое поле</value>
   </data>
   <data name="PersonalData" xml:space="preserve">
     <value>Персональные данные</value>
@@ -182,6 +236,18 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
+  </data>
+  <data name="SearchString" xml:space="preserve">
+    <value>Текст (описания,названия,коментария)</value>
+  </data>
+  <data name="stringPropertiesEl" xml:space="preserve">
+    <value>дополнительное текстовое поле</value>
+  </data>
+  <data name="Thema" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="UnBan" xml:space="preserve">
+    <value>Разблокировать</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Имя пользователя</value>

@@ -1,5 +1,106 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model User
+
+
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            @await Html.PartialAsync("Partials/_NavigationPartial.cshtml")
+        </div>
+        <div class="col-md-9 UserInfo ">
+            @* @ExampleWebSite.Components.HTMLHelpers.DataIsNotNull.Generate(,ViewResourcesModel["Thema"],Model.ThemeCode,ViewResourcesModel["ErrorLoadDataMessage"]);*@
+            @if (Model != null)
+            {
+                <p><b>@ViewResourcesModel["Thema"]":</b>  @Model.ThemeCode</p>
+
+            }
+            else
+            {<p><b>@ViewResourcesModel["Thema"]":</b>@ViewResourcesModel["ErrorLoadDataMessage"]</p>}
+
+            <div>
+                <form method="post" asp-action="EditThemeModal" asp-controller="Account">
+                    <button type="submit" value="white" name="Thema">white</button>
+                    <button type="submit" value="dark" name="Thema">dark</button>
+                    <button type="submit" value="auto" name="Thema">auto</button>
+                </form>
+            </div>
+
+            <a class="btn compItem" asp-action="EditThemeModal" asp-controller="Account">@ViewResourcesModel["Edit"]</a>
+            <hr />
+            @if (Model != null)
+            {
+                <p><b>@ViewResourcesModel["Languages"]":</b>  @Model.CultureCode</p>
+            }
+            else
+            {<p><b>@ViewResourcesModel["Languages"]":</b>@ViewResourcesModel["ErrorLoadDataMessage"]</p>}
+
+            <div>
+                <input hidden name="user" value="@Model"/>
+                <form method="post" asp-action="EditCultre" asp-controller="Account">
+                    <button type="submit" value="ru" name="cultureCode">ru</button>
+                    <button type="submit" value="en" name="cultureCode">en</button>
+                </form>
+            </div>
+            <button>@ViewResourcesModel["Edit"]</button>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".compItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
 }
+
+
+
+@*<script>
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+
+        $(".viewDialog").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    buttons: {
+                        "Сохранить": function () {
+                            $.ajax({
+                             url: "@Url.Action("EditThemeModal", "Account")",
+                             type: "POST",
+                             data: $('#').serialize(),
+                             datatype: "json",
+                             success: function (result) {
+
+                                 $("#dialogContent").html(result);
+                                }
+                            });
+                        }
+                    }
+                });
+        });
+    });
+</script>*@

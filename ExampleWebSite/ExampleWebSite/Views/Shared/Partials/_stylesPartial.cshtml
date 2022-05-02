@@ -1,7 +1,30 @@
 ﻿<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" />
 
-<link href="~/css/WhiteTheme.css" rel="stylesheet" />
+<script>
+    const theme = window.matchMedia("(prefers-color-scheme: dark)")
+    theme.addListener((e) => {
+        if (e.matches) {
+            // doDarkTheme();
+        }
+        else {
+            location.reload()
+        }
+    });
+    if (theme.matches) {
+        //doDarkTheme();
+    }
+</script>
+
+@if (User.Identity.IsAuthenticated)
+{
+    var user = await UserManager.FindByNameAsync(User.Identity.Name);
+    <link href="~/css/@string.Concat(user.ThemeCode,".Theme.css")" rel="stylesheet" />
+}
+else
+{
+    <link href="~/css/white.Theme.css" rel="stylesheet" />
+}
 
 @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">*@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">

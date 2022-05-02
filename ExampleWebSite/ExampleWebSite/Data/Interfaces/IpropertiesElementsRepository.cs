@@ -15,6 +15,7 @@ namespace ExampleWebSite.Data.Interfaces
         public Task Delete(PropertiesElementModel model);
 
         public Task Edit(PropertiesElementModel model);
+        public IEnumerable<PropertiesElementModel> GetPropertiesByItemId(int itemId);
 
     }
 }

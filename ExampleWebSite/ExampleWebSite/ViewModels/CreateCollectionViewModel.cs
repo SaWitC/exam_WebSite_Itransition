@@ -20,6 +20,8 @@ namespace ExampleWebSite.ViewModels
         public IEnumerable<string> PropertiesNumTitles { get; set; }
         public IEnumerable<string> PropertiesStrTitles { get; set; }
         public IEnumerable<string> PropertiesDateTitles { get; set; }
+        public IEnumerable<string> PropertiesBoolTitles { get; set; }
+
 
         public IFormFile ImageFile { get; set; }
 

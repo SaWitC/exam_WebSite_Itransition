@@ -1,0 +1,26 @@
+﻿body {
+    background-color: #1f1e1e
+}
+
+.HeadStyle {
+    background-color: #1b1b1b;
+    border-bottom: 3px solid #1fa7c6;
+}
+
+.UserInfo {
+    border-left: 3px solid #1fa7c6;
+}
+
+.hr_custom {
+    height: 1px;
+    background-color: #1fa7c6;
+}
+
+.bg_Green {
+    background-color: #18d878;
+    border: 2px solid #1fa7c6;
+}
+
+.text_color{
+    color:#e2e2e2;
+}

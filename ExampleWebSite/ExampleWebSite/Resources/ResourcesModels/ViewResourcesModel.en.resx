@@ -118,72 +118,138 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddNewPropertiesMessage" xml:space="preserve">
-    <value>Дополнительные поля</value>
+    <value>Additional fields</value>
   </data>
   <data name="AddNewPropertiesMessageDetails" xml:space="preserve">
-    <value>вы можете использовать дополнительные поля для того чтобы указать дополнительные данные о элементах колекции например для книг год издания</value>
+    <value>you can use additional fields to specify additional data about the collection elements for example for books year of publication</value>
+  </data>
+  <data name="AdminCanDoText1" xml:space="preserve">
+    <value>The site admin can block and unblock user accounts</value>
+  </data>
+  <data name="AdminCanDoText2" xml:space="preserve">
+    <value>Admin Can create Collections and collection items on behalf of site users. To do this, you need to find the user on whose behalf you want to create a collection or element and click on the create collection button or go to the collection and click add element</value>
+  </data>
+  <data name="AdminPage" xml:space="preserve">
+    <value>Admin panel</value>
+  </data>
+  <data name="Avtor" xml:space="preserve">
+    <value>Avtor</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Block a user</value>
+  </data>
+  <data name="BanedUsers" xml:space="preserve">
+    <value>Banned authors</value>
+  </data>
+  <data name="boolrPropertiesEl" xml:space="preserve">
+    <value>Additional switch field</value>
+  </data>
+  <data name="CollectionTheme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="CollectionTitle" xml:space="preserve">
+    <value>Collection Title</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Создать</value>
+    <value>Create</value>
+  </data>
+  <data name="CreateCollectionFromUser" xml:space="preserve">
+    <value>Create a collection on behalf of the user</value>
+  </data>
+  <data name="datePropertiesEl" xml:space="preserve">
+    <value>Additional date field</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Delete</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Подробнее</value>
+    <value>See More</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Применить Изменения</value>
+    <value>Edit</value>
+  </data>
+  <data name="EditConfirm" xml:space="preserve">
+    <value>Apply Changes</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Электронная почта</value>
+    <value>Email</value>
   </data>
   <data name="Enter" xml:space="preserve">
-    <value>Войти</value>
+    <value>Enter</value>
+  </data>
+  <data name="ErrorLoadDataMessage" xml:space="preserve">
+    <value>Failed to load data</value>
+  </data>
+  <data name="FindUser" xml:space="preserve">
+    <value>Find the author</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>Забыл пароль</value>
+    <value>Forgot my password</value>
   </data>
   <data name="General" xml:space="preserve">
-    <value>Общие</value>
+    <value>Common</value>
   </data>
   <data name="Hello" xml:space="preserve">
-    <value>привет</value>
+    <value>Hello</value>
   </data>
   <data name="Help" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Help</value>
+  </data>
+  <data name="IsBaned" xml:space="preserve">
+    <value>User Status</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Languages</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Войти</value>
+    <value>Login</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Выйти</value>
+    <value>Logout</value>
   </data>
   <data name="MaxCommentLenght500" xml:space="preserve">
-    <value>Максимальная длина коментария 500символов</value>
+    <value>The maximum length of a comment is 500 characters</value>
+  </data>
+  <data name="More_Info" xml:space="preserve">
+    <value>More info</value>
   </data>
   <data name="MyCollections" xml:space="preserve">
-    <value>Мои коллекции</value>
+    <value>My Collections</value>
   </data>
   <data name="NewCollections" xml:space="preserve">
-    <value>Новые колекции</value>
+    <value>New collections</value>
   </data>
   <data name="NoHaveAccount" xml:space="preserve">
-    <value>Нет аккаунта?</value>
+    <value>do you have an account?</value>
+  </data>
+  <data name="numberPropertiesEl" xml:space="preserve">
+    <value>Additional numeric field</value>
   </data>
   <data name="PersonalData" xml:space="preserve">
-    <value>Персональные данные</value>
+    <value>Personal data</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
-    <value>Номер телефона</value>
+    <value>Phone number</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Реистрация</value>
+    <value>Register</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Поиск</value>
+    <value>Search</value>
+  </data>
+  <data name="SearchString" xml:space="preserve">
+    <value>Text (descriptions, titles, comments)</value>
+  </data>
+  <data name="stringPropertiesEl" xml:space="preserve">
+    <value>additional text field</value>
+  </data>
+  <data name="Thema" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="UnBan" xml:space="preserve">
+    <value>Unban</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>Имя пользователя</value>
+    <value>UserName</value>
   </data>
 </root>
