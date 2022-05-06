@@ -39,7 +39,7 @@ namespace ExampleWebSite.Data.Repositories
 
         public IEnumerable<PropertiesElementModel> GetPropertiesByItemId(int itemId)
         {
-            return _context.PropertiesElement.Where(o => o.ItemId == itemId).ToList();
+            return _context.PropertiesElement.Where(o => o.ItemId == itemId).ToList().OrderBy(o=>o.Type);
         }
     }
 }

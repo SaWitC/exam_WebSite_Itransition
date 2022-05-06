@@ -56,12 +56,13 @@ namespace ExampleWebSite.Controllers
             var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
             if (isAjax&&id!=null)
             {
-                return PartialView("_writeMoreItems",GetItemsMinByCollections((int)id, page));
+                var result = GetItemsMinByCollections((int)id, page);
+                result.AvtorName = _collection.GetAvtorNameByCollectionId((int)id);
+                return PartialView("_writeMoreItems",result);
             }
 
             if (id != null)
             {
-               
                 var collection = await _collection.FindByIdAsync((int)id);
 
                 if (collection!=null)
@@ -72,7 +73,8 @@ namespace ExampleWebSite.Controllers
 
                         collection = collection
                     };
-                    detailsModel.items = GetItemsMinByCollections(collection.Id,page).items;
+                    detailsModel.items = GetItemsMinByCollections(collection.Id, page).items;
+                    detailsModel.AvtorName = collection.AvtorName;
 
                     return View(detailsModel);
                 }
@@ -83,7 +85,8 @@ namespace ExampleWebSite.Controllers
         }
 
         //create -----------------------------------------------------------------------------
-        [Authorize(Policy= "IsBanedPolicy")]
+        //[Authorize(Policy= "IsBanedPolicy")]
+        [Authorize]
         [HttpGet]
         public ActionResult Create(string AvtorName)
         {
@@ -91,7 +94,8 @@ namespace ExampleWebSite.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "IsBanedPolicy")]
+        //[Authorize(Policy = "IsBanedPolicy")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateCollectionViewModel model)
         {

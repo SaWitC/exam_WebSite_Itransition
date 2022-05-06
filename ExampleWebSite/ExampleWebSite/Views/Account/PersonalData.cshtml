@@ -29,7 +29,7 @@
             </div>
 
             <a class="btn compItem" asp-action="EditThemeModal" asp-controller="Account">@ViewResourcesModel["Edit"]</a>
-            <hr />
+            <hr class="hr_custom" />
             @if (Model != null)
             {
                 <p><b>@ViewResourcesModel["Languages"]":</b>  @Model.CultureCode</p>

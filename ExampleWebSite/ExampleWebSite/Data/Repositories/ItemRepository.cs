@@ -48,6 +48,9 @@ namespace ExampleWebSite.Data.Repositories
             return _context.Items.Skip(skip).Take(pageSize).Where(o => o.CollectionId == collectionId).ToList();
         }
 
-
+        public async Task<IEnumerable<string>> GetTags(string SearchString)
+        {
+            return await _context.Items.Take(6).Where(o => o.Tags.ToLower().Contains(SearchString.ToLower())).Select(o => o.Tags).ToListAsync();
+        }
     }
 }

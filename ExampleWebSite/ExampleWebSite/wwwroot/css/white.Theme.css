@@ -1,26 +1,34 @@
-﻿body {
+﻿/*
+    #gray #404040
+    #dark #1f1e1e;
+    #white #white
+    #green ##008080
+
+*/
+
+body {
     background-color:#e1e1e1;
 }
 
 .HeadStyle {
     background-color: #404040;
     color: #dedede;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #1f1e1e;
 }
 
 .UserInfo {
-    border-left: 3px solid black;
+    border-left: 3px solid #1f1e1e;
 }
 
-.hr_custom{
-    height:1px;
-    background-color:black;
+.hr_custom {
+    height: 1px;
+    background-color: #1f1e1e;
 }
 
 .bg_Green {
     background-color: #008080;
     color: #dedede;
-    border: 2px solid black;
+    border: 2px solid #1f1e1e;
 }
 
 .text_color {
@@ -29,13 +37,19 @@
 
 .Table_custom {
     background-color: #e1e1e1;
-    border: solid 1px black;
+    border: solid 1px #1f1e1e;
 }
 
 .bg_green_b {
     background-color: #008080;
 }
-.input_custom{
-    background-color:#d6d5d5;
-    color:black;
+.input_custom {
+    background-color: #d6d5d5;
+    color: #1f1e1e;
+}
+.div_border_custom {
+    border: solid 1px #1f1e1e;
+}
+.bg_swap_gray {
+    background-color: #eeeeee;
 }

@@ -1,10 +1,14 @@
 ﻿@model ExampleWebSite.ViewModels.CreateItemViewModel
-
 <script>
     $(document).ready(function () {
         $('#datePicker').val(new Date().toDateInputValue());
     });
 </script>
+
+<input type="text" placeholder="Type something here to see its length." size="50">
+<p id="log"></p>
+
+
 <div>
     <form method="post" asp-controller="Item" asp-action="Create">
         <div>
@@ -14,7 +18,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Item.Tags"></label>
-                <input asp-for="Item.Tags" />
+                <input type="text" id="tags" asp-for="Item.Tags">
+
+                <select  id="Themss"> </select>
+              
             </div>
         </div>
 
@@ -30,28 +37,28 @@
                     <h3>@item.Title</h3>
                     <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                     <input hidden name="Properties[@i].title" value="@item.Title" type="text" />
-                    <input name="Properties[@i].value" type="number" />
+                    <input class="bg_swap_gray input-group" name="Properties[@i].value" type="number" />
                 }
                 if (item.Type == "string")
                 {
                     <h3>@item.Title</h3>
                     <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                     <input hidden name="Properties[@i].title" value="@item.Title" type="text" />
-                    <input name="Properties[@i].value" type="text" />
+                    <input class="bg_swap_gray input-group" name="Properties[@i].value" type="text" />
                 }
                 if (item.Type == "bool")
                 {
                     <h3>@item.Title</h3>
                     <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                     <input hidden name="Properties[@i].title" type="text" value="@item.Title" />
-                    <input name="Properties[@i].value" type="checkbox" />
+                    <input class="bg_swap_gray Check-icon custom-checkbox" name="Properties[@i].value" type="checkbox" />
                 }
                 if (item.Type == "date")
                 {
                     <h3>@item.Title</h3>
                     <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                     <input hidden name="Properties[@i].title" type="text" value="@item.Title" />
-                    <input id="datePicker" name="Properties[@i].value" type="date" />
+                    <input class="bg_swap_gray input-group" id="datePicker" name="Properties[@i].value" type="date" />
                 }
                 i++;
             }
@@ -60,3 +67,66 @@
         <input type="submit" value="sent" />
     </form>
 </div>
+
+@*<script onload="body" type="text/javascript">
+    let input = document.getElementById("tags")
+    input.oninput = handleInput;
+
+    function handleInput(e) {
+        var len = e.target.value.length
+        var indx = e.target.value.lastIndexOf(',');
+        if (indx != -1) {
+            if (len - indx > 3) {
+                alert("222");
+
+            }
+        }
+        else {
+            if (len - indx > 3) {
+                alert("111");
+            }
+        }
+    }
+
+</script>*@
+
+
+<script>
+        let input = document.getElementById("tags")
+        input.oninput = handleInput2;
+        alert("0")
+        function handleInput2(e) {
+            alert("1");
+
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("GetTags", "Item")",
+                data: { SearchString: $('#tags').val() },
+                dataType: "text",
+                success: function (data) {
+                    alert("2");
+                    var arr = JSON.parse(data)
+                    var arr2 = JSON.parse(data)
+                    console.log(data);
+                    console.log(arr);
+
+
+                    arr.forEach(el => $("#themes").append(`<option value="${el.title}">${el.title}</option>`));
+                    select = document.getElementById('Themss');
+                    alert("3");
+
+                    arr2.forEach(el => {
+
+                        var opt = document.createElement('option');
+                        opt.value = el.title;
+                        opt.innerHTML = el.title;
+                        select.appendChild(opt);
+
+                    });
+                },
+                error: function () {
+                    alert("11");
+                }
+            })
+        }
+</script>

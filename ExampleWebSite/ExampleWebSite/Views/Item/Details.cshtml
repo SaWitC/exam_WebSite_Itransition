@@ -1,26 +1,44 @@
 ﻿@model ItemDetailsViewModel
 
-<h1>@Model.Item.Title</h1>
+
+<hr size="3" class="hr_custom" />
+<h3>@Model.Item.Title</h3>
+<hr size="3" class="hr_custom" />
+<div></div>
 
 
-@if (Model.Properties != null) {
-    foreach (var item in Model.Properties)
-    {
-        if (item.Type == "number"|| item.Type == "date")
+@if (Model.Properties != null)
+{
+foreach (var item in Model.Properties)
+{
+    <div class="row justify-content-md-start">
+        @if (item.Type == "number" || item.Type == "date")
         {
-                <p><b>@item.Title</b> @item.Value</p>
+            <div class="div_border_custom col-6"><b>@item.Title</b></div>
+            <div class="div_border_custom col-6">@item.Value</div>
         }
-        if(item.Type == "bool")
+        else if (item.Type == "bool")
         {
-            <p><b>@item.Title</b></p>
             if (item.Value == "on")
-            {<input type="checkbox" checked disabled />}
-            else {<input type="checkbox" disabled />}
+            {
+            <div class="div_border_custom col-6"><b>@item.Title</b></div>
+            <div class="div_border_custom col-6"><img alt="yes" class="Check-icon" src="~/icons/yes_check.png" /></div>
+            }
+            else
+            {
+                <div class="div_border_custom col-6"><b>@item.Title</b></div>
+                <div class="div_border_custom col-6"><img alt="no" class="Check-icon" src="~/icons/no_check.png" /></div>
+            <input type="checkbox" disabled />
+            }
         }
-        <hr size="3" class="hr_custom"/>
+        else
+        {
+        <div class="col-12"><h3>@item.Title</h3>
+        @item.Value</div>
+        }
+    </div>
+        }
     }
-}
-
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -40,7 +58,7 @@ else
     var page = 0;
     var _inCallback = false;
     window.addEventListener('scroll', function () {
-      
+
         if (page > -1 && !_inCallback) {
             _inCallback = true;
             page++;
@@ -89,7 +107,6 @@ else
             });
         }
     }
-
 </script>
 
 <script>
@@ -111,7 +128,7 @@ else
 </script>
 
 <div>
-    <input id="id" value="@Model.Item.Id" />
+    <input id="id" hidden value="@Model.Item.Id" />
     <textarea type="text" id="message" maxlength="500" placeholder="@ViewResourcesModel["MaxCommentLenght500"]"></textarea>
     <button onclick="SentComment()" class="btn">@ViewResourcesModel["Enter"]</button>
 </div>

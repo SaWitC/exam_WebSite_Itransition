@@ -20,5 +20,7 @@ namespace ExampleWebSite.Data.Interfaces
         public Task<ItemModel> FindByTitleAsync(string title);
         public IEnumerable<ItemModel> TakeItemBy_collection(int collectionId,int skip,int pageSize);
 
+        public Task<IEnumerable<string>> GetTags(string SearchString);
+
     }
 }

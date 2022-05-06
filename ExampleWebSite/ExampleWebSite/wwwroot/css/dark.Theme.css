@@ -1,4 +1,12 @@
-﻿body {
+﻿/*
+    #gray #404040
+    #dark #1f1e1e;
+    #white #white
+    #green ##008080
+
+*/
+
+body {
     background-color: #1f1e1e
 }
 
@@ -14,7 +22,7 @@
 
 .hr_custom {
     height: 1px;
-    background-color: #1fa7c6;
+    background-color: #1f1e1e;
 }
 
 .bg_Green {
@@ -39,4 +47,11 @@
 .input_custom {
     background-color: #272727;
     color: white;
+}
+.div_border_custom{
+    border: solid 1px white;
+}
+
+.bg_swap_gray {
+    background-color:#404040;
 }

@@ -24,7 +24,8 @@ namespace ExampleWebSite.Data.Interfaces
         public Task<IEnumerable<CollectionModel>> FindByAvtorIdAsync(string avtorName);
 
         public Task<IEnumerable<CollectionModel>> TakeCollection_SkipAsync(int skip,int pageSize);
-            
+        public string GetAvtorNameByCollectionId(int collectionId);
+
 
 
 

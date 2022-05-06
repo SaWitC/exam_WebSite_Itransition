@@ -98,5 +98,10 @@ namespace ExampleWebSite.Data.Repositories
             return collections;
         }
 
+        public string GetAvtorNameByCollectionId(int collectionId)
+        {
+            return _context.Collections.FirstOrDefault(o => o.Id == collectionId).AvtorName;
+        }
+
     }
 }

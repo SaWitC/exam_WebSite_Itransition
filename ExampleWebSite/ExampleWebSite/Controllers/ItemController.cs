@@ -286,6 +286,10 @@ namespace ExampleWebSite.Controllers
             }
             return View(mode);
         }
+        public async Task<IEnumerable<string>> GetTags(string SearchString)
+        {
+            return await _item.GetTags(SearchString);
+        }
 
 
     }
