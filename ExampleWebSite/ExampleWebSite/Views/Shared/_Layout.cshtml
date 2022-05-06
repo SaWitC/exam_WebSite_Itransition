@@ -8,7 +8,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="~/css/WhiteTheme.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <title>@ViewData["Title"] MyColection</title>
@@ -16,10 +15,17 @@
     @await Html.PartialAsync("Partials/_stylesPartial.cshtml")
 
 </head>
-<body>
+<body class="text_color">
     @await Html.PartialAsync("Partials/_headerPartial.cshtml")
     <main role="main" class="pb-3">
-        @RenderBody()
+        <div class="container">
+            
+            @*<div class="row">*@
+                
+                    @RenderBody()
+                
+            @*</div>*@
+        </div>
     </main>
 
     @await Html.PartialAsync("Partials/_wysiwyg_Markdown_editorPartial.cshtml")

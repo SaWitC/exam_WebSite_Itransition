@@ -19,9 +19,9 @@ namespace ExampleWebSite.Data.Repositories
             _userManager = userManager;
         }
 
-        public async Task BanUsersAsync(IEnumerable<string> userNames)
+        public async Task BanUsersAsync(IEnumerable<string> UserNames)
         {
-            foreach (var item in userNames)
+            foreach (var item in UserNames)
             {
                 var user =await _userManager.FindByNameAsync(item);
                 if (user != null)
@@ -32,9 +32,17 @@ namespace ExampleWebSite.Data.Repositories
             }
         }
 
-        public async Task BanUserAsync(string userName)
+        public async Task BanUserAsync(string UserName)
         {
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await _userManager.FindByNameAsync(UserName);
+            if (user != null)
+            {
+                user.IsBaned = true;
+                await _userManager.UpdateAsync(user);
+            }
+        }
+        public async Task BanUserAsync(User user)
+        {
             if (user != null)
             {
                 user.IsBaned = true;
@@ -56,9 +64,17 @@ namespace ExampleWebSite.Data.Repositories
             }
         }
 
-        public async Task UnblockUserAsunc(string userName)
+        public async Task UnblockUserAsunc(string UserName)
         {
-            var user =await _userManager.FindByNameAsync(userName);
+            var user =await _userManager.FindByNameAsync(UserName);
+            if (user != null)
+            {
+                user.IsBaned = false;
+                await _userManager.UpdateAsync(user);
+            }
+        }
+        public async Task UnblockUserAsunc(User user)
+        {
             if (user != null)
             {
                 user.IsBaned = false;
@@ -86,5 +102,26 @@ namespace ExampleWebSite.Data.Repositories
             }
         }
 
+        public async Task<bool> GiveRole(string UserName, string Role)
+        {
+            var user = await _userManager.FindByNameAsync(UserName);
+            if (user != null)
+            {
+                var resoult = await _userManager.AddToRoleAsync(user,Role);
+                if (resoult.Succeeded) return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> RemoveRoleFromUser(string UserName, string Role)
+        {
+            var user = await _userManager.FindByNameAsync(UserName);
+            if (user != null) 
+            {
+                var resoult = await _userManager.RemoveFromRoleAsync(user, Role);
+                if (resoult.Succeeded) return true;
+            }
+            return false;
+        }
     }
 }

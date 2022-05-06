@@ -1,0 +1,38 @@
+﻿@model ExampleWebSite.ViewModels.Account.InformationAboutUser
+<div class="row">
+    <div class="col-md-3">
+        @await Html.PartialAsync("Partials/_NavigationByUserForAdminPartial.cshtml",Model.user)
+    </div>
+    <div class="col-md-9 UserInfo ">
+        <p><b>@ViewResourcesModel["UserName"]":</b>  @Model.user.UserName</p>
+        <hr class="hr_custom" />
+        <p><b>@ViewResourcesModel["Email"]":</b>  @Model.user.Email</p>
+        <hr class="hr_custom" />
+        <p><b>@ViewResourcesModel["PhoneNumber"]":</b>  @Model.user.PhoneNumber</p>
+        <hr class="hr_custom" />
+        @if (Model.user.IsBaned)
+        {
+            <p><b>@ViewResourcesModel["Blocking_status"]":</b>@ViewResourcesModel["Baned"]</p>
+        }
+        else
+        {
+            <p><b>@ViewResourcesModel["Blocking_status"]":</b>@ViewResourcesModel["NotBaned"]</p>
+        }
+        <hr class="hr_custom" />
+        <h4>@ViewResourcesModel["Roles"]</h4>
+
+        @if (Model.roles != null)
+        {
+            <ol>
+                @foreach (var item in Model.roles)
+                {
+                    <li>@item</li>
+                }
+            </ol>
+        }
+        else if (Model.roles == null)
+        {
+            <P>@ViewResourcesModel["UserHasNoRoles"]</P>
+        }
+    </div>
+</div>

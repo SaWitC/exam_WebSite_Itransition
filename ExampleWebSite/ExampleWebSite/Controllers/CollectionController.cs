@@ -12,6 +12,7 @@ using ExampleWebSite.Models.AddationalProperts;
 using ExampleWebSite.Components.GenerateProperties;
 using Microsoft.AspNetCore.Authorization;
 using ExampleWebSite.Components.YandexDisk;
+using ExampleWebSite.ViewModels.Collections.Admin;
 
 namespace ExampleWebSite.Controllers
 {
@@ -25,7 +26,7 @@ namespace ExampleWebSite.Controllers
         private readonly UserManager<User> _userManager;
 
         //page -settings
-        private static int PageSize = 6;
+        private static readonly int PageSize = 4;
 
         public CollectionController(UserManager<User> userManager, IItemRepository item, IpropertiesElementsRepository properties, ICollectionRepository collection,IThemeRepository theme, IpropertiesModelRepository propertiesModel)
         {
@@ -49,19 +50,29 @@ namespace ExampleWebSite.Controllers
         }
 
         // GET: CollectionController/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int? id,int? p)
         {
+            int page = p ?? 0;
+            var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            if (isAjax&&id!=null)
+            {
+                return PartialView("_writeMoreItems",GetItemsMinByCollections((int)id, page));
+            }
+
             if (id != null)
             {
+               
                 var collection = await _collection.FindByIdAsync((int)id);
 
-                if(collection!=null)
+                if (collection!=null)
                 {
-                    CollectionDetailsViewModel detailsModel = new CollectionDetailsViewModel();
-                    detailsModel.ImageUrl = await CollectionImage.GetImageLinkAsync("AQAAAABgW19JAAfYg2ZC-Ml1M0I4vHLmlumOb_c", $"collection_{collection.Id}_", $"logo_{collection.Id}");
+                    CollectionDetailsViewModel detailsModel = new CollectionDetailsViewModel
+                    {
+                        ImageUrl = await CollectionImage.GetImageLinkAsync("AQAAAABgW19JAAfYg2ZC-Ml1M0I4vHLmlumOb_c", $"collection_{collection.Id}_", $"logo_{collection.Id}"),
 
-                    detailsModel.collection = collection;
-                    detailsModel.collection.Items = await _item.FindByCollectionIdAsync((int)id);
+                        collection = collection
+                    };
+                    detailsModel.items = GetItemsMinByCollections(collection.Id,page).items;
 
                     return View(detailsModel);
                 }
@@ -72,15 +83,15 @@ namespace ExampleWebSite.Controllers
         }
 
         //create -----------------------------------------------------------------------------
-        [Authorize]
+        [Authorize(Policy= "IsBanedPolicy")]
         [HttpGet]
-        public ActionResult Create(CollectionModel model)
+        public ActionResult Create(string AvtorName)
         {
-            return View();
+            return View(new CreateCollectionViewModel { AvtorName=AvtorName});
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "IsBanedPolicy")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateCollectionViewModel model)
         {
@@ -89,7 +100,14 @@ namespace ExampleWebSite.Controllers
                 if (ModelState.IsValid)
                 {
                     model.collection.Thema = await _Themes.FindByTitleAsync(model.ThemaTitle);
-                    model.collection.AvtorName = User.Identity.Name;
+
+                    if (!User.IsInRole("admin"))
+                        model.collection.AvtorName = User.Identity.Name;
+                    else if (!string.IsNullOrEmpty(model.AvtorName))
+                        model.collection.AvtorName = model.AvtorName;
+                    else
+                        model.collection.AvtorName = User.Identity.Name;
+
                     await _collection.CreateAsync(model);
                     //propertiesElements 
                     Generate generate = new Generate(_collection, _propertiesModel);
@@ -209,23 +227,40 @@ namespace ExampleWebSite.Controllers
         //MyCollection --------------------------------------------------------
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> MyCollection()
+        public IActionResult MyCollection(int?id )
         {
-            var collections = await _collection.FindByAvtorIdAsync(User.Identity.Name);
-            return View(collections);
+            int page = id ?? 0;
+            var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            if (isAjax)
+            {
+                return PartialView("_writeMoreCollections", GetCollectionsToAvtor(page));
+            }
+            return View(GetCollectionsToAvtor(page));
         }
         
         public IEnumerable<CollectionMinViewModel> GetCollections(int page=1)
         {
             var CollectionsToSkip = page * PageSize;
             var collectionList= _collection.TakeCollectionMin_Skip(CollectionsToSkip, PageSize);
-            //var collection = new List<CollectionMinViewModel>();
-            //foreach (var item in collectionList)
-            //{
-            //    //item.ImageUrl = await CollectionImage.GetImageLinkAsync("AQAAAABgW19JAAfYg2ZC-Ml1M0I4vHLmlumOb_c", $"collection_{item.Id}_", $"logo_{item.Id}");
-            //    collection.Add(item);
-            //}
             return collectionList;
         }
+        public IEnumerable<CollectionMinViewModel> GetCollectionsToAvtor(int page = 1)
+        {
+            var CollectionsToSkip = page * PageSize;
+            var collectionList = _collection.TakeCollectionMinByAvtor_Skip(CollectionsToSkip, PageSize, User.Identity.Name);
+            return collectionList;
+        }
+
+        public CollectionDetailsViewModel GetItemsMinByCollections(int collectionId,int page = 1)
+        {
+            CollectionDetailsViewModel model = new CollectionDetailsViewModel();
+            var ItemToSkip = page * PageSize;
+            var ItemList = _item.TakeItemBy_collection(collectionId, ItemToSkip, PageSize);
+            model.items = ItemList;
+            return model;
+        }
+
+        #region Admin
+        #endregion
     }
 }

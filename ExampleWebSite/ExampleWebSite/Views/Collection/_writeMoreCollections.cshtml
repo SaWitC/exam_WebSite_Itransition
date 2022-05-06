@@ -11,21 +11,6 @@
             <td> <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">Go</a></td>
             <td>@item.AvtorName</td>
         </tr>
-
-        @*<div class="card" style="width: 18rem;">
-            @if (item.ImageUrl != null)
-            {
-                <img class="card-img-top" src="@item.ImageUrl" alt="Card image cap">
-            }
-            <div class="card-body">
-                <h5 class="card-title">@item.Title</h5>
-                <p>@item.Thema</p>
-                <p class="card-text">@item.ShortDesc</p>
-            </div>
-            <div class="card-body">
-                <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">Go</a>
-            </div>
-        </div>*@
     }
 }
 else

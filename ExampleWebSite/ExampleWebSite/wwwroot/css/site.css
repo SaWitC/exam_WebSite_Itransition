@@ -82,3 +82,17 @@ body {
         /*margin-right: auto;*/
     }
 }
+
+.lightBlueGreen {
+    background-color: #009090;
+}
+
+.darkBlueGreen{
+    background-color:#066;
+}
+.darkBlue_custom {
+    background-color: #1a5f80;
+}
+.gray_custom {
+    background-color: #404040;
+}

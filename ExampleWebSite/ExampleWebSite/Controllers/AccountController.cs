@@ -2,6 +2,8 @@
 using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
 using ExampleWebSite.ViewModels.Account;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ExampleWebSite.Controllers
@@ -20,7 +23,7 @@ namespace ExampleWebSite.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IUserRepository _userRepository;
 
-        private int size = 10;//size of Users
+        private readonly int size = 10;//size of Users
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -39,11 +42,20 @@ namespace ExampleWebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User() { Email = model.Email, UserName = model.UserName };//initialise object
+                User user = new User{ Email = model.Email, UserName = model.UserName };//initialise object
                 var resoult = await _userManager.CreateAsync(user, model.Password);//crete new user
                 if (resoult.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, false);//add cockies
+                    await _userManager.AddClaimAsync(user, new Claim("IsBaned", user.IsBaned.ToString())); ;
+                    // создаем claim для хранения года рождения
+                    //var identityClaim = new IdentityUserClaim<int>{ ClaimType = "Year", ClaimValue = user.IsBaned.ToString() };
+                    
+                    // добавляем claim пользователю
+                    
+                    // сохраняем изменения
+                    //await _userManager.UpdateAsync(user);
+
+                    await _signInManager.SignInAsync(user, true);//add cockies
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -65,25 +77,28 @@ namespace ExampleWebSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            Response.Cookies.Append("name", "Tom");
             if (ModelState.IsValid)
             {
-                var result
-                   = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                var user = await _userManager.FindByNameAsync(model.UserName);
+                if (user != null)
                 {
-                    var user = await _userManager.FindByNameAsync(model.UserName);
-                    Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,CookieRequestCultureProvider
-                        .MakeCookieValue(new RequestCulture(user.CultureCode,user.CultureCode)));
+                    if (user.IsBaned) return RedirectToAction("YourAccountIsBaned","Account");
 
-                    // check Url
-                    if (!string.IsNullOrEmpty(model.ReturnURL) && Url.IsLocalUrl(model.ReturnURL))
+                    var result
+                       = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    if (result.Succeeded)
                     {
-                        return Redirect(model.ReturnURL);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
+                        Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider
+                            .MakeCookieValue(new RequestCulture(user.CultureCode, user.CultureCode)));
+                        // check Url
+                        if (!string.IsNullOrEmpty(model.ReturnURL) && Url.IsLocalUrl(model.ReturnURL))
+                        {
+                            return Redirect(model.ReturnURL);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                 }
             }
@@ -130,15 +145,45 @@ namespace ExampleWebSite.Controllers
             await _userRepository.EditThemaAsync(User.Identity.Name, Thema);
             return RedirectToAction("PersonalData", "Account");
         }
+        #region Admin
+        [HttpGet]
+        [Authorize(Roles ="admin")]
+        public async Task<IActionResult> OperationsWithUser(string UserName)
+        {
+            if (String.IsNullOrEmpty(UserName)) return NotFound();
+            InformationAboutUser model = new InformationAboutUser();
+            var user = await _userManager.FindByNameAsync(UserName);
+            if (user != null)
+            {
+                model.user = user;
+                model.roles = await _userManager.GetRolesAsync(user);
+                return View(model);
+            }
+            else
+                return NotFound();
+        }
+
         [Authorize(Roles = "admin")]
         [HttpGet]
-        //adminPage ==================================================================
+        public async Task<IActionResult> CheckInfoAboutUser(string UserName)
+        {
+            InformationAboutUser model = new InformationAboutUser();
+            var user = await _userManager.FindByNameAsync(UserName);
+            if (user != null)
+            {
+                model.user = user;
+                model.roles =await _userManager.GetRolesAsync(user);
+                return View(model);
+            }
+            else
+                return NotFound();
+        }
+        [Authorize(Roles = "admin")]
+        [HttpGet]
         public IActionResult AdminPage()
         {
             return View();
         }
-
-        //Find ==========================================================================
         [Authorize(Roles ="admin")]
         [HttpGet]
         public IActionResult FindUsersByName(string SearchString,int page=0)
@@ -159,27 +204,94 @@ namespace ExampleWebSite.Controllers
             return PartialView();
         }
         //ban ============================================================================
+        //[HttpPost]
+        //[Authorize(Roles ="admin")]
+        //public async Task<IActionResult> Ban(FindUserViewModel model,string User)
+        //{
+        //    if (User != null)
+        //    {
+        //        await _userRepository.BanUserAsync(User);
+        //    }
+        //    if (model != null)
+        //        return RedirectToAction("FindUsersByName", "Account",model);
+        //    else
+        //        return Ok();
+        //}
+
+        //[HttpPost]
+        //[Authorize(Roles = "admin")]
+        //public async Task<IActionResult> UnBan(FindUserViewModel model, string User)
+        //{
+        //    if (User != null)
+        //    {
+        //        await _userRepository.UnblockUserAsunc(User);
+        //    }
+        //    return RedirectToAction("FindUsersByName", "Account", model);
+        //}
+
         [HttpPost]
-        [Authorize(Roles ="admin")]
-        public async Task<IActionResult> Ban(FindUserViewModel model,string User)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Ban(string UserName)
         {
-            if (User != null)
+            var user = await _userManager.FindByNameAsync(UserName);
+            if (user != null)
             {
-                await _userRepository.BanUserAsync(User);
+
+                await _userRepository.BanUserAsync(user);
+
+                var Claims = await _userManager.GetClaimsAsync(user);
+                var IsBanedClaim = Claims.FirstOrDefault(o => o.Type == "IsBaned");
+                if (IsBanedClaim != null)
+                {
+                    await _userManager.RemoveClaimAsync(user, IsBanedClaim);
+                    await _userManager.AddClaimAsync(user, new Claim("IsBaned", true.ToString()));
+                }
             }
-            return RedirectToAction("FindUsersByName", "Account",model);
+            return RedirectToAction("OperationsWithUser","Account",new { UserName = user.UserName});
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> UnBan(FindUserViewModel model, string User)
+        public async Task<IActionResult> UnBan(string UserName)
         {
-            if (User != null)
+            var user = await _userManager.FindByNameAsync(UserName);
+
+            if (user != null)
             {
-                await _userRepository.UnblockUserAsunc(User);
+                await _userRepository.UnblockUserAsunc(user);
+
+                var Claims = await _userManager.GetClaimsAsync(user);
+                var IsBanedClaim = Claims.FirstOrDefault(o => o.Type == "IsBaned");
+                if (IsBanedClaim != null)
+                {
+                    await _userManager.RemoveClaimAsync(user, IsBanedClaim);
+                    await _userManager.AddClaimAsync(user, new Claim("IsBaned", false.ToString()));
+                }
             }
-            return RedirectToAction("FindUsersByName", "Account", model);
+            return RedirectToAction("OperationsWithUser","Account",new { UserName = user.UserName});
         }
+
+        [HttpPost]
+        [Authorize(Roles ="admin")]
+        public async Task<IActionResult> GiveRole(string UserName,string RoleName)
+        {
+            var result = await _userRepository.GiveRole(UserName, RoleName);
+            if (result)
+                return RedirectToAction("OperationsWithUser", "Account", new { UserName = UserName });
+            else
+                return NotFound();
+        }
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> RemoveRole(string UserName,string RoleName)
+        {
+            var result=  await _userRepository.RemoveRoleFromUser(UserName,RoleName);
+            if (result)
+                return RedirectToAction("OperationsWithUser", "Account", new { UserName = UserName });
+            else
+                return NotFound();
+        }
+        #endregion
         //EditCulture ==============================================================
         [Authorize]
         [HttpPost]
@@ -190,6 +302,21 @@ namespace ExampleWebSite.Controllers
                 .MakeCookieValue(new RequestCulture(user.CultureCode, user.CultureCode)));
 
             return RedirectToAction("PersonalData", "Account");
+        }
+
+
+        private async Task Authenticate(User user)////////////////////////////////////////////////////////////////
+        {
+            // создаем один claim
+            var claims = new List<Claim>
+            {
+                new Claim("Isbaned", user.IsBaned.ToString()),
+            };
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
+            // установка аутентификационных куки
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }

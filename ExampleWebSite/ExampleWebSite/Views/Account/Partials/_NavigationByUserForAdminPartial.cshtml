@@ -1,0 +1,6 @@
+﻿@model User
+
+<div class="btn-group-vertical w-100">
+    <a class="btn m-1 bg_Green btn-lg btn-block" asp-action="CheckInfoAboutUser" asp-route-UserName="@Model.UserName" asp-controller="Account">@ViewResourcesModel["General"]</a>
+    <a class="btn m-1 bg_Green btn-lg btn-block" asp-action="OperationsWithUser" asp-route-UserName="@Model.UserName" asp-controller="Account">@ViewResourcesModel["OperationsWithUser"]</a>
+</div>

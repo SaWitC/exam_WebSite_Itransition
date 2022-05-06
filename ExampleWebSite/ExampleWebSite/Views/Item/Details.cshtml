@@ -2,6 +2,7 @@
 
 <h1>@Model.Item.Title</h1>
 
+
 @if (Model.Properties != null) {
     foreach (var item in Model.Properties)
     {
@@ -17,7 +18,6 @@
             else {<input type="checkbox" disabled />}
         }
         <hr size="3" class="hr_custom"/>
-
     }
 }
 

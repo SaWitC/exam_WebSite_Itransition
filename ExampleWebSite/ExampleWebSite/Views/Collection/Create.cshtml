@@ -1,5 +1,6 @@
 ﻿@model ExampleWebSite.ViewModels.CreateCollectionViewModel
 
+
 <script>
      $(document).ready(function () {
             $.ajax({
@@ -8,7 +9,18 @@
                 dataType: "text",
                 success: function (data) {
                     var arr = JSON.parse(data)
+                    var arr2 = JSON.parse(data)
+
                     arr.forEach(el => $("#themes").append(`<option value="${el.title}">${el.title}</option>`));
+                    select = document.getElementById('Themss');
+                    arr2.forEach(el => {
+
+                        var opt = document.createElement('option');
+                        opt.value = el.title;
+                        opt.innerHTML = el.title;
+                            select.appendChild(opt);
+                    
+                    });
                 },
                 error: function () {
                 }
@@ -16,104 +28,147 @@
         })
 </script>
 
-<h1>Create Collection</h1>
+<div>
+    @if (!string.IsNullOrEmpty(Model.AvtorName)) { 
+        <div class="lightBlueGreen w-100">
+            <p><b>@ViewResourcesModel["author_will_be"] :</b> @Model.AvtorName</p>
+        </div>
+    }
 
-<form enctype="multipart/form-data" asp-action="Create" asp-controller="Collection" method="post">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div class="form-group">
-        <label asp-for="collection.Title"></label>
-        <input asp-for="collection.Title" />
-        <span asp-validation-for="collection.Title"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="collection.ShortDesc"></label>
+    <form enctype="multipart/form-data" asp-action="Create" asp-controller="Collection" method="post">
+        <input hidden value="@Model.AvtorName" asp-for="AvtorName"/>
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group">
+            <label asp-for="collection.Title"></label>
+            <input class="input-group input_custom" asp-for="collection.Title" />
+            <span asp-validation-for="collection.Title"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="collection.ShortDesc"></label>
 
-        <textarea asp-for="collection.ShortDesc" id="kv-01" rows="15" class="markdown" required data-bs-version="3" data-theme="fa4" title="Krajee Markdown Editor">
+            <textarea style="hyphens:auto; min-width:50%" asp-for="collection.ShortDesc" id="kv-01" rows="15" class="markdown" required data-bs-version="3" data-theme="fa4" title="Krajee Markdown Editor">
     </textarea>
-        <hr>
-        <div class="row">
-            <div class="col-sm-4">
+            <hr class="hr_custom" />
+            <div class="row">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-check"></i> Submit</button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="reset" class="btn btn-block btn-default"><i class="fa fa-ban"></i> Reset</button>
+                </div>
+                <div class="col-sm-4">
+                </div>
             </div>
-            <div class="col-sm-2">
-                <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-check"></i> Submit</button>
+            <span asp-validation-for="collection.ShortDesc"></span>
+        </div>
+
+        <hr class="hr_custom" />
+
+        <div class="form-group">
+            <label>@ViewResourcesModel["Image"]</label>
+            <input asp-for="ImageFile" accept="image/jpg,image/jpeg" />
+        </div>
+        <hr class="hr_custom" />
+        @*<div class="form-group">
+            <input type="text" asp-for="ThemaTitle" list="themes" />
+        </div>*@
+
+        <h1>@ViewResourcesModel["AddNewPropertiesMessage"]</h1>
+        <p>@ViewResourcesModel["AddNewPropertiesMessageDetails"]</p>
+
+        <input hidden id="num" value="0" type="number" />
+        <input hidden id="str" value="0" type="number" />
+        <input hidden id="date" value="0" type="number" />
+        <input hidden id="bool" value="0" type="number" />
+
+
+        @*<datalist id="themes" name="">
+        </datalist>*@
+        <select asp-for="ThemaTitle" id="Themss"> </select>
+
+        <button class="bg_Green btn" type="button" onclick="createNum()">@ViewResourcesModel["numberPropertiesEl"]</button>
+        <button class="bg_Green btn" type="button" onclick="createStr()">@ViewResourcesModel["stringPropertiesEl"]</button>
+        <button class="bg_Green btn" type="button" onclick="createDate()">@ViewResourcesModel["datePropertiesEl"]</button>
+        <button class="bg_Green btn" type="button" onclick="createBool()">@ViewResourcesModel["boolPropertiesEl"]</button>
+
+        <div id="generateElement">
+            <div class="text_color" id="generateNum">
+                <hr class="hr_custom" />
+                <h4>@ViewResourcesModel["NumberProperties"]</h4>
+                <hr class="hr_custom" />
             </div>
-            <div class="col-sm-2">
-                <button type="reset" class="btn btn-block btn-default"><i class="fa fa-ban"></i> Reset</button>
+            <div id="generateStr">
+                <hr class="hr_custom" />
+                <h4>@ViewResourcesModel["StringProperties"]</h4>
+                <hr class="hr_custom" />
             </div>
-            <div class="col-sm-4">
+            <div id="generateBool">
+                <hr class="hr_custom" />
+                <h4>@ViewResourcesModel["BoolProperties"]</h4>
+                <hr class="hr_custom" />
+            </div>
+            <div id="generateDate">
+                <hr class="hr_custom" />
+                <h4>@ViewResourcesModel["DateProperties"]</h4>
+                <hr class="hr_custom" />
             </div>
         </div>
-        <span asp-validation-for="collection.ShortDesc"></span>
-    </div>
 
-    <div class="form-group">
-        <label>image</label>
-        <input asp-for="ImageFile" accept="image/jpg,image/jpeg" />
-    </div>
+        <input class="btn bg_green_b" type="submit" value="@ViewResourcesModel["Create"]" />
+    </form>
+    <button>string</button>
+</div>
 
-    <div class="form-group">
-        <input type="text" asp-for="ThemaTitle" list="themes" />
-    </div>
-
-    <div id="generateElement">
-
-    </div>
-
-    <input hidden id="num" value="0" type="number" />
-    <input hidden id="str" value="0" type="number" />
-    <input hidden id="date" value="0" type="number" />
-    <input hidden id="bool" value="0" type="number" />
-
-
-    <datalist id="themes" name="">
-    </datalist>
-
-    <input type="submit" value="@ViewResourcesModel["Create"]" />
-</form>
-
-<h1>@ViewResourcesModel["AddNewPropertiesMessage"]</h1>
-<p>@ViewResourcesModel["AddNewPropertiesMessageDetails"]</p>
-<button onclick="createNum()">@ViewResourcesModel["numberPropertiesEl"]</button>
-<button onclick="createStr()">@ViewResourcesModel["stringPropertiesEl"]</button>
-<button onclick="createDate()">@ViewResourcesModel["datePropertiesEl"]</button>
-<button onclick="createBool()">@ViewResourcesModel["boolPropertiesEl"]</button>
-
-
-<button>string</button>
-
-@*<button onclick="loadTheme()">load</button>*@
-
+-
 <script>
+
+    $(document).ready(() => {
+        $('#generateNum').hide();
+        $('#generateStr').hide();
+        $('#generateBool').hide();
+        $('#generateDate').hide();
+
+    })
+
     function createNum() {
+        $('#generateNum').show();
         var val = parseInt($("#num").val()) + 1
         if (val < 4) {
-            $("#generateElement").append(`<input type="text" name="PropertiesNumTitles" placeholder="name N"/>`);
+            $("#generateNum").append(`<input class="input-group input_custom" type="text" name="PropertiesNumTitles" placeholder="@ViewResourcesModel["TitleNumberPropertiesField"]"/>`);
             $("#num").val(val)
         }
         else $("#num").val(3)
     }
 
     function createStr() {
+        $('#generateStr').show();
+
         var val = parseInt($("#str").val()) + 1
         if (val < 4) {
-            $("#generateElement").append(`<input type="text" name="PropertiesStrTitles" placeholder="name S"/>`);
+            $("#generateStr").append(`<input class="input_custom" type="text" name="PropertiesStrTitles" placeholder="@ViewResourcesModel["TitleStringPropertiesField"]"/>`);
             $("#str").val(val)
         }
         else $("#str").val(3)
     }
 
     function createDate() {
+        $('#generateDate').show();
+
         var val = parseInt($("#date").val()) + 1
         if (val < 4) {
-            $("#generateElement").append(`<input type="text" name="PropertiesDateTitles" placeholder="name D"/>`);
+            $("#generateDate").append(`<input type="text" name="PropertiesDateTitles" placeholder="@ViewResourcesModel["TitleDatePropertiesField"]"/>`);
             $("#date").val(val)
         }
         else $("#date").val(3)
     }
     function createBool() {
+        $('#generateBool').show();
+
         var val = parseInt($("#bool").val()) + 1
         if (val < 4) {
-            $("#generateElement").append(`<input type="text" name="PropertiesBoolTitles" placeholder="name B"/>`);
+            $("#generateBool").append(`<input type="text" name="PropertiesBoolTitles" placeholder="@ViewResourcesModel["TitleBoolPropertiesField"]"/>`);
             $("#bool").val(val)
         }
         else $("#bool").val(3)

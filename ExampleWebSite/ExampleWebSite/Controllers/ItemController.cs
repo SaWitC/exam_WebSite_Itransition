@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Korzh.EasyQuery.Linq;
 using ExampleWebSite.ViewModels.Items;
+using Microsoft.EntityFrameworkCore;
 
 using ExampleWebSite.Data;
 using Korzh.EasyQuery.Services;
@@ -259,8 +260,6 @@ namespace ExampleWebSite.Controllers
                 //test t3 = new test { value = "222222",v2=45 };
                 //test t4 = new test { value = "4444f",v2=99 };
 
-
-
                 //List<test> arr = new List<test>();
                 //arr.Add(t);
                 //arr.Add(t2);
@@ -270,7 +269,12 @@ namespace ExampleWebSite.Controllers
                 // var arr2 = arr.AsQueryable().FullTextSearchQuery(SearchString);
                 //mode.stt = arr2.ToList();
 
-                var items = _context.Themes.AsQueryable().Where(t =>  t.Title != null && t.Title.ToLower().Contains("b") || t.Description != null && t.Description.ToLower().Contains("b")).AsQueryable();
+                var items = _context.Themes.AsQueryable().FullTextSearchQuery(SearchString);
+
+                //var items = _context.Themes
+                //    .Where(x => EF.Functions.FreeText(x.Title,SearchString));
+
+                //var items = _context.Themes.Where(c => EF.Functions.FreeText(EF.Property<string>(c, c.Title), SearchString)).ToList();
                 mode.Items = items;
                 // var list = items.ToPagedList(_eqManager.Chunk.Page, 15);
                 return View(mode);
@@ -282,5 +286,7 @@ namespace ExampleWebSite.Controllers
             }
             return View(mode);
         }
+
+
     }
 }

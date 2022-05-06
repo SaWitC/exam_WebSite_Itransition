@@ -8,7 +8,7 @@
         </div>
     </form>
     <div>
-        <table>
+        @*<table>
             <thead>
                 <tr>
                     <th>@ViewResourcesModel["UserName"]</th>
@@ -18,10 +18,10 @@
                     <th>@ViewResourcesModel["IsBaned"]</th>
                 </tr>
             </thead>
-            <tbody id="RenderUsers">
+            <tbody id="RenderUsers">*@
                 @await Html.PartialAsync("_WriteMoreUsers.cshtml")
-            </tbody>
-        </table>
+            @*</tbody>
+        </table>*@
     </div>
 </div>
 

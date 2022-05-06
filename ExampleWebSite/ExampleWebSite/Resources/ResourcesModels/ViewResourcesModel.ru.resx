@@ -132,14 +132,26 @@
   <data name="AdminPage" xml:space="preserve">
     <value>Админ панель</value>
   </data>
+  <data name="author_will_be" xml:space="preserve">
+    <value>Автором коллекции будет</value>
+  </data>
   <data name="Avtor" xml:space="preserve">
     <value>Автор</value>
   </data>
   <data name="Ban" xml:space="preserve">
     <value>Заблокировать пользователя</value>
   </data>
+  <data name="Baned" xml:space="preserve">
+    <value>Аккаунт Заблокирован</value>
+  </data>
   <data name="BanedUsers" xml:space="preserve">
     <value>Забаненые авторы</value>
+  </data>
+  <data name="Blocking_status" xml:space="preserve">
+    <value>Статус пользователя</value>
+  </data>
+  <data name="BoolProperties" xml:space="preserve">
+    <value>Переключатели</value>
   </data>
   <data name="boolrPropertiesEl" xml:space="preserve">
     <value>Дополнительное поле переключатель</value>
@@ -155,6 +167,9 @@
   </data>
   <data name="CreateCollectionFromUser" xml:space="preserve">
     <value>Создать коллекцию от имени пользователя</value>
+  </data>
+  <data name="DateProperties" xml:space="preserve">
+    <value>Даты</value>
   </data>
   <data name="datePropertiesEl" xml:space="preserve">
     <value>Дополнительное поле дата</value>
@@ -189,6 +204,9 @@
   <data name="General" xml:space="preserve">
     <value>Общие</value>
   </data>
+  <data name="GiveAdmin_role" xml:space="preserve">
+    <value>Назаначить администратора</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>привет</value>
   </data>
@@ -210,6 +228,9 @@
   <data name="MaxCommentLenght500" xml:space="preserve">
     <value>Максимальная длина коментария 500символов</value>
   </data>
+  <data name="MoreInfo" xml:space="preserve">
+    <value>Больше информации</value>
+  </data>
   <data name="More_Info" xml:space="preserve">
     <value>Больше информации</value>
   </data>
@@ -222,8 +243,17 @@
   <data name="NoHaveAccount" xml:space="preserve">
     <value>Нет аккаунта?</value>
   </data>
+  <data name="NotBaned" xml:space="preserve">
+    <value>Аккаунт не заблокирован</value>
+  </data>
+  <data name="NumberProperties" xml:space="preserve">
+    <value>Числовые поля</value>
+  </data>
   <data name="numberPropertiesEl" xml:space="preserve">
     <value>Дополнительное числовое поле</value>
+  </data>
+  <data name="OperationsWithUser" xml:space="preserve">
+    <value>Операции над пользователем</value>
   </data>
   <data name="PersonalData" xml:space="preserve">
     <value>Персональные данные</value>
@@ -231,14 +261,26 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>Номер телефона</value>
   </data>
+  <data name="PhoneNumber_is_null" xml:space="preserve">
+    <value>Номер телефона не указан</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Реистрация</value>
+  </data>
+  <data name="RemoveAdmin_role" xml:space="preserve">
+    <value>Удалить роль админа</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Роли</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
   </data>
   <data name="SearchString" xml:space="preserve">
     <value>Текст (описания,названия,коментария)</value>
+  </data>
+  <data name="StringProperties" xml:space="preserve">
+    <value>Текстовые поля</value>
   </data>
   <data name="stringPropertiesEl" xml:space="preserve">
     <value>дополнительное текстовое поле</value>
@@ -248,6 +290,9 @@
   </data>
   <data name="UnBan" xml:space="preserve">
     <value>Разблокировать</value>
+  </data>
+  <data name="UserHasNoRoles" xml:space="preserve">
+    <value>У пользователя нет ролей</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Имя пользователя</value>

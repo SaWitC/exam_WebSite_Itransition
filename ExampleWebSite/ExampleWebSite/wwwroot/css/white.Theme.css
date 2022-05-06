@@ -3,7 +3,8 @@
 }
 
 .HeadStyle {
-    background-color: #e1e1e1;
+    background-color: #404040;
+    color: #dedede;
     border-bottom: 3px solid black;
 }
 
@@ -17,10 +18,24 @@
 }
 
 .bg_Green {
-    background-color: #18d878;
+    background-color: #008080;
+    color: #dedede;
     border: 2px solid black;
 }
 
 .text_color {
     color: #0f0f0f;
+}
+
+.Table_custom {
+    background-color: #e1e1e1;
+    border: solid 1px black;
+}
+
+.bg_green_b {
+    background-color: #008080;
+}
+.input_custom{
+    background-color:#d6d5d5;
+    color:black;
 }

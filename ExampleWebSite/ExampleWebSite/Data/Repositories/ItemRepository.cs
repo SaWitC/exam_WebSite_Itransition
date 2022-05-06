@@ -43,6 +43,11 @@ namespace ExampleWebSite.Data.Repositories
         }
         public async Task<ItemModel> FindByTitleAsync(string title)=> await _context.Items.FirstOrDefaultAsync(o=>o.Title ==title);
         public async Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId)=> await _context.Items.AsNoTracking().Where(o => o.CollectionId == collectionId).ToListAsync();
+        public IEnumerable<ItemModel> TakeItemBy_collection(int collectionId, int skip, int pageSize)
+        {
+            return _context.Items.Skip(skip).Take(pageSize).Where(o => o.CollectionId == collectionId).ToList();
+        }
+
 
     }
 }

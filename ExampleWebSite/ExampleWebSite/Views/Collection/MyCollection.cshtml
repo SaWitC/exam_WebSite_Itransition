@@ -1,11 +1,48 @@
-﻿@model IEnumerable<ExampleWebSite.Models.CollectionModel>
+﻿@model IEnumerable<CollectionMinViewModel>
 
-@if (Model != null)
-{
-    foreach (var item in Model)
-    {
-        <h3>@item.Title</h3>
-        <h3>@item.Thema</h3>
-        <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">@ViewResourcesModel["Details"]</a>
+<div>
+    <div class="container">
+        <table class="table text_color Table_custom">
+            <thead>
+                <tr>
+                    <th scope="col">@ViewResourcesModel["Title"]</th>
+                    <th scope="col">@ViewResourcesModel["Theme"]</th>
+                    <th scope="col">@ViewResourcesModel["More info"]</th>
+                    <th scope="col">@ViewResourcesModel["Avtor"]</th>
+                </tr>
+            </thead>
+            <tbody class="" id="renderCollections">
+                @await Html.PartialAsync("_writeMoreCollections.cshtml")
+            </tbody>
+        </table>
+        <button class="text-center btn bg_Green" onclick="loadItems()">load Mode</button>
+    </div>
+</div>
+
+<script>
+$('div#loading').hide();
+var page = 0;
+var _inCallback = false;
+function loadItems() {
+    if (page > -1 && !_inCallback) {
+        _inCallback = true;
+        page++;
+        $('div#loading').show();
+        console.log(page);
+        $.ajax({
+            type: 'GET',
+            url: '/Collection/MyCollection/' + page,
+            success: function (data, textstatus) {
+                if (data != '') {
+                    $("#renderCollections").append(data);
+                }
+                else {
+                    page = -1;
+                }
+                _inCallback = false;
+                $("div#loading").hide();
+            }
+        });
     }
 }
+</script>

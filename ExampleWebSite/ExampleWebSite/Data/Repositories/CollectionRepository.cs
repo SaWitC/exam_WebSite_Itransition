@@ -27,6 +27,11 @@ namespace ExampleWebSite.Data.Repositories
             _context.Collections.Add(model.collection);
             await _context.SaveChangesAsync();
         }
+        public async Task CreateAsync(CollectionModel collection)
+        {
+            _context.Collections.Add(collection);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task Delete(int Id)
         {
@@ -77,6 +82,18 @@ namespace ExampleWebSite.Data.Repositories
             .Skip(skip)
             .Take(pageSize)
             .Select(x => new CollectionMinViewModel {Id=x.Id,Title=x.Title,AvtorName=x.AvtorName,ShortDesc=x.ShortDesc,Thema =x.Thema.Title});
+
+            return collections;
+        }
+        public IQueryable<CollectionMinViewModel> TakeCollectionMinByAvtor_Skip(int skip, int pageSize, string AvtorName)
+        {
+            IQueryable<CollectionMinViewModel> collections = _context.Collections.AsNoTracking()
+            //.Include(o => o.Thema)
+            .OrderBy(o => o.Id)
+            .Skip(skip)
+            .Take(pageSize)
+            .Where(o=>o.AvtorName ==AvtorName)
+            .Select(x => new CollectionMinViewModel { Id = x.Id, Title = x.Title, AvtorName = x.AvtorName, ShortDesc = x.ShortDesc, Thema = x.Thema.Title });
 
             return collections;
         }

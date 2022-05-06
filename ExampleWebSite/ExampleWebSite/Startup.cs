@@ -17,6 +17,8 @@ using ExampleWebSite.Data.Repositories;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using ExampleWebSite.ResourcesModels;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExampleWebSite
 {
@@ -32,6 +34,12 @@ namespace ExampleWebSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddAuthorization(options => {
+                options.AddPolicy("IsBanedPolicy", policy => policy.RequireClaim("IsBaned", false.ToString()));
+            });
+
+
             services.AddLocalization(options=>options.ResourcesPath = "Resources");
 
             services.AddTransient<ICommentRepository, CommentRepository>();
@@ -49,7 +57,6 @@ namespace ExampleWebSite
                         factory.Create(typeof(ModelRes));
                 })
                 .AddViewLocalization();
-
 
             services.AddDbContext<ExamWebSiteDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>()

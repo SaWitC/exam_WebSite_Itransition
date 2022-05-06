@@ -3,12 +3,13 @@
 }
 
 .HeadStyle {
-    background-color: #1b1b1b;
-    border-bottom: 3px solid #1fa7c6;
+    background-color: #404040;
+    color: #dedede;
+    border-bottom: 3px solid #0d7373;
 }
 
 .UserInfo {
-    border-left: 3px solid #1fa7c6;
+    border-left: 3px solid #0d7373;
 }
 
 .hr_custom {
@@ -17,10 +18,25 @@
 }
 
 .bg_Green {
-    background-color: #18d878;
-    border: 2px solid #1fa7c6;
+    background-color: #008080;
+    color: #dedede;
+    border: 2px solid #0d7373;
 }
 
 .text_color{
     color:#e2e2e2;
+}
+
+.Table_custom {
+    background-color: #181818;
+    border: solid 1px white;
+}
+
+.bg_green_b {
+    background-color: #008080;
+}
+
+.input_custom {
+    background-color: #272727;
+    color: white;
 }
