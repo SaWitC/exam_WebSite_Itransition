@@ -15,9 +15,8 @@
             <div class="form-group">
                 <label asp-for="Tags"></label>
                 <p>@ViewResourcesModel["WriteTagsWith"]</p>
-                <input class="input-group" type="text" id="tags" asp-for="Tags">
-
-                @*<select id="Themss"> </select>*@
+                
+                <input class="input-group" id="tags" autocomplete="off" asp-for="Tags">
 
                 <div id="Themss">
 
@@ -69,35 +68,12 @@
     </form>
 </div>
 
-@*<script onload="body" type="text/javascript">
-    let input = document.getElementById("tags")
-    input.oninput = handleInput;
-
-    function handleInput(e) {
-        var len = e.target.value.length
-        var indx = e.target.value.lastIndexOf(',');
-        if (indx != -1) {
-            if (len - indx > 3) {
-                alert("222");
-
-            }
-        }
-        else {
-            if (len - indx > 3) {
-                alert("111");
-            }
-        }
-    }
-
-</script>*@
-
-
 <script>
 
     function insert(word) {
         let inp = document.getElementById('tags');
         let start = inp.selectionStart;
-        inp.value = inp.value.substring(0, start) + word +
+        inp.value = inp.value.substring(0, start-1) + word +
             inp.value.substring(inp.selectionEnd, inp.value.length)
         inp.focus();
         inp.setSelectionRange(start, start + word.length)
@@ -130,9 +106,12 @@
                     var opt = document.createElement('button');
                     //opt.value = el.title;
                     opt.innerHTML = el.title;
-                    opt.setAttribute('onclick', `insert("${el.title}") `)
-                    opt.classList.add("btn")
-                    opt.setAttribute('type', 'button')
+                    opt.setAttribute('onclick', `insert("${el.title}") `);
+                    //opt.classList.add(classes);
+                    opt.classList.add("bg_Green");
+                    opt.classList.add("btn");
+                    opt.classList.add("m-auto");
+                    opt.setAttribute('type', 'button');
                     select.appendChild(opt);
                 });
             },

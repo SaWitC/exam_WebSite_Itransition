@@ -177,6 +177,12 @@
   <data name="ShortDeskName" xml:space="preserve">
     <value>Short Description</value>
   </data>
+  <data name="TagsMaxLenght40" xml:space="preserve">
+    <value>The field name cannot be longer than 40 characters</value>
+  </data>
+  <data name="TagsMinLenght3" xml:space="preserve">
+    <value>The tags must be at least 3 characters long</value>
+  </data>
   <data name="TagsName" xml:space="preserve">
     <value>Tags</value>
   </data>

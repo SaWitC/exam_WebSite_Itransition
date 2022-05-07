@@ -68,8 +68,9 @@ namespace ExampleWebSite.Controllers
                 {
                     return PartialView("_WriteMoreComments", GetComments((int)id, page));
                 }
-
+                
                 var itemViewModel = new ItemDetailsViewModel();
+                itemViewModel.Tags = _item_Tags_Relationship.GetTagsByItemId((int)id);
                 itemViewModel.Properties = _properties.GetPropertiesByItemId((int)id);
                 itemViewModel.Item = _item.GetItemById((int)id);
                 itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentCount, (int)id);
@@ -255,52 +256,63 @@ namespace ExampleWebSite.Controllers
         //    return View(mode);
         //}
         [HttpGet]
-        public IActionResult Find ()
-        {     
+        public async Task<IActionResult> Find (string SearchString, string TagString)
+        {
+
             FindItemsViewModel mode = new FindItemsViewModel();
-            mode.Items = _context.Themes.AsQueryable();
+            if (!string.IsNullOrEmpty(TagString))
+            {
+                mode.Items = await _item.TakeItemByTag_SkipAsync(TagString, 0, 5);
+                return View(mode);
+            }
+            mode.Items = _context.Items.AsQueryable();
         
             return View(mode);
         }
 
-        [HttpPost]
-        public IActionResult Find(string SearchString)
-        {
-            FindItemsViewModel mode = new FindItemsViewModel();
-            //var items = _context.Items.ToList();
-            if (!string.IsNullOrEmpty(SearchString))
-            {
-                //test t = new test { value = "first", v2=23 };
-                //test t2 = new test { value = "second",v2=11 };
-                //test t3 = new test { value = "222222",v2=45 };
-                //test t4 = new test { value = "4444f",v2=99 };
+        //[HttpPost]
+        //public async Task<IActionResult> Find(string SearchString,string TagString)
+        //{
+        //    FindItemsViewModel mode = new FindItemsViewModel();
+        //    if (!string.IsNullOrEmpty(TagString))
+        //    {  
+        //        mode.Items= await _item.TakeItemByTag_SkipAsync(TagString, 0, 5);
+        //        return View(mode);
+        //    }
+        //    //var items = _context.Items.ToList();
+        //    if (!string.IsNullOrEmpty(SearchString))
+        //    {
+        //        //test t = new test { value = "first", v2=23 };
+        //        //test t2 = new test { value = "second",v2=11 };
+        //        //test t3 = new test { value = "222222",v2=45 };
+        //        //test t4 = new test { value = "4444f",v2=99 };
 
-                //List<test> arr = new List<test>();
-                //arr.Add(t);
-                //arr.Add(t2);
-                //arr.Add(t3);
-                //arr.Add(t4);
+        //        //List<test> arr = new List<test>();
+        //        //arr.Add(t);
+        //        //arr.Add(t2);
+        //        //arr.Add(t3);
+        //        //arr.Add(t4);
 
-                // var arr2 = arr.AsQueryable().FullTextSearchQuery(SearchString);
-                //mode.stt = arr2.ToList();
+        //        // var arr2 = arr.AsQueryable().FullTextSearchQuery(SearchString);
+        //        //mode.stt = arr2.ToList();
 
-                var items = _context.Themes.AsQueryable().FullTextSearchQuery(SearchString);
+        //        var items = _context.Themes.AsQueryable().FullTextSearchQuery(SearchString);
 
-                //var items = _context.Themes
-                //    .Where(x => EF.Functions.FreeText(x.Title,SearchString));
+        //        //var items = _context.Themes
+        //        //    .Where(x => EF.Functions.FreeText(x.Title,SearchString));
 
-                //var items = _context.Themes.Where(c => EF.Functions.FreeText(EF.Property<string>(c, c.Title), SearchString)).ToList();
-                mode.Items = items;
-                // var list = items.ToPagedList(_eqManager.Chunk.Page, 15);
-                return View(mode);
+        //        //var items = _context.Themes.Where(c => EF.Functions.FreeText(EF.Property<string>(c, c.Title), SearchString)).ToList();
+        //        //mode.Items = items;
+        //        // var list = items.ToPagedList(_eqManager.Chunk.Page, 15);
+        //        return View(mode);
 
-            }
-            else
-            {
-                mode.Items = _context.Themes.AsQueryable();
-            }
-            return View(mode);
-        }
+        //    }
+        //    else
+        //    {
+        //        //mode.Items = _context.Themes.AsQueryable();
+        //    }
+        //    return View(mode);
+        //}
         public async Task<IEnumerable<string>> GetTags(string SearchString)
         {
             return await _item.GetTags(SearchString);

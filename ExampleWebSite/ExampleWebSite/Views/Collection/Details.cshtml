@@ -1,14 +1,15 @@
 ﻿@model ExampleWebSite.ViewModels.CollectionDetailsViewModel
-    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.1/dist/showdown.min.js"></script>
 
-<div class="w-100">
-    @if (Model.collection.AvtorName == User.Identity.Name || User.IsInRole("admin"))
-    {
-        <a asp-action="create" asp-controller="item" asp-route-collectionid="@Model.collection.Id">create Item</a>
-        <a asp-action="Edit" asp-controller="Collection" asp-route-collectionid="@Model.collection.Id">@ViewResourcesModel["Edit"]</a>
-        <a asp-action="Delete" asp-controller="Collection" asp-route-id="@Model.collection.Id">@ViewResourcesModel["Delete"]</a>
-    }
-</div>
+<script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.1/dist/showdown.min.js"></script>
+<div>
+    <div class="w-100">
+        @if (Model.collection.AvtorName == User.Identity.Name || User.IsInRole("admin"))
+        {
+            <a class="ml-auto mr-auto btn bg_Green" asp-action="create" asp-controller="item" asp-route-collectionid="@Model.collection.Id">create Item</a>
+            <a class="ml-auto mr-auto btn bg_Green" asp-action="Edit" asp-controller="Collection" asp-route-collectionid="@Model.collection.Id">@ViewResourcesModel["Edit"]</a>
+            <a class="ml-auto mr-auto btn bg_Green" asp-action="Delete" asp-controller="Collection" asp-route-id="@Model.collection.Id">@ViewResourcesModel["Delete"]</a>
+        }
+    </div>
 
     @if (Model.ImageUrl != null)
     {
@@ -17,7 +18,22 @@
     <h3>@Model.collection.Title</h3>
     <h6>@Model.collection.Thema</h6>
 
-<textarea hidden id="markdownText">@Model.collection.ShortDesc</textarea>
+    <textarea hidden id="markdownText">@Model.collection.ShortDesc</textarea>
+    <div id="ShortDesk">
+
+    <hr class="hr_custom" />
+
+    </div>
+    @if (Model.items != null)
+    {
+        <div id="RenderItem" class="row">
+            @await Html.PartialAsync("_writeMoreItems.cshtml")
+        </div>
+        <button class="text-center btn bg_Green" onclick="LoadComments()">load Mode</button>
+    }
+</div>
+
+
 
 <script type="text/javascript">
     $(document).ready(() => {
@@ -29,43 +45,33 @@
     })
 </script>
 
-<div id="ShortDesk">
 
-</div>
-@if (Model.items != null)
-{
-    <div id="RenderItem" class="row">
-        @await Html.PartialAsync("_writeMoreItems.cshtml")
-    </div>
-    <button class="text-center btn bg_Green" onclick="LoadComments()">load Mode</button>
-}
-
-    <script>
-    $('div#loading').hide();
-   var page = 0;
-    var _inCallback = false;
-    function LoadComments() {
-        if (page > -1 && !_inCallback) {
-            _inCallback = true;
-            page++;
-            $('div#loading').show();
-            console.log(page);
-            $.ajax({
-                type: 'GET',
-                url: "@Url.Action("Details","Collection")",
-                data: { id: @Model.collection.Id,p:page },
-                success: function (data, textstatus) {
-                    if (data != '') {
-                        $("#RenderItem").append(data);
-                    }
-                    else {
-                        page = -1;
-                    }
-                    _inCallback = false;
-                    $("div#loading").hide();
+<script>
+$('div#loading').hide();
+var page = 0;
+var _inCallback = false;
+function LoadComments() {
+    if (page > -1 && !_inCallback) {
+        _inCallback = true;
+        page++;
+        $('div#loading').show();
+        console.log(page);
+        $.ajax({
+            type: 'GET',
+            url: "@Url.Action("Details","Collection")",
+            data: { id: @Model.collection.Id,p:page },
+            success: function (data, textstatus) {
+                if (data != '') {
+                    $("#RenderItem").append(data);
                 }
-            });
-        }
+                else {
+                    page = -1;
+                }
+                _inCallback = false;
+                $("div#loading").hide();
+            }
+        });
     }
-    </script>
+}
+</script>
 

@@ -4,10 +4,17 @@
     #white #white
     #green ##008080
 
+
 */
 
+.bg_swap_border {
+    background-color: #008080;
+    color: #dedede;
+    border: 2px solid #0d7373;
+}
+
 body {
-    background-color: #1f1e1e
+    background-color: #1f1e1e ;
 }
 
 .HeadStyle {
@@ -22,7 +29,7 @@ body {
 
 .hr_custom {
     height: 1px;
-    background-color: #1f1e1e;
+    background-color: #0d7373;
 }
 
 .bg_Green {

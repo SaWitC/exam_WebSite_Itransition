@@ -12,5 +12,6 @@ namespace ExampleWebSite.ViewModels
         public ItemModel Item { get; set; }
         public IEnumerable<PropertiesElementModel> Properties { get; set; }
         public IQueryable<CommentModel> comments { get; set; }
+        public IEnumerable<TagModel> Tags { get; set; } = null;
     }
 }

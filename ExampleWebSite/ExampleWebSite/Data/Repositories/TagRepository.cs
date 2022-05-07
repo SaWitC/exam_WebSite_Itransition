@@ -59,5 +59,17 @@ namespace ExampleWebSite.Data.Repositories
         {
             return _context.Tags.AsQueryable().Where(o => o.Title.StartsWith(SearchString)).Take(Quantity);
         }
+        public IEnumerable<TagModel> GetTagsByItemId(int itemId)
+        {
+            //            select Tags.Title
+            //from Tags inner join ItemTagsrelationships
+            //on(Tags.Id = ItemTagsrelationships.TagId)
+            //where ItemTagsrelationships.ItemId = 5
+            var tags = from s in _context.Tags
+                       join sa in _context.ItemTagsrelationships on s.Id equals sa.TagId
+                       where sa.TagId == itemId
+                       select s;
+            return tags.ToList();
+        }
     }
 }

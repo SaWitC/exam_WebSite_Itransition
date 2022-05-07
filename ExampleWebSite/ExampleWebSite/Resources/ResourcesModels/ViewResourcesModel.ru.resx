@@ -240,6 +240,9 @@
   <data name="NewCollections" xml:space="preserve">
     <value>Новые колекции</value>
   </data>
+  <data name="NoHasTags" xml:space="preserve">
+    <value>у данного поста нет тегов</value>
+  </data>
   <data name="NoHaveAccount" xml:space="preserve">
     <value>Нет аккаунта?</value>
   </data>
@@ -285,8 +288,23 @@
   <data name="stringPropertiesEl" xml:space="preserve">
     <value>дополнительное текстовое поле</value>
   </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Теги</value>
+  </data>
   <data name="Thema" xml:space="preserve">
     <value>Тема</value>
+  </data>
+  <data name="TitleBoolPropertiesField" xml:space="preserve">
+    <value>Название дополнительного поля(переключатель)</value>
+  </data>
+  <data name="TitleDatePropertiesField" xml:space="preserve">
+    <value>Название дополнительного поля (дата)</value>
+  </data>
+  <data name="TitleNumberPropertiesField" xml:space="preserve">
+    <value>Название дополнительно поля (число)</value>
+  </data>
+  <data name="TitleStringPropertiesField" xml:space="preserve">
+    <value>Название дополнительно поля (строка)</value>
   </data>
   <data name="UnBan" xml:space="preserve">
     <value>Разблокировать</value>

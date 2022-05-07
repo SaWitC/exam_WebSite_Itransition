@@ -14,8 +14,8 @@ namespace ExampleWebSite.ViewModels
         [Required]
         public ItemModel Item { get; set; }
         public IEnumerable<PropertiesModel> TypicalElements { get; set; }
-
         public List<PropertiesElementModel> Properties { get; set; }
+        [MaxLength(40,ErrorMessage = "TagsMaxLenght40")]
         public string Tags { get; set; }
         public int collectionId { get; set; }
     }

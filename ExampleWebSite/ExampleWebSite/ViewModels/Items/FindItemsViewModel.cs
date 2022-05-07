@@ -9,7 +9,9 @@ namespace ExampleWebSite.ViewModels.Items
 {
     public class FindItemsViewModel
     {
-        public IEnumerable<ThemaModel> Items { get; set; }
+        public IEnumerable<ItemModel> Items { get; set; }
         public string SearchString { get; set; }
+        public string TagString { get; set; }
+
     }
 }

@@ -62,5 +62,25 @@ namespace ExampleWebSite.Data.Repositories
             return null;
             //return await _context.Items.Take(6).Where(o => o.Tags.ToLower().Contains(SearchString.ToLower())).Select(o => o.Tags).ToListAsync();
         }
+
+        public async Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip, int Size)//later change
+        {
+            //select Items.Title
+            //from Items inner join ItemTagsrelationships
+            //on(Items.Id = ItemTagsrelationships.ItemId)
+            //inner join Tags on(Tags.Id= ItemTagsrelationships.TagId)
+            //where Tags.Title = '123'
+
+            var x = from it in _context.Items
+                    join itta in _context.ItemTagsrelationships
+                    on it.Id equals itta.ItemId
+                    join ta in _context.Tags
+                    on itta.TagId equals ta.Id
+                    where ta.Title == tagTitle
+                    select it;
+
+            return await x.Skip(skip).Take(Size).ToListAsync();
+
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace ExampleWebSite.Data.Interfaces
         //public Task<IEnumerable<TagModel>> GetTagsByItemIdAsync(int Id);
         public IEnumerable<TagModel> GetTagsBySearchString(string SearchString, int Quantity);
         public Task<IEnumerable<TagModel>> CreateTagsAsync(string TagsString);
+        public IEnumerable<TagModel> GetTagsByItemId(int id);
 
     }
 }

@@ -180,6 +180,12 @@
   <data name="ShortDeskName" xml:space="preserve">
     <value>Краткое Описание</value>
   </data>
+  <data name="TagsMaxLenght40" xml:space="preserve">
+    <value>Максимальная длинна текста тегов не может быть больше 40 символов</value>
+  </data>
+  <data name="TagsMinLenght3" xml:space="preserve">
+    <value />
+  </data>
   <data name="TagsName" xml:space="preserve">
     <value>Теги</value>
   </data>

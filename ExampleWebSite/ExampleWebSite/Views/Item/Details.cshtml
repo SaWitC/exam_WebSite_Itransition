@@ -5,6 +5,23 @@
 <h3>@Model.Item.Title</h3>
 <hr size="3" class="hr_custom" />
 <div></div>
+<div>
+    <p>
+        <b>@ViewResourcesModel["Tags"] :</b>
+        @if (Model.Tags != null)
+        {
+            @foreach (var item in Model.Tags)
+            {
+                <a class="ml-auto mr-auto btn bg_Green" asp-action="Find" asp-controller="Item" asp-route-TagString="@item.Title">@item.Title</a>
+            }
+        }
+        else
+        {
+            @ViewResourcesModel["NoHasTags"] 
+        }
+    </p>
+</div>
+
 
 
 @if (Model.Properties != null)

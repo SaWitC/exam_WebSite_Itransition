@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\wysiwyg_Markdown_editor\" />
+    <Folder Include="wwwroot\MarkdownEditorMini\" />
   </ItemGroup>
 
 </Project>

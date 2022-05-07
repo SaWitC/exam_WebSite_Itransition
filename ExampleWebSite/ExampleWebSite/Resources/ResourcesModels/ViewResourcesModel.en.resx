@@ -240,6 +240,9 @@
   <data name="NewCollections" xml:space="preserve">
     <value>New collections</value>
   </data>
+  <data name="NoHasTags" xml:space="preserve">
+    <value>does not contain tags</value>
+  </data>
   <data name="NoHaveAccount" xml:space="preserve">
     <value>do you have an account?</value>
   </data>
@@ -284,6 +287,9 @@
   </data>
   <data name="stringPropertiesEl" xml:space="preserve">
     <value>additional text field</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
   <data name="Thema" xml:space="preserve">
     <value>Theme</value>

@@ -20,6 +20,7 @@ namespace ExampleWebSite.Data.Interfaces
         public Task<IEnumerable<ItemModel>> Find(string SearschString, int themeId);
         public Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId);
         public Task<ItemModel> FindByTitleAsync(string title);
+        public Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip,int Size);
         public IEnumerable<ItemModel> TakeItemBy_collection(int collectionId,int skip,int pageSize);
 
         public Task<IEnumerable<string>> GetTags(string SearchString);
