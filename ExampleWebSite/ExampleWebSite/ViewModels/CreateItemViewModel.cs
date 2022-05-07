@@ -16,6 +16,7 @@ namespace ExampleWebSite.ViewModels
         public IEnumerable<PropertiesModel> TypicalElements { get; set; }
 
         public List<PropertiesElementModel> Properties { get; set; }
+        public string Tags { get; set; }
         public int collectionId { get; set; }
     }
 }

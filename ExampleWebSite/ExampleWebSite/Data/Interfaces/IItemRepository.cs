@@ -1,6 +1,7 @@
 ﻿using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,10 @@ namespace ExampleWebSite.Data.Interfaces
     public interface IItemRepository
     {
         //public Task Create(int CollectionId, CreateItemViewModel model);
-        public Task Create(CreateItemViewModel model);
+        public Task<EntityEntry<ItemModel>> CreateAsync(CreateItemViewModel model);
         public ItemModel GetItemById(int id);
-        public Task Update(CreateItemViewModel model);
+        public Task UpdateAsync(CreateItemViewModel model);
+        public Task UpdateAsync(ItemModel model);
         public Task Delete(ItemModel model);
         public Task<IEnumerable<ItemModel>> Find(string SearschString, int themeId);
         public Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId);

@@ -8,6 +8,7 @@ using ExampleWebSite.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ExampleWebSite.Data.Repositories
 {
@@ -20,11 +21,13 @@ namespace ExampleWebSite.Data.Repositories
             _userManager = userManager;
             _context = context;
         }
-        public async Task Create(CreateItemViewModel model)
+        public async Task<EntityEntry<ItemModel>> CreateAsync(CreateItemViewModel model)
         {
+            
             model.Item.CollectionId = model.collectionId;
-            _context.Items.Add(model.Item);
+            var item =await  _context.Items.AddAsync(model.Item);
             await _context.SaveChangesAsync();
+            return item;
         }
         public async Task Delete(ItemModel model)
         {
@@ -32,11 +35,17 @@ namespace ExampleWebSite.Data.Repositories
             await _context.SaveChangesAsync();
         }
         public ItemModel GetItemById(int id)=> _context.Items.FirstOrDefault(o=>o.Id ==id);
-        public async Task Update(CreateItemViewModel model)
+        public async Task UpdateAsync(CreateItemViewModel model)
         {
             _context.Items.Update(model.Item);
             await _context.SaveChangesAsync();
         }
+        public async Task UpdateAsync(ItemModel model)
+        {
+            _context.Items.Update(model);
+            await _context.SaveChangesAsync();
+        }
+
         public Task<IEnumerable<ItemModel>> Find(string SearschString, int themeId)
         {
             throw new NotImplementedException();
@@ -50,7 +59,8 @@ namespace ExampleWebSite.Data.Repositories
 
         public async Task<IEnumerable<string>> GetTags(string SearchString)
         {
-            return await _context.Items.Take(6).Where(o => o.Tags.ToLower().Contains(SearchString.ToLower())).Select(o => o.Tags).ToListAsync();
+            return null;
+            //return await _context.Items.Take(6).Where(o => o.Tags.ToLower().Contains(SearchString.ToLower())).Select(o => o.Tags).ToListAsync();
         }
     }
 }

@@ -297,4 +297,7 @@
   <data name="UserName" xml:space="preserve">
     <value>Имя пользователя</value>
   </data>
+  <data name="WriteTagsWith" xml:space="preserve">
+    <value>Вводите теги через запятую(,)</value>
+  </data>
 </root>

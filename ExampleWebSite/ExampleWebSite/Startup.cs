@@ -39,9 +39,10 @@ namespace ExampleWebSite
                 options.AddPolicy("IsBanedPolicy", policy => policy.RequireClaim("IsBaned", false.ToString()));
             });
 
-
             services.AddLocalization(options=>options.ResourcesPath = "Resources");
 
+            services.AddTransient<ITagRepository, TagRepository>();
+            services.AddTransient<IItemTagsrelationshipRepository, ItemTagsrelationshipRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<IItemRepository, ItemRepository>();
             services.AddTransient<ICollectionRepository, CollectionRepository>();

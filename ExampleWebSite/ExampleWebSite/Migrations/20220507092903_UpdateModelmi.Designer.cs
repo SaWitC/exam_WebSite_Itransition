@@ -4,14 +4,16 @@ using ExampleWebSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExampleWebSite.Migrations
 {
     [DbContext(typeof(ExamWebSiteDBContext))]
-    partial class ExamWebSiteDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220507092903_UpdateModelmi")]
+    partial class UpdateModelmi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,10 +220,15 @@ namespace ExampleWebSite.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ItemModelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ItemModelId");
 
                     b.ToTable("Tags");
                 });
@@ -508,7 +515,7 @@ namespace ExampleWebSite.Migrations
             modelBuilder.Entity("ExampleWebSite.Models.ItemTagsrelationshipspModel", b =>
                 {
                     b.HasOne("ExampleWebSite.Models.ItemModel", "Item")
-                        .WithMany("Tags")
+                        .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -531,6 +538,13 @@ namespace ExampleWebSite.Migrations
                     b.HasOne("ExampleWebSite.Models.User", null)
                         .WithMany("UserLikes")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ExampleWebSite.Models.TagModel", b =>
+                {
+                    b.HasOne("ExampleWebSite.Models.ItemModel", null)
+                        .WithMany("Tags")
+                        .HasForeignKey("ItemModelId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

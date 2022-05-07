@@ -17,13 +17,15 @@ namespace ExampleWebSite.Models
         public string Title { get; set; }
         [Required(ErrorMessage = "Required")]
         [Display(Name ="TagsName")]
-        public string Tags { get; set; }
+        //public IEnumerable<Item_Tags_relationshipspModel> Tags { get; set; }
         public int CollectionId { get; set; }
         [ForeignKey("CollectionId")]
-        //[Required(ErrorMessage = "Required")]
         public CollectionModel Collection { get; set; }
+        //[ForeignKey("Item_Tags_RelationshipId")]
+        //public ItemTagsrelationshipspModel Item_Tags_Relationship { get; set; }
+        //public int Item_Tags_RelationshipId { get; set; }
 
-        //additional property
+        public IEnumerable<ItemTagsrelationshipspModel> Tags { get; set; }
         public IEnumerable<PropertiesElementModel> Additionalproperties { get; set; }
     }
 }

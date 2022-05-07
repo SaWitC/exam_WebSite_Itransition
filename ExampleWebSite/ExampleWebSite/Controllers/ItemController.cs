@@ -23,6 +23,8 @@ namespace ExampleWebSite.Controllers
     {
         private readonly ExamWebSiteDBContext _context;
 
+        private readonly ITagRepository _tag;
+        private readonly IItemTagsrelationshipRepository _item_Tags_Relationship;
         private readonly ICommentRepository _comment;
         private readonly ICollectionRepository _collection;
         private readonly IpropertiesElementsRepository _properties;
@@ -34,16 +36,24 @@ namespace ExampleWebSite.Controllers
 
         private int CommentCount =2;
 
-        public ItemController(IItemRepository item, IpropertiesElementsRepository properties, ICollectionRepository collection, IpropertiesModelRepository propertiesModel, ICommentRepository comment,ExamWebSiteDBContext context)
+        public ItemController(
+            ITagRepository tag,
+            IItemTagsrelationshipRepository item_Tags_Relationship,
+            IItemRepository item,
+            IpropertiesElementsRepository properties,
+            ICollectionRepository collection,
+            IpropertiesModelRepository propertiesModel,
+            ICommentRepository comment,
+            ExamWebSiteDBContext context)
         {
             _context = context;
 
+            _tag = tag;
+            _item_Tags_Relationship = item_Tags_Relationship;
             _comment = comment;
             _collection = collection;
             _properties = properties;
             _item = item;
-            //_userManager = userManager;
-            //_Themes = theme;
             _propertiesModel = propertiesModel;
         }
         // detatils =============================================================
@@ -104,23 +114,28 @@ namespace ExampleWebSite.Controllers
                 model.Item.Collection = await _collection.FindByIdAsync(model.collectionId);
                 if (ModelState.IsValid)
                 {
-                    await _item.Create(model);
-                    var item = await _item.FindByTitleAsync(model.Item.Title);
-                    if (model.Properties != null)
+                    var Entity =await _item.CreateAsync(model);
+                    var Item = _item.GetItemById(Entity.Entity.Id);
+                    if (Item != null)
                     {
-                        if (model.Properties.Count > 1)
-                        {
-                            var propertiesElements = new List<PropertiesElementModel>();
-                            foreach (var x in model.Properties)
-                            {
-                                x.Item = item;
-                                propertiesElements.Add(x);
-                            }
+                        var tags =await _tag.CreateTagsAsync(model.Tags);
+                        await _item_Tags_Relationship.CreateAsync(Item,tags);
 
-                            await _properties.AddRangeAsync(propertiesElements);
+                        if (model.Properties != null)
+                        {
+                            if (model.Properties.Count > 1)
+                            {
+                                var propertiesElements = new List<PropertiesElementModel>();
+                                foreach (var x in model.Properties)
+                                {
+                                    x.Item = Item;
+                                    propertiesElements.Add(x);
+                                }
+                                await _properties.AddRangeAsync(propertiesElements);
+                            }
                         }
                     }
-                return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
             }
                 return View(model);
             }

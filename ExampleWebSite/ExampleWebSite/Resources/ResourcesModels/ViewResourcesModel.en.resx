@@ -309,4 +309,7 @@
   <data name="UserName" xml:space="preserve">
     <value>UserName</value>
   </data>
+  <data name="WriteTagsWith" xml:space="preserve">
+    <value>Enter tags separated by commas(,)</value>
+  </data>
 </root>

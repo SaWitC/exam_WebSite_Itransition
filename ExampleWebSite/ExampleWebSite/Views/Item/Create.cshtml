@@ -5,10 +5,6 @@
     });
 </script>
 
-<input type="text" placeholder="Type something here to see its length." size="50">
-<p id="log"></p>
-
-
 <div>
     <form method="post" asp-controller="Item" asp-action="Create">
         <div>
@@ -17,15 +13,20 @@
                 <input asp-for="Item.Title" />
             </div>
             <div class="form-group">
-                <label asp-for="Item.Tags"></label>
-                <input type="text" id="tags" asp-for="Item.Tags">
+                <label asp-for="Tags"></label>
+                <p>@ViewResourcesModel["WriteTagsWith"]</p>
+                <input class="input-group" type="text" id="tags" asp-for="Tags">
 
-                <select  id="Themss"> </select>
-              
+                @*<select id="Themss"> </select>*@
+
+                <div id="Themss">
+
+                </div>
+
             </div>
         </div>
 
-        <input hidden type="number" asp-for="collectionId" value="@Model.collectionId" />
+        <input type="number" asp-for="collectionId" value="@Model.collectionId" />
 
         @if (Model.TypicalElements != null)
         {
@@ -92,41 +93,51 @@
 
 
 <script>
-        let input = document.getElementById("tags")
-        input.oninput = handleInput2;
-        alert("0")
-        function handleInput2(e) {
-            alert("1");
 
-            $.ajax({
-                type: "Get",
-                url: "@Url.Action("GetTags", "Item")",
-                data: { SearchString: $('#tags').val() },
-                dataType: "text",
-                success: function (data) {
-                    alert("2");
-                    var arr = JSON.parse(data)
-                    var arr2 = JSON.parse(data)
-                    console.log(data);
-                    console.log(arr);
+    function insert(word) {
+        let inp = document.getElementById('tags');
+        let start = inp.selectionStart;
+        inp.value = inp.value.substring(0, start) + word +
+            inp.value.substring(inp.selectionEnd, inp.value.length)
+        inp.focus();
+        inp.setSelectionRange(start, start + word.length)
+    }
 
+    let input = document.getElementById("tags")
+    input.oninput = handleInput2;
 
-                    arr.forEach(el => $("#themes").append(`<option value="${el.title}">${el.title}</option>`));
-                    select = document.getElementById('Themss');
-                    alert("3");
+    function handleInput2(e) {
+        $("Themss").show();
+        var len = e.target.value.length
+        var indx = e.target.value.lastIndexOf(',');
+        var value = e.target.value.substr(indx+1, len);
+        console.log(value);
+        
+        $('#Themss').find('button').remove();
+        $.ajax({
+            type: "Get",
+            url: "@Url.Action("GetTags", "Tag")",
+            data: { SearchString: value },
+            dataType: "text",
+            success: function (data) {
+                var arr2 = JSON.parse(data)
+                console.log(data);
+                $("#dropitem").remove();
 
-                    arr2.forEach(el => {
+                select = document.getElementById('Themss');
 
-                        var opt = document.createElement('option');
-                        opt.value = el.title;
-                        opt.innerHTML = el.title;
-                        select.appendChild(opt);
-
-                    });
-                },
-                error: function () {
-                    alert("11");
-                }
-            })
-        }
+                arr2.forEach(el => {
+                    var opt = document.createElement('button');
+                    //opt.value = el.title;
+                    opt.innerHTML = el.title;
+                    opt.setAttribute('onclick', `insert("${el.title}") `)
+                    opt.classList.add("btn")
+                    opt.setAttribute('type', 'button')
+                    select.appendChild(opt);
+                });
+            },
+            error: function () {
+            }
+        })
+    }
 </script>
