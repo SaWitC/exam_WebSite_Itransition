@@ -41,6 +41,7 @@ namespace ExampleWebSite
 
             services.AddLocalization(options=>options.ResourcesPath = "Resources");
 
+            services.AddTransient<ILikeRepository, LikeRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<IItemTagsrelationshipRepository, ItemTagsrelationshipRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();

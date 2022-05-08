@@ -76,6 +76,7 @@ namespace ExampleWebSite.Data.Repositories
 
         public IQueryable<CollectionMinViewModel> TakeCollectionMin_Skip(int skip, int pageSize)
         {
+
             IQueryable<CollectionMinViewModel> collections = _context.Collections.AsNoTracking()
             //.Include(o => o.Thema)
             .OrderBy(o => o.Id)
@@ -94,6 +95,8 @@ namespace ExampleWebSite.Data.Repositories
             .Take(pageSize)
             .Where(o=>o.AvtorName ==AvtorName)
             .Select(x => new CollectionMinViewModel { Id = x.Id, Title = x.Title, AvtorName = x.AvtorName, ShortDesc = x.ShortDesc, Thema = x.Thema.Title });
+
+            
 
             return collections;
         }

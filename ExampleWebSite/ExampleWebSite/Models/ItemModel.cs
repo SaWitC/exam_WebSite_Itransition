@@ -21,5 +21,9 @@ namespace ExampleWebSite.Models
         public CollectionModel Collection { get; set; }
         public IEnumerable<ItemTagsrelationshipspModel> Tags { get; set; }
         public IEnumerable<PropertiesElementModel> Additionalproperties { get; set; }
+        public int likesCount { get; set; }
+
+        [NotMapped]
+        public bool IsLiked { get; set; }
     }
 }

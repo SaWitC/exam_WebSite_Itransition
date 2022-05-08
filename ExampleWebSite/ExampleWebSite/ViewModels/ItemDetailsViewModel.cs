@@ -13,5 +13,6 @@ namespace ExampleWebSite.ViewModels
         public IEnumerable<PropertiesElementModel> Properties { get; set; }
         public IQueryable<CommentModel> comments { get; set; }
         public IEnumerable<TagModel> Tags { get; set; } = null;
+
     }
 }

@@ -52,18 +52,7 @@ namespace ExampleWebSite.Data.Repositories
         }
         public async Task<ItemModel> FindByTitleAsync(string title)=> await _context.Items.FirstOrDefaultAsync(o=>o.Title ==title);
         public async Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId)=> await _context.Items.AsNoTracking().Where(o => o.CollectionId == collectionId).ToListAsync();
-        public IEnumerable<ItemModel> TakeItemBy_collection(int collectionId, int skip, int pageSize)
-        {
-            return _context.Items.Skip(skip).Take(pageSize).Where(o => o.CollectionId == collectionId).ToList();
-        }
-
-        public async Task<IEnumerable<string>> GetTags(string SearchString)
-        {
-            return null;
-            //return await _context.Items.Take(6).Where(o => o.Tags.ToLower().Contains(SearchString.ToLower())).Select(o => o.Tags).ToListAsync();
-        }
-
-        public async Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip, int Size)//later change
+        public async Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip, int Size, string UserName=null)//later change
         {
             //select Items.Title
             //from Items inner join ItemTagsrelationships
@@ -78,9 +67,46 @@ namespace ExampleWebSite.Data.Repositories
                     on itta.TagId equals ta.Id
                     where ta.Title == tagTitle
                     select it;
-
+            if (!string.IsNullOrEmpty(UserName))
+            {
+                string userId = _context.Users.FirstOrDefault(o=>o.UserName==UserName).Id;
+                if (userId != null)
+                    return CheckstatusIsLiked(await x.Skip(skip).Take(Size).ToListAsync(),userId);
+            }
             return await x.Skip(skip).Take(Size).ToListAsync();
 
+        }
+        public IEnumerable<ItemModel> TakeItemBy_collection(int collectionId, int skip, int pageSize, string UserName = null)
+        {
+            var Items= _context.Items.Skip(skip).Take(pageSize).Where(o => o.CollectionId == collectionId).ToList();
+
+            if (!string.IsNullOrEmpty(UserName))
+            {
+                string userId = _context.Users.FirstOrDefault(o => o.UserName == UserName).Id;
+                if (userId != null)
+                    return CheckstatusIsLiked(Items, userId);
+            }
+            return Items;
+
+        }
+        private IEnumerable<ItemModel> CheckstatusIsLiked(IEnumerable<ItemModel> items,string userId)
+        {
+            //SQL
+            // select Items.Title
+            //from Items inner join Likes
+            //on(Items.Id = Likes.ItemId)
+            //where Likes.UserId = 'UserId'
+
+            var x = from s in items.AsQueryable() join l in _context.Likes on s.Id equals l.ItemId where l.UserId == userId && l.IsLiked == true select s.Id;
+
+            foreach (var item in items)
+            {
+                foreach (var likedId in x.ToList())
+                {
+                    if (item.Id == likedId) item.IsLiked = true;
+                }
+            }
+            return items;
         }
     }
 }

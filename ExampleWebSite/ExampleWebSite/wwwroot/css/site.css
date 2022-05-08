@@ -101,3 +101,13 @@ body {
     width:25px;
     height:25px;
 }
+
+.long_text{
+
+    overflow-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+
+}

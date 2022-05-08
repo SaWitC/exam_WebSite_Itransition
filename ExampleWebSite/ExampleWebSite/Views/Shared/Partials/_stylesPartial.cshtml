@@ -1,6 +1,8 @@
 ﻿<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" />
 
+<link href="~/css/CardStyles.css" rel="stylesheet" />
+
 <script>
     const theme = window.matchMedia("(prefers-color-scheme: dark)")
     theme.addListener((e) => {
@@ -15,6 +17,7 @@
         //doDarkTheme();
     }
 </script>
+
 
 @if (User.Identity.IsAuthenticated)
 {

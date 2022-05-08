@@ -259,7 +259,7 @@ namespace ExampleWebSite.Controllers
         {
             CollectionDetailsViewModel model = new CollectionDetailsViewModel();
             var ItemToSkip = page * PageSize;
-            var ItemList = _item.TakeItemBy_collection(collectionId, ItemToSkip, PageSize);
+            var ItemList = _item.TakeItemBy_collection(collectionId, ItemToSkip, PageSize,User.Identity.Name);
             model.items = ItemList;
             return model;
         }
