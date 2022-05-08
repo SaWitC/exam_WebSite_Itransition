@@ -1,5 +1,6 @@
 ﻿using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
+using ExampleWebSite.ViewModels.Items;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -14,7 +15,7 @@ namespace ExampleWebSite.Data.Interfaces
         //public Task Create(int CollectionId, CreateItemViewModel model);
         public Task<EntityEntry<ItemModel>> CreateAsync(CreateItemViewModel model);
         public ItemModel GetItemById(int id);
-        public Task UpdateAsync(CreateItemViewModel model);
+        //public Task UpdateAsync(EditItemViewModel model);
         public Task UpdateAsync(ItemModel model);
         public Task Delete(ItemModel model);
         public Task<IEnumerable<ItemModel>> Find(string SearschString, int themeId);

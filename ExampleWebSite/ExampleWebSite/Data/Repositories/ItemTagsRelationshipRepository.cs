@@ -19,13 +19,16 @@ namespace ExampleWebSite.Data.Repositories
 
         public async Task CreateAsync(ItemModel Item,IEnumerable<TagModel> Tags)
         {
-            List<ItemTagsrelationshipspModel> items = new List<ItemTagsrelationshipspModel>();
-            foreach (var x in Tags)
+            if (Item != null && Tags != null)
             {
-                items.Add(new ItemTagsrelationshipspModel {Item=Item,Tag =x });
+                List<ItemTagsrelationshipspModel> items = new List<ItemTagsrelationshipspModel>();
+                foreach (var x in Tags)
+                {
+                    items.Add(new ItemTagsrelationshipspModel { Item = Item, Tag = x });
+                }
+                _context.ItemTagsrelationships.AddRange(items);
+                await _context.SaveChangesAsync();
             }
-            _context.ItemTagsrelationships.AddRange(items);
-            await _context.SaveChangesAsync();
         }
         public async Task<IEnumerable<ItemTagsrelationshipspModel>> GetRelationshipsByItemIdAsync(int Id)
         {
@@ -45,6 +48,21 @@ namespace ExampleWebSite.Data.Repositories
                        where sa.ItemId ==itemId
                        select s;
             return tags;
+        }
+
+        public IEnumerable<string> GetTagsTitlesByItemId(int itemId)
+        {
+            var tags = from s in _context.Tags
+                       join sa in _context.ItemTagsrelationships on s.Id equals sa.TagId
+                       where sa.ItemId == itemId
+                       select s.Title;
+            return tags;
+        }
+        public async Task RemoveOldRelationshipByItemIdAsync(int ItemId)
+        {
+            var relationship = await _context.ItemTagsrelationships.Where(o => o.ItemId == ItemId).ToListAsync();
+            _context.ItemTagsrelationships.RemoveRange(relationship);
+            await _context.SaveChangesAsync();
         }
     }
 }

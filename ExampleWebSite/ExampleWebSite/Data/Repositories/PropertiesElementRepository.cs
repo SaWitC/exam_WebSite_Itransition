@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models.AddationalProperts;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExampleWebSite.Data.Repositories
 {
@@ -40,6 +41,17 @@ namespace ExampleWebSite.Data.Repositories
         public IEnumerable<PropertiesElementModel> GetPropertiesByItemId(int itemId)
         {
             return _context.PropertiesElement.Where(o => o.ItemId == itemId).ToList().OrderBy(o=>o.Type);
+        }
+
+        public async Task<IEnumerable<PropertiesElementModel>> TakePropertiesByItemIdAsync(int itemId)
+        {
+            return await _context.PropertiesElement.Where(o => o.ItemId == itemId).ToListAsync();
+        }
+
+        public async Task UpdateRangeAsync(IEnumerable<PropertiesElementModel> models)
+        {
+            _context.PropertiesElement.UpdateRange(models);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -37,19 +37,9 @@ namespace ExampleWebSite.Data.Repositories
             }
             return null;
         }
-        public async Task LikeAsync(string user, int itemId)
-        {
-            //LikeModel like = new LikeModel();
-            //like.Item = _context.Items.FirstOrDefault(o=>o.Id== itemId);
-            //like.User = _context.Users.FirstOrDefault(o => o.UserName == user);
-            //like.IsLiked = true;
-            //await _context.Likes.AddAsync(like);
-            //await _context.SaveChangesAsync();
-        }
-
         public async Task<ReturnLikeViewModel> ChangeLikeAsync(LikeModel like,ItemModel item)
         {
-            if (like != null && item != null && item.Id != null)
+            if (like != null && item != null && item.Id != 0)
             {
                 ReturnLikeViewModel returnLike = new ReturnLikeViewModel();
                 if (like.IsLiked)

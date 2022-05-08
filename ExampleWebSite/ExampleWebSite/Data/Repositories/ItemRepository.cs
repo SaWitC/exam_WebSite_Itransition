@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
+using ExampleWebSite.ViewModels.Items;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,11 +36,11 @@ namespace ExampleWebSite.Data.Repositories
             await _context.SaveChangesAsync();
         }
         public ItemModel GetItemById(int id)=> _context.Items.FirstOrDefault(o=>o.Id ==id);
-        public async Task UpdateAsync(CreateItemViewModel model)
-        {
-            _context.Items.Update(model.Item);
-            await _context.SaveChangesAsync();
-        }
+        //public async Task UpdateAsync(EditItemViewModel model)
+        //{
+        //    _context.Items.Update(model.);
+        //    await _context.SaveChangesAsync();
+        //}
         public async Task UpdateAsync(ItemModel model)
         {
             _context.Items.Update(model);

@@ -13,6 +13,8 @@ namespace ExampleWebSite.Data.Interfaces
         public Task<IEnumerable<ItemTagsrelationshipspModel>> GetRelationshipsByItemIdAsync(int Id);
 
         public IEnumerable<TagModel> GetTagsByItemId(int id);
+        public IEnumerable<string> GetTagsTitlesByItemId(int itemId);
 
+        public Task RemoveOldRelationshipByItemIdAsync(int ItemId);
     }
 }

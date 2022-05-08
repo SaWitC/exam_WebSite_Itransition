@@ -39,9 +39,5 @@ namespace ExampleWebSite.Controllers
             }
             return null;
         }
-        public async Task RemoweLike()
-        {
-
-        }
     }
 }

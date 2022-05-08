@@ -27,7 +27,7 @@ namespace ExampleWebSite.Controllers
         private readonly IItemTagsrelationshipRepository _item_Tags_Relationship;
         private readonly ICommentRepository _comment;
         private readonly ICollectionRepository _collection;
-        private readonly IpropertiesElementsRepository _properties;
+        private readonly IpropertiesElementsRepository _propertiesElements;
         private readonly IpropertiesModelRepository _propertiesModel;
 
         //private readonly IThemeRepository _Themes;
@@ -52,7 +52,7 @@ namespace ExampleWebSite.Controllers
             _item_Tags_Relationship = item_Tags_Relationship;
             _comment = comment;
             _collection = collection;
-            _properties = properties;
+            _propertiesElements= properties;
             _item = item;
             _propertiesModel = propertiesModel;
         }
@@ -71,7 +71,7 @@ namespace ExampleWebSite.Controllers
                 
                 var itemViewModel = new ItemDetailsViewModel();
                 itemViewModel.Tags = _item_Tags_Relationship.GetTagsByItemId((int)id);
-                itemViewModel.Properties = _properties.GetPropertiesByItemId((int)id);
+                itemViewModel.Properties = _propertiesElements.GetPropertiesByItemId((int)id);
                 itemViewModel.Item = _item.GetItemById((int)id);
                 itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentCount, (int)id);
                 return View(itemViewModel);
@@ -132,7 +132,7 @@ namespace ExampleWebSite.Controllers
                                     x.Item = Item;
                                     propertiesElements.Add(x);
                                 }
-                                await _properties.AddRangeAsync(propertiesElements);
+                                await _propertiesElements.AddRangeAsync(propertiesElements);
                             }
                         }
                     }
@@ -146,22 +146,72 @@ namespace ExampleWebSite.Controllers
             }
         }
         //Edit ======================================================================
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? ItemId)
         {
-            return View();
+            if (ItemId != null)
+            {
+                var item = _item.GetItemById((int)ItemId);
+                if (item != null)
+                {
+                    EditItemViewModel model = new EditItemViewModel();
+                    model.Properties = await _propertiesElements.TakePropertiesByItemIdAsync((int)ItemId);
+                    model.collectionId = item.CollectionId;
+                    var x =_item_Tags_Relationship.GetTagsTitlesByItemId(item.Id).ToArray();
+                    model.Tags = string.Join(",",x);
+                    model.Title = item.Title;
+                    model.itemId = item.Id;
+
+                    return View(model);
+                }
+            }
+            return NotFound();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(EditItemViewModel model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                //model..Collection = await _collection.FindByIdAsync(model.collectionId);
+               
+
+                if (ModelState.IsValid)
+                {
+                    var item = _item.GetItemById(model.itemId);
+
+                    if (item != null)
+                    {
+                        item.Title = model.Title;
+                        var tags = await _tag.CreateTagsAsync(model.Tags);
+                        await _item_Tags_Relationship.RemoveOldRelationshipByItemIdAsync(item.Id);
+                        await _item_Tags_Relationship.CreateAsync(item, tags);
+
+                        await _item.UpdateAsync(item);
+
+                        if (model.Properties != null && model.Properties.Count() > 1)
+                        {
+                            var properties = _propertiesElements.GetPropertiesByItemId(item.Id);
+                            foreach (var oldProp in properties)
+                            {
+                                foreach (var Modelprop in model.Properties)
+                                {
+                                    if (oldProp.Title == Modelprop.Title)
+                                    {
+                                        oldProp.Value = Modelprop.Value; 
+                                        continue;
+                                    }
+                                }
+                            }
+                            await _propertiesElements.UpdateRangeAsync(properties);
+                        }
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                return View(model);
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
         

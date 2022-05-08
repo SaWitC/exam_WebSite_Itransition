@@ -5,6 +5,8 @@
 <h3>@Model.Item.Title</h3>
 <hr size="3" class="hr_custom" />
 <div></div>
+<a class="text_color btn" asp-action="Delete" asp-controller="Item" asp-route-id="@Model.Item.Id">@ViewResourcesModel["Delete"]</a>
+<a class="text_color btn" asp-action="Edit" asp-controller="Item" asp-route-ItemId="@Model.Item.Id">@ViewResourcesModel["Edit"]</a>
 <div>
     <p>
         <b>@ViewResourcesModel["Tags"] :</b>
@@ -12,12 +14,12 @@
         {
             @foreach (var item in Model.Tags)
             {
-                <a class="ml-auto mr-auto btn bg_Green" asp-action="Find" asp-controller="Item" asp-route-TagString="@item.Title">@item.Title</a>
+                <a class="ml-auto mr-auto btn bg_Green" asp-action="Find" asp-controller="Item" asp-route-TagString="@item.Title" >@item.Title</a>
             }
         }
         else
         {
-            @ViewResourcesModel["NoHasTags"] 
+            @ViewResourcesModel["NoHasTags"]
         }
     </p>
 </div>
@@ -26,36 +28,38 @@
 
 @if (Model.Properties != null)
 {
-foreach (var item in Model.Properties)
-{
-    <div class="row justify-content-md-start">
-        @if (item.Type == "number" || item.Type == "date")
-        {
-            <div class="div_border_custom col-6"><b>@item.Title</b></div>
-            <div class="div_border_custom col-6">@item.Value</div>
-        }
-        else if (item.Type == "bool")
-        {
-            if (item.Value == "on")
+    foreach (var item in Model.Properties)
+    {
+        <div class="row justify-content-md-start">
+            @if (item.Type == "number" || item.Type == "date")
             {
-            <div class="div_border_custom col-6"><b>@item.Title</b></div>
-            <div class="div_border_custom col-6"><img alt="yes" class="Check-icon" src="~/icons/yes_check.png" /></div>
+                <div class="div_border_custom col-6"><b>@item.Title</b></div>
+                <div class="div_border_custom col-6">@item.Value</div>
+            }
+            else if (item.Type == "bool")
+            {
+                if (item.Value == "on")
+                {
+                    <div class="div_border_custom col-6"><b>@item.Title</b></div>
+                    <div class="div_border_custom col-6"><img alt="yes" class="Check-icon" src="~/icons/yes_check.png" /></div>
+                }
+                else
+                {
+                    <div class="div_border_custom col-6"><b>@item.Title</b></div>
+                    <div class="div_border_custom col-6"><img alt="no" class="Check-icon" src="~/icons/no_check.png" /></div>
+                    <input type="checkbox" disabled />
+                }
             }
             else
             {
-                <div class="div_border_custom col-6"><b>@item.Title</b></div>
-                <div class="div_border_custom col-6"><img alt="no" class="Check-icon" src="~/icons/no_check.png" /></div>
-            <input type="checkbox" disabled />
+                <div class="col-12">
+                    <h3>@item.Title</h3>
+                    @item.Value
+                </div>
             }
-        }
-        else
-        {
-        <div class="col-12"><h3>@item.Title</h3>
-        @item.Value</div>
-        }
-    </div>
-        }
+        </div>
     }
+}
 
 @if (User.Identity.IsAuthenticated)
 {

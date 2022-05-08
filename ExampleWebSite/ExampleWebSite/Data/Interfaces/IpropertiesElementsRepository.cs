@@ -16,6 +16,9 @@ namespace ExampleWebSite.Data.Interfaces
 
         public Task Edit(PropertiesElementModel model);
         public IEnumerable<PropertiesElementModel> GetPropertiesByItemId(int itemId);
+        public Task<IEnumerable<PropertiesElementModel>> TakePropertiesByItemIdAsync(int itemId);
+
+        public Task UpdateRangeAsync(IEnumerable<PropertiesElementModel> models);
 
     }
 }

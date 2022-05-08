@@ -1,4 +1,4 @@
-﻿@model ExampleWebSite.ViewModels.CreateItemViewModel
+﻿@model ExampleWebSite.ViewModels.Items.EditItemViewModel
 <script>
     $(document).ready(function () {
         $('#datePicker').val(new Date().toDateInputValue());
@@ -6,17 +6,21 @@
 </script>
 
 <div>
-    <form method="post" asp-controller="Item" asp-action="Create">
+    <form method="post" asp-controller="Item" asp-action="Edit">
+        <input asp-for="itemId"/>
+        <div asp-validation-summary="ModelOnly"></div>
         <div>
             <div class="form-group">
-                <label asp-for="Item.Title"></label>
-                <input asp-for="Item.Title" />
+                <span class="text-danger" asp-validation-for="Title"></span>
+                <label asp-for="Title"></label>
+                <input value="@Model.Title" asp-for="Title" />
+
             </div>
             <div class="form-group">
                 <label asp-for="Tags"></label>
                 <p>@ViewResourcesModel["WriteTagsWith"]</p>
-
-                <input class="input-group" id="tags" maxlength="40" autocomplete="off" asp-for="Tags">
+                <span class="text-danger" asp-validation-for="Tags"></span>
+                <input value="@Model.Tags" maxlength="40" class="input-group" id="tags" autocomplete="off" asp-for="Tags">
 
                 <div style="height:60px" id="TagsRender">
 
@@ -27,10 +31,10 @@
         <input hidden type="number" asp-for="collectionId" value="@Model.collectionId" />
 
         <div class="row justify-content-md-start">
-            @if (Model.TypicalElements != null)
+            @if (Model.Properties != null)
             {
                 int i = 0;
-                foreach (var item in Model.TypicalElements)
+                foreach (var item in Model.Properties)
                 {
                     if (item.Type == "number")
                     {
@@ -38,7 +42,7 @@
                         <div class="div_border_custom col-6">
                             <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                             <input hidden name="Properties[@i].title" value="@item.Title" type="text" />
-                            <input class="bg_swap_gray input-group" maxlength="40" name="Properties[@i].value" type="number" />
+                            <input class="bg_swap_gray input-group" maxlength="40" name="Properties[@i].value" type="number" value="@item.Value" />
                         </div>
                     }
                     if (item.Type == "string")
@@ -47,7 +51,7 @@
                         <div class="div_border_custom col-6">
                             <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                             <input hidden name="Properties[@i].title" value="@item.Title" type="text" />
-                            <input class="bg_swap_gray input-group" maxlength="200" name="Properties[@i].value" type="text" />
+                            <input class="bg_swap_gray input-group" maxlength="200" name="Properties[@i].value" type="text" value="@item.Value" />
                         </div>
                     }
                     if (item.Type == "bool")
@@ -56,7 +60,7 @@
                         <div class="div_border_custom col-6">
                             <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                             <input hidden name="Properties[@i].title" type="text" value="@item.Title" />
-                            <input class="bg_swap_gray Check-icon custom-checkbox" name="Properties[@i].value" type="checkbox" />
+                            <input class="bg_swap_gray Check-icon custom-checkbox" name="Properties[@i].value" type="checkbox" value="@item.Value" />
                         </div>
                     }
                     if (item.Type == "date")
@@ -65,14 +69,14 @@
                         <div class="div_border_custom col-6">
                             <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                             <input hidden name="Properties[@i].title" type="text" value="@item.Title" />
-                            <input class="bg_swap_gray input-group" id="datePicker" name="Properties[@i].value" type="date" />
+                            <input class="bg_swap_gray input-group" id="datePicker" name="Properties[@i].value" type="date" value="@item.Value" />
                         </div>
                     }
                     i++;
                 }
             }
         </div>
-            <input type="submit" value="sent" />
+        <input type="submit" value="sent" />
     </form>
 </div>
 
@@ -95,7 +99,7 @@
         var indx = e.target.value.lastIndexOf(',');
         var value = e.target.value.substr(indx+1, len);
         console.log(value);
-        
+
         $('#TagsRender').find('button').remove();
         $.ajax({
             type: "Get",
