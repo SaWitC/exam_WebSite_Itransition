@@ -1,20 +1,77 @@
 ﻿@model ExampleWebSite.ViewModels.Items.FindItemsViewModel
 
-@if (Model != null)
+@foreach (var item in Model.Items)
 {
-    if (Model.Items != null)
-    {
 
-        foreach (var item in Model.Items)
-        {
-            <h1>@item.Title</h1>
-        }
-    }
+    <div class="col-4">
+        <div class="card">
+            <div class="table table-info">
+                <h5 class="category-social">
+                    @*<i class="fa fa-twitter"></i> Twitter*@
+                </h5>
+                <h4 class="card-caption">
+                    <a href="#">@item.Title</a>
+                </h4>
+                <div class="ftr">
+                    <div class="author">
+                        <a class="btn text_color bg-info" asp-action="Details" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Details"]</a>
+                    </div>
+                    @if (item.IsLiked == true)
+                    {
+                        <div class="stats">  <a id="like+@item.Id" onclick="LikeBtnOnclick(@item.Id,`like+@item.Id`)"><i class="fa text-danger fa-heart"></i> @item.likesCount</a></div>
+                    }
+                    else
+                    {
+                        <div class="stats">  <a id="like+@item.Id" onclick="LikeBtnOnclick(@item.Id,`like+@item.Id`)"><i class="fa fa-heart"></i> @item.likesCount</a></div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="col-md-3">
+            <div class="card m-2 bg_swap_border" style="width:90%;">
+                <a asp-route-UserName="@item.Title" asp-controller="Account" asp-action="CheckInfoAboutUser" type="button" class="long_text btn gray_custom btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From: ">click me</a>
+                <div class="card-body">
+                    <p class=" long_text card-title text-wrap">@item.Title</p>
+                    @if (Model.AvtorName == User.Identity.Name || User.IsInRole("admin"))
+                    {
+                        <a class="text_color btn" asp-action="Delete" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Delete"]</a>
+                    }
+                    <div class="card bg_swap_border">
+                        <a class="text_color btn" asp-action="Details" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Details"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 }
 
-@*@foreach (var item in Model.stt)
-{
-    <h1>@item.value</h1>
-    <h2>@item.v2</h2>
 
-}*@
+
+<script>
+    //like
+    function LikeBtnOnclick(itemId, htmlElemId) {
+        var Element = document.getElementById(htmlElemId)
+        $.ajax({
+            type: 'Get',
+            url: "@Url.Action("Like","Like")",
+            data: { ItemId: itemId },
+            success: function (data) {
+                console.log(data);
+                //var response = JSON.parse(data)
+                //console.log(response);
+                if (data.status) {
+                    Element.innerHTML = `<i class="fa text-danger fa-heart"></i> ${data.count}`;
+                }
+                else {
+                    Element.innerHTML = `<i class="fa fa-heart"></i> ${data.count}`;
+                }
+            },
+            error: function (data) {
+                if (data.message == undefined) {
+                    alert("@ViewResourcesModel["AuthorizedPlease"]");
+                }
+            }
+        })
+    }
+</script>

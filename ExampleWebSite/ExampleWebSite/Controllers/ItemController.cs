@@ -310,20 +310,48 @@ namespace ExampleWebSite.Controllers
         {
 
             FindItemsViewModel mode = new FindItemsViewModel();
-            if (!string.IsNullOrEmpty(TagString))
-            {
-                mode.Items = await _item.TakeItemByTag_SkipAsync(TagString, 0, 5);
-                return View(mode);
-            }
+            //if (!string.IsNullOrEmpty(TagString))
+            //{
+            //    mode.Items = await _item.TakeItemByTag_SkipAsync(TagString, 0, 5);
+            //    return View(mode);
+            //}
             if (!string.IsNullOrEmpty(SearchString))
             {
-                mode.Items = _context.Items.AsQueryable().FullTextSearchQuery(SearchString).Take(5);
+
+                var options = new FullTextSearchOptions
+                {
+                    Depth = 2,
+
+                    // filter to use search for string fields we chose
+                    Filter = (propInfo) =>
+                    {
+                        if (propInfo.DeclaringType == typeof(ItemModel))
+                        {
+                            return propInfo.PropertyType == typeof(string);
+                        }
+                        //else if (propInfo.PropertyType == typeof(string))
+                        //{
+                        //    if (propInfo.DeclaringType == typeof(Customer))
+                        //    {
+                        //        return propInfo.Name == "CompanyName" || propInfo.Name == "Country";
+                        //    }
+                        //    else if (propInfo.DeclaringType == typeof(Employee))
+                        //    {
+                        //        return propInfo.Name == "FirstName" || propInfo.Name == "LastName";
+                        //    }
+                        //}
+                        return false;
+                    }
+                };
+
+                var inteers =await _context.Items.FullTextSearchQuery(SearchString, options).ToListAsync();
+                mode.Items = inteers;
                 mode.SearchString = SearchString;
                 return View(mode);
             }
-            mode.Items = _context.Items.AsQueryable();
+           // mode.Items = _context.Items.AsQueryable();
         
-            return View(mode);
+            return View();
         }
 
         //[HttpPost]
