@@ -1,5 +1,6 @@
 ﻿@model ItemDetailsViewModel
 
+<script src="~/microsoft-signalr/signalr.min.js"></script>
 
 <hr size="3" class="hr_custom" />
 <h3>@Model.Item.Title</h3>
@@ -14,7 +15,7 @@
         {
             @foreach (var item in Model.Tags)
             {
-                <a class="ml-auto mr-auto btn bg_Green" asp-action="Find" asp-controller="Item" asp-route-TagString="@item.Title" >@item.Title</a>
+                <a class="ml-auto mr-auto btn bg_Green" asp-action="Find" asp-controller="Item" asp-route-TagString="@item.Title">@item.Title</a>
             }
         }
         else
@@ -75,8 +76,10 @@ else
 
 <button onclick="LoadComments()">load Mode</button>
 
+<div id="notify"></div>
+
 <script>
-    var page = 0;
+    @*var page = 0;
     var _inCallback = false;
     window.addEventListener('scroll', function () {
 
@@ -101,7 +104,7 @@ else
                 }
             });
         }
-    });
+    });*@
 
     var page = 0;
     var _inCallback = false;
@@ -142,7 +145,6 @@ else
             },
             error: function () {
                  alert("error");
-                // document.getElementById("status_w").innerHTML = "error";
             }
         })
     }
@@ -153,3 +155,48 @@ else
     <textarea type="text" id="message" maxlength="500" placeholder="@ViewResourcesModel["MaxCommentLenght500"]"></textarea>
     <button onclick="SentComment()" class="btn">@ViewResourcesModel["Enter"]</button>
 </div>
+
+<script>
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/chat")
+        .build();
+
+    // получение сообщения от сервера
+    hubConnection.on('comment'+'@Model.Item.Id', function (message) {
+
+        //$("#renderData").append(data);
+        // создает элемент <p> для сообщения пользователя
+        let elem = document.createElement("p");
+        var elem2 = `<div class="card" style="width:auto;">
+    <div class="form-group">
+
+        <div class="card-body bg-info btn-lg active w-100 h-auto" role="button" aria-pressed="true">
+            <button type="button" class="btn btn-secondary btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From:">
+                ?
+            </button>
+            <h5 class="card-text text-wrap">user</h5>
+            <p class="card-text text-wrap">${message}</p>
+        </div>
+    </div>
+</div>`
+        elem.appendChild(document.createTextNode(message));
+
+        document.getElementById("notify").appendChild(elem);
+        $("#notify").html(elem2);
+
+
+    });
+    hubConnection.start();
+
+
+    hubConnection.on("UserConnected", function (connectionId) {
+        //$("#users").html();
+        console.log("connected " + connectionId)
+    });
+
+    hubConnection.on("UserConnected", function (connectionId) {
+        //$("#users").html();
+        console.log("Disconnected " + connectionId)
+    });
+</script>
+

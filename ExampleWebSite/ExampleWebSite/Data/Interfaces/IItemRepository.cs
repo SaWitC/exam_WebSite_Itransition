@@ -18,7 +18,7 @@ namespace ExampleWebSite.Data.Interfaces
         //public Task UpdateAsync(EditItemViewModel model);
         public Task UpdateAsync(ItemModel model);
         public Task Delete(ItemModel model);
-        public Task<IEnumerable<ItemModel>> Find(string SearschString, int themeId);
+        public Task<IEnumerable<ItemModel>> Find(FindItemsViewModel model);
         public Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId);
         public Task<ItemModel> FindByTitleAsync(string title);
         public Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip,int Size,string UserName=null);

@@ -12,6 +12,7 @@ namespace ExampleWebSite.ViewModels.Items
         public IEnumerable<ItemModel> Items { get; set; }
         public string SearchString { get; set; }
         public string TagString { get; set; }
+        public bool OnlyLiked { get; set; }
 
     }
 }

@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Localization;
 using ExampleWebSite.ResourcesModels;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using ExampleWebSite.Hubs;
 
 namespace ExampleWebSite
 {
@@ -40,6 +41,7 @@ namespace ExampleWebSite
             });
 
             services.AddLocalization(options=>options.ResourcesPath = "Resources");
+            services.AddSignalR();
 
             services.AddTransient<ILikeRepository, LikeRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
@@ -106,6 +108,7 @@ namespace ExampleWebSite
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<CommentHub>("/chat");
             });
         }
     }

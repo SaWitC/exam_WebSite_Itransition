@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using ExampleWebSite.ViewModels.Comments;
 using ExampleWebSite.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
+using ExampleWebSite.Hubs;
 
 namespace ExampleWebSite.Controllers
 {
@@ -18,13 +20,15 @@ namespace ExampleWebSite.Controllers
         private readonly IItemRepository _item;
         private readonly ICollectionRepository _collection;
         private readonly UserManager<User> _userManager;
+        private readonly IHubContext<CommentHub> _hubContext;
 
-        public CommentController(ICommentRepository comment,ICollectionRepository collection,UserManager<User> userManager, IItemRepository item)
+        public CommentController(ICommentRepository comment,ICollectionRepository collection,UserManager<User> userManager, IItemRepository item,IHubContext<CommentHub> hub)
         {
             _item = item;
             _comment = comment;
             _collection = collection;
             _userManager = userManager;
+            _hubContext = hub;
         }
 
         [Authorize]
@@ -40,6 +44,8 @@ namespace ExampleWebSite.Controllers
                     commentModel.Item = _item.GetItemById(itemId);
                     commentModel.Avtor = await _userManager.FindByNameAsync(User.Identity.Name);
                     await _comment.CreateCommentAsync(commentModel);
+
+                    await _hubContext.Clients.All.SendAsync("comment"+itemId.ToString(), message);
                     return Ok();
                 }
                 else return BadRequest();

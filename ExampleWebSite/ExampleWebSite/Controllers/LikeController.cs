@@ -25,10 +25,10 @@ namespace ExampleWebSite.Controllers
         [Authorize]
         public async Task<ReturnLikeViewModel> Like(int? ItemId)
         {
+
+            ReturnLikeViewModel returnLikeViewModel = new ReturnLikeViewModel();
             if (ItemId != null)
             {
-                ReturnLikeViewModel returnLikeViewModel = new ReturnLikeViewModel();
-
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 ItemModel item = _item.GetItemById((int)ItemId);
 
@@ -37,7 +37,8 @@ namespace ExampleWebSite.Controllers
                 else await _like.LikeAsync(user,item);
                 return returnLikeViewModel;
             }
-            return null;
+            returnLikeViewModel.Message = "Error";
+            return returnLikeViewModel;
         }
     }
 }

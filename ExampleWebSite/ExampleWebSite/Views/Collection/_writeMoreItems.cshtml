@@ -68,7 +68,9 @@
                 }
             },
             error: function (data) {
-                alert("2");
+                if (data.message == undefined) {
+                    alert("@ViewResourcesModel["AuthorizedPlease"]");
+                }
             }
         })
     }

@@ -132,6 +132,9 @@
   <data name="AdminPage" xml:space="preserve">
     <value>Admin panel</value>
   </data>
+  <data name="AuthorizedPlease" xml:space="preserve">
+    <value>Please Log in</value>
+  </data>
   <data name="author_will_be" xml:space="preserve">
     <value>The author will be</value>
   </data>

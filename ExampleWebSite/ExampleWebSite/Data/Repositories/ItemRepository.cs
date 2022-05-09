@@ -6,6 +6,7 @@ using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
 using ExampleWebSite.ViewModels.Items;
+using Korzh.EasyQuery.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,9 +48,16 @@ namespace ExampleWebSite.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<ItemModel>> Find(string SearschString, int themeId)
+        public async Task<IEnumerable<ItemModel>> Find(FindItemsViewModel model)
         {
-            throw new NotImplementedException();
+            if (model != null)
+            {
+                var items = _context.Items.AsQueryable();
+                if (model.SearchString != null) {
+                    var resitems =await items.FullTextSearchQuery(model.SearchString).Take(5).ToListAsync();
+                }
+            }
+            return null;
         }
         public async Task<ItemModel> FindByTitleAsync(string title)=> await _context.Items.FirstOrDefaultAsync(o=>o.Title ==title);
         public async Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId)=> await _context.Items.AsNoTracking().Where(o => o.CollectionId == collectionId).ToListAsync();

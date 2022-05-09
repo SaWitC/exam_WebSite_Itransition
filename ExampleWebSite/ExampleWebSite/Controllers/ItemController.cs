@@ -315,6 +315,12 @@ namespace ExampleWebSite.Controllers
                 mode.Items = await _item.TakeItemByTag_SkipAsync(TagString, 0, 5);
                 return View(mode);
             }
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                mode.Items = _context.Items.AsQueryable().FullTextSearchQuery(SearchString).Take(5);
+                mode.SearchString = SearchString;
+                return View(mode);
+            }
             mode.Items = _context.Items.AsQueryable();
         
             return View(mode);
