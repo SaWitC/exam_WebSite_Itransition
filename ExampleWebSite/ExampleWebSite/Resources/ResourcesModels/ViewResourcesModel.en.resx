@@ -132,6 +132,9 @@
   <data name="AdminPage" xml:space="preserve">
     <value>Admin panel</value>
   </data>
+  <data name="Alcohol" xml:space="preserve">
+    <value>Alcohol</value>
+  </data>
   <data name="AuthorizedPlease" xml:space="preserve">
     <value>Please Log in</value>
   </data>
@@ -153,11 +156,23 @@
   <data name="Blocking_status" xml:space="preserve">
     <value>Status of ban</value>
   </data>
+  <data name="Books" xml:space="preserve">
+    <value>Books</value>
+  </data>
   <data name="BoolProperties" xml:space="preserve">
     <value>Switches</value>
   </data>
   <data name="boolrPropertiesEl" xml:space="preserve">
     <value>Additional switch field</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="ChangePhone" xml:space="preserve">
+    <value>Changing the phone number</value>
+  </data>
+  <data name="Coins" xml:space="preserve">
+    <value>Coins</value>
   </data>
   <data name="CollectionTheme" xml:space="preserve">
     <value>Theme</value>
@@ -231,6 +246,9 @@
   <data name="MaxCommentLenght500" xml:space="preserve">
     <value>The maximum length of a comment is 500 characters</value>
   </data>
+  <data name="Minerals" xml:space="preserve">
+    <value>Minerals</value>
+  </data>
   <data name="MoreInfo" xml:space="preserve">
     <value>More Information</value>
   </data>
@@ -279,11 +297,17 @@
   <data name="Roles" xml:space="preserve">
     <value>Roles</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
   <data name="SearchString" xml:space="preserve">
     <value>Text (descriptions, titles, comments)</value>
+  </data>
+  <data name="Stamps" xml:space="preserve">
+    <value>Stamps</value>
   </data>
   <data name="StringProperties" xml:space="preserve">
     <value>Text fields</value>

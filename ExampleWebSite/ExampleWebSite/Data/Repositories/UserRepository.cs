@@ -1,8 +1,10 @@
-﻿using ExampleWebSite.Data.Interfaces;
+﻿using ExampleWebSite.Data.ConfigurationModels;
+using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +15,18 @@ namespace ExampleWebSite.Data.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly UserManager<User> _userManager;
+        private readonly IOptions<AdminAccountDataModel> _options;
 
-        public UserRepository(UserManager<User> userManager)
+        public UserRepository(UserManager<User> userManager,
+            IOptions<AdminAccountDataModel> options)
         {
+            _options = options;
             _userManager = userManager;
+        }
+        private bool CheckUserName(string UserName)
+        {
+            if (_options.Value.AdminAccountEmail != UserName) return true;
+            return false;
         }
 
         public async Task BanUsersAsync(IEnumerable<string> UserNames)
@@ -34,33 +44,42 @@ namespace ExampleWebSite.Data.Repositories
 
         public async Task BanUserAsync(string UserName)
         {
-            var user = await _userManager.FindByNameAsync(UserName);
-            if (user != null)
+            if (CheckUserName(UserName))
             {
-                user.IsBaned = true;
-                await _userManager.UpdateAsync(user);
+                var user = await _userManager.FindByNameAsync(UserName);
+                if (user != null)
+                {
+                    user.IsBaned = true;
+                    await _userManager.UpdateAsync(user);
+                }
             }
         }
         public async Task BanUserAsync(User user)
         {
-            if (user != null)
+            if (CheckUserName(user.UserName))
             {
-                user.IsBaned = true;
-                await _userManager.UpdateAsync(user);
+                if (user != null)
+                {
+                    user.IsBaned = true;
+                    await _userManager.UpdateAsync(user);
+                }
             }
         }
 
         public IEnumerable<User> TakeMoreUsers(int size, int page,string UserName,string FinderName)
         {
+            var admin =_options.Value.AdminAccountEmail;
             int skip = size * page;
             if (!string.IsNullOrEmpty(UserName))
             {
-                return _userManager.Users.Skip(skip).Take(size).Where(o => o.UserName != FinderName&&o.UserName
-                .ToLower().Contains(UserName.ToLower()));
+                return _userManager.Users.Skip(skip).Take(size).Where(o => o.UserName != FinderName&&
+                o.UserName!=admin&&
+                o.UserName.ToLower().Contains(UserName.ToLower()));
             }
             else
             {
-                return _userManager.Users.Skip(skip).Take(size).Where(o => o.UserName != FinderName);
+                return _userManager.Users.Skip(skip).Take(size).Where(o => o.UserName != FinderName &&
+                o.UserName != admin);
             }
         }
 

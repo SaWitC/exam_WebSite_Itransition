@@ -207,3 +207,7 @@ D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Vi
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Partials\_MarkdownEditorMini.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Item\Edit.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\libman.json
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ResourcesModels.ResourcesToControllerModel.en.resources
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ResourcesModels.ResourcesToControllerModel.ru.resources
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditPhone.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePasswordAuthorise.cshtml.g.cs

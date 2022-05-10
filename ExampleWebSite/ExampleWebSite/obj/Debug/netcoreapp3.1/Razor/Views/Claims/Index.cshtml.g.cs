@@ -41,21 +41,42 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
-using ExampleWebSite.ViewModels;
+#line 6 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Items;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Collections;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 8 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Comments;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Account;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 13 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
 using Microsoft.AspNetCore.Identity;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0642bc88ed42996b95ba15a1208b9d53b77f7cb6", @"/Views/Claims/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4ac91f125f01ec1be8c8df689801b46ac4bcf2d4", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b6122fc4dd63fd57d875fd09fc5da9841c6eccd7", @"/Views/_ViewImports.cshtml")]
     public class Views_Claims_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<System.Security.Claims.Claim>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Create", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -89,7 +110,7 @@ using Microsoft.AspNetCore.Identity;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("<h2 class=\"bg-primary m-1 p-1 text-white\">Claims</h2>\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0642bc88ed42996b95ba15a1208b9d53b77f7cb65410", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0642bc88ed42996b95ba15a1208b9d53b77f7cb65989", async() => {
                 WriteLiteral("Create a Claim");
             }
             );
@@ -147,7 +168,7 @@ using Microsoft.AspNetCore.Identity;
 #line hidden
 #nullable disable
             WriteLiteral("</td>\r\n            <td>\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0642bc88ed42996b95ba15a1208b9d53b77f7cb68118", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0642bc88ed42996b95ba15a1208b9d53b77f7cb68697", async() => {
                 WriteLiteral("\r\n                    <input type=\"hidden\" name=\"claimValues\"");
                 BeginWriteAttribute("value", " value=\"", 728, "\"", 774, 5);
 #nullable restore

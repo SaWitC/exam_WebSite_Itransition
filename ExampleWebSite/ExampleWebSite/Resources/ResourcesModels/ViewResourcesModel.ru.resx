@@ -132,6 +132,9 @@
   <data name="AdminPage" xml:space="preserve">
     <value>Админ панель</value>
   </data>
+  <data name="Alcohol" xml:space="preserve">
+    <value>Алкоголь</value>
+  </data>
   <data name="AuthorizedPlease" xml:space="preserve">
     <value>AuthorizedPlease</value>
   </data>
@@ -153,11 +156,23 @@
   <data name="Blocking_status" xml:space="preserve">
     <value>Статус пользователя</value>
   </data>
+  <data name="Books" xml:space="preserve">
+    <value>Книги</value>
+  </data>
   <data name="BoolProperties" xml:space="preserve">
     <value>Переключатели</value>
   </data>
   <data name="boolrPropertiesEl" xml:space="preserve">
     <value>Дополнительное поле переключатель</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Изменить пароль</value>
+  </data>
+  <data name="ChangePhone" xml:space="preserve">
+    <value>Изменение номера телефона</value>
+  </data>
+  <data name="Coins" xml:space="preserve">
+    <value>Монеты</value>
   </data>
   <data name="CollectionTheme" xml:space="preserve">
     <value>Тема Коллекции</value>
@@ -231,6 +246,9 @@
   <data name="MaxCommentLenght500" xml:space="preserve">
     <value>Максимальная длина коментария 500символов</value>
   </data>
+  <data name="Minerals" xml:space="preserve">
+    <value>Минералы</value>
+  </data>
   <data name="MoreInfo" xml:space="preserve">
     <value>Больше информации</value>
   </data>
@@ -279,11 +297,17 @@
   <data name="Roles" xml:space="preserve">
     <value>Роли</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
   </data>
   <data name="SearchString" xml:space="preserve">
     <value>Текст (описания,названия,коментария)</value>
+  </data>
+  <data name="Stamps" xml:space="preserve">
+    <value>Марки</value>
   </data>
   <data name="StringProperties" xml:space="preserve">
     <value>Текстовые поля</value>

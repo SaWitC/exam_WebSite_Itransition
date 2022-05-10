@@ -17,19 +17,16 @@ namespace ExampleWebSite.Data.Repositories
         {
             _context = context;
         }
-
         public void AddRange(IEnumerable<PropertiesModel> model)
         {
             _context.Properties.AddRange(model);
             _context.SaveChanges();
         }
-
         public async Task AddRnageAsync(IEnumerable<PropertiesModel> model)
         {
             _context.Properties.AddRange(model);
             await _context.SaveChangesAsync();
         }
-
         public async Task<IEnumerable<PropertiesModel>> GetByIdAsync(int collectionid)
         {
             return await _context.Properties.Where(o => o.CollectionId == collectionid).ToListAsync();

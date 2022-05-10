@@ -1,5 +1,7 @@
-﻿using ExampleWebSite.Data.Interfaces;
+﻿using ExampleWebSite.Data.ConfigurationModels;
+using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
+using ExampleWebSite.ResourcesModels;
 using ExampleWebSite.ViewModels;
 using ExampleWebSite.ViewModels.Account;
 using Microsoft.AspNetCore.Authentication;
@@ -9,6 +11,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +26,29 @@ namespace ExampleWebSite.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IUserRepository _userRepository;
+        private readonly IStringLocalizer<ResourcesToControllerModel> _stringLocalizer;
+        private readonly IOptions<AdminAccountDataModel> _options;
+        private readonly IOptions<AppConfigDataModel> _AppConfigData;
 
-        private readonly int size = 10;//size of Users
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,IUserRepository userRepository)
+
+        private static int UserSize;//size of Users
+        public AccountController(UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            IUserRepository userRepository,
+            IStringLocalizer<ResourcesToControllerModel> stringLocalizer,
+            IOptions<AdminAccountDataModel> options,
+            IOptions<AppConfigDataModel> AppConfigData)
         {
+            _options = options;
+            _stringLocalizer = stringLocalizer;
             _userRepository = userRepository;
             _userManager = userManager;
             _signInManager = signInManager;
+            _AppConfigData = AppConfigData;
+
+            UserSize = int.Parse(_AppConfigData.Value.UserSize);
         }
 
-        //register ===================================================================
         [HttpGet]
         public IActionResult Register()
         {
@@ -42,20 +59,13 @@ namespace ExampleWebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User{ Email = model.Email, UserName = model.UserName };//initialise object
-                var resoult = await _userManager.CreateAsync(user, model.Password);//crete new user
+                User user = new User{ Email = model.Email, UserName = model.UserName };
+                var resoult = await _userManager.CreateAsync(user, model.Password);
                 if (resoult.Succeeded)
                 {
                     await _userManager.AddClaimAsync(user, new Claim("IsBaned", user.IsBaned.ToString())); ;
-                    // создаем claim для хранения года рождения
-                    //var identityClaim = new IdentityUserClaim<int>{ ClaimType = "Year", ClaimValue = user.IsBaned.ToString() };
-                    
-                    // добавляем claim пользователю
-                    
-                    // сохраняем изменения
-                    //await _userManager.UpdateAsync(user);
 
-                    await _signInManager.SignInAsync(user, true);//add cockies
+                    await _signInManager.SignInAsync(user, true);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -68,7 +78,6 @@ namespace ExampleWebSite.Controllers
             }
             return View();
         }
-        //login ==============================================================
         [HttpGet]
         public IActionResult Login(string returnURL)
         {
@@ -102,19 +111,84 @@ namespace ExampleWebSite.Controllers
                     }
                 }
             }
-            //else
-            //{
-            //    ModelState.AddModelError("", "Неправильный логин и (или) пароль");//Res
-            //}
+            else
+            {
+                ModelState.AddModelError("",_stringLocalizer["BadPassworOrEmail"]);
+            }
             return View(model);
         }
-        //logout =============================================================
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(Login));
         }
-        // other Pages =======================================================
+
+        #region OnlyAuthorize
+        [Authorize]
+        [HttpGet]
+        public IActionResult ChangePasswordAuthorise()
+        {
+            return View();
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ChangePasswordAuthorise(ChangePasswordAuthoriseVM model)
+        {
+            if (model.name == null)
+            {
+
+            }
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(model.name);
+                if (user != null)
+                {
+                    IdentityResult result = await _userManager.ChangePasswordAsync(user, model.oldPass, model.NewPass);
+                    if (result.Succeeded)
+                    {
+                        await _userManager.UpdateAsync(user);
+                        return RedirectToAction(nameof(Index));//changedMessge
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+                }
+
+            }
+            ModelState.AddModelError("", "не верный пароль");
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult EditPhone()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> EditPhone(EditPhoneViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                user.PhoneNumber = model.PhoneNumber;
+                IdentityResult resoult = await _userManager.UpdateAsync(user);
+                if (resoult.Succeeded)
+                {
+                    return RedirectToAction("Index", "Account");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "что-то пошло не так");
+                }
+
+            }
+            return View(model);
+        }
+
+
         [Authorize]
         public async Task<IActionResult> Index()
         {
@@ -128,7 +202,17 @@ namespace ExampleWebSite.Controllers
             return View(user);
         }
 
-        //editThame ==================================================================
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditCultre(User user, string cultureCode)
+        {
+            await _userRepository.EditCultureAsync(User.Identity.Name, cultureCode);
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider
+                .MakeCookieValue(new RequestCulture(user.CultureCode, user.CultureCode)));
+
+            return RedirectToAction("PersonalData", "Account");
+        }
+
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> EditThemeModal()
@@ -145,6 +229,7 @@ namespace ExampleWebSite.Controllers
             await _userRepository.EditThemaAsync(User.Identity.Name, Thema);
             return RedirectToAction("PersonalData", "Account");
         }
+        #endregion
         #region Admin
         [HttpGet]
         [Authorize(Roles ="admin")]
@@ -192,10 +277,10 @@ namespace ExampleWebSite.Controllers
             var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
             if (isAjax)
             {
-                model.Users = _userRepository.TakeMoreUsers(size, page, SearchString, User.Identity.Name);
+                model.Users = _userRepository.TakeMoreUsers(UserSize, page, SearchString, User.Identity.Name);
                 return PartialView("_WriteMoreUsers",model);
             }
-            model.Users = _userRepository.TakeMoreUsers(size, 0, SearchString, User.Identity.Name);
+            model.Users = _userRepository.TakeMoreUsers(UserSize, 0, SearchString, User.Identity.Name);
             return View(model);
         }
 
@@ -285,37 +370,25 @@ namespace ExampleWebSite.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> RemoveRole(string UserName,string RoleName)
         {
-            var result=  await _userRepository.RemoveRoleFromUser(UserName,RoleName);
-            if (result)
-                return RedirectToAction("OperationsWithUser", "Account", new { UserName = UserName });
-            else
+            var user = _options.Value.AdminAccountEmail;
+            if (user != UserName)
+            {
+                var result = await _userRepository.RemoveRoleFromUser(UserName, RoleName);
+                if (result)
+                    return RedirectToAction("OperationsWithUser", "Account", new { UserName = UserName });
+            }
                 return NotFound();
         }
         #endregion
-        //EditCulture ==============================================================
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> EditCultre(User user,string cultureCode)
-        {
-            await _userRepository.EditCultureAsync(User.Identity.Name,cultureCode);
-            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider
-                .MakeCookieValue(new RequestCulture(user.CultureCode, user.CultureCode)));
-
-            return RedirectToAction("PersonalData", "Account");
-        }
-
-
         private async Task Authenticate(User user)////////////////////////////////////////////////////////////////
         {
-            // создаем один claim
             var claims = new List<Claim>
             {
                 new Claim("Isbaned", user.IsBaned.ToString()),
             };
-            // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
-            // установка аутентификационных куки
+            // set autenticate cockies
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }

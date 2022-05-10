@@ -21,7 +21,6 @@ namespace ExampleWebSite.Controllers
         private readonly ICollectionRepository _collection;
         private readonly UserManager<User> _userManager;
         private readonly IHubContext<CommentHub> _hubContext;
-
         public CommentController(ICommentRepository comment,ICollectionRepository collection,UserManager<User> userManager, IItemRepository item,IHubContext<CommentHub> hub)
         {
             _item = item;

@@ -14,8 +14,10 @@ namespace ExampleWebSite.Data
             {
                 _context.Themes.AddRange(
                 new ThemaModel { Title = "Books", Description = "coloctions of books" },
-                new ThemaModel  {Title = "Minerals", Description = "coloctions of Minerals" },
-                new ThemaModel {Title = "alcohol", Description = "coloctions of alcohol" }
+                new ThemaModel  {Title = "Minerals", Description = "coloctions of minerals" },
+                new ThemaModel {Title = "Alcohol", Description = "coloctions of alcohol" },
+                new ThemaModel { Title = "Coins", Description = "coloctions of coins" },
+                new ThemaModel { Title = "Stamps", Description = "coloctions of stamps" }
                 );
                 _context.SaveChanges();
             }

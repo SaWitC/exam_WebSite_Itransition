@@ -135,6 +135,9 @@
   <data name="ImageName" xml:space="preserve">
     <value>Картинка (поддерживаемые форматы jpg)</value>
   </data>
+  <data name="IncorrectPhone" xml:space="preserve">
+    <value>Не корректный номер</value>
+  </data>
   <data name="ItemTitle" xml:space="preserve">
     <value>Название элемента коллекции</value>
   </data>
@@ -147,6 +150,12 @@
   <data name="MinLenghtTitle3" xml:space="preserve">
     <value>Длинна названия не может быть меньше 3 символов.</value>
   </data>
+  <data name="NewPass" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="OldPass" xml:space="preserve">
+    <value>Старый пароль</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
@@ -155,6 +164,15 @@
   </data>
   <data name="PasswordMinLenght7" xml:space="preserve">
     <value>Пароль должен быть не короче 7 символов</value>
+  </data>
+  <data name="PasswordNotCompare" xml:space="preserve">
+    <value>Пароли не совпадают</value>
+  </data>
+  <data name="PhoneNumberMinLen6" xml:space="preserve">
+    <value>Слишком короткий номер телефона</value>
+  </data>
+  <data name="PhoneNumerMaxLen14" xml:space="preserve">
+    <value>Слишком длинный номер телефона</value>
   </data>
   <data name="PropertiesElemTitleMaxLenght30" xml:space="preserve">
     <value>Название поля не может быть Длиннее 30 символов</value>

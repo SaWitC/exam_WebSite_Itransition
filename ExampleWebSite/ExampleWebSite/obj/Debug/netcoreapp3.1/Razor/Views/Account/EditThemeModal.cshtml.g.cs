@@ -41,21 +41,42 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
-using ExampleWebSite.ViewModels;
+#line 6 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Items;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Collections;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 8 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Comments;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Account;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 13 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
 using Microsoft.AspNetCore.Identity;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"43bf1eaad8a8756a38db992343f4c29327e8cc78", @"/Views/Account/EditThemeModal.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4ac91f125f01ec1be8c8df689801b46ac4bcf2d4", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b6122fc4dd63fd57d875fd09fc5da9841c6eccd7", @"/Views/_ViewImports.cshtml")]
     public class Views_Account_EditThemeModal : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<User>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("method", "post", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -87,7 +108,7 @@ using Microsoft.AspNetCore.Identity;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("\r\n    <div>\r\n        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "43bf1eaad8a8756a38db992343f4c29327e8cc784913", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "43bf1eaad8a8756a38db992343f4c29327e8cc785492", async() => {
                 WriteLiteral("\r\n            <button type=\"submit\" value=\"white\" name=\"Thema\">white</button>\r\n            <button type=\"submit\" value=\"dark\" name=\"Thema\">dark</button>\r\n            <button type=\"submit\" value=\"auto\" name=\"Thema\">auto</button>\r\n        ");
             }
             );

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace ExampleWebSite.Controllers
 {
+
+    // not used controller
     [Authorize]
     public class ClaimsController : Controller
     {
@@ -19,7 +21,6 @@ namespace ExampleWebSite.Controllers
         {
             userManager = userMgr;
         }
-
         public ViewResult Index() => View(User?.Claims);
 
         public ViewResult Create() => View();

@@ -41,21 +41,42 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
-using ExampleWebSite.ViewModels;
+#line 6 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Items;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Collections;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 8 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Comments;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Account;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 13 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
 using Microsoft.AspNetCore.Identity;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"986eadd592bef3e61a73f6a7f62e334097e98be1", @"/Views/Account/Partials/_NavigationByUserForAdminPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4ac91f125f01ec1be8c8df689801b46ac4bcf2d4", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b6122fc4dd63fd57d875fd09fc5da9841c6eccd7", @"/Views/_ViewImports.cshtml")]
     public class Views_Account_Partials__NavigationByUserForAdminPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<User>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("btn m-1 bg_Green btn-lg btn-block"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -87,7 +108,7 @@ using Microsoft.AspNetCore.Identity;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("\r\n<div class=\"btn-group-vertical w-100\">\r\n    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "986eadd592bef3e61a73f6a7f62e334097e98be15320", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "986eadd592bef3e61a73f6a7f62e334097e98be15899", async() => {
 #nullable restore
 #line 4 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\Account\Partials\_NavigationByUserForAdminPartial.cshtml"
                                                                                                                                           Write(ViewResourcesModel["General"]);
@@ -127,7 +148,7 @@ using Microsoft.AspNetCore.Identity;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "986eadd592bef3e61a73f6a7f62e334097e98be18186", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "986eadd592bef3e61a73f6a7f62e334097e98be18765", async() => {
 #nullable restore
 #line 5 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\Account\Partials\_NavigationByUserForAdminPartial.cshtml"
                                                                                                                                           Write(ViewResourcesModel["OperationsWithUser"]);

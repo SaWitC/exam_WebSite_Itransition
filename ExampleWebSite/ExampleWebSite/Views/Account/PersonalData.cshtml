@@ -38,13 +38,15 @@
             {<p><b>@ViewResourcesModel["Languages"]":</b>@ViewResourcesModel["ErrorLoadDataMessage"]</p>}
 
             <div>
-                <input hidden name="user" value="@Model"/>
+                <input hidden name="user" value="@Model" />
                 <form method="post" asp-action="EditCultre" asp-controller="Account">
                     <button type="submit" value="ru" name="cultureCode">ru</button>
                     <button type="submit" value="en" name="cultureCode">en</button>
                 </form>
             </div>
             <button>@ViewResourcesModel["Edit"]</button>
+            <hr class="hr_custom" />
+            <p><a asp-action="ChangePasswordAuthorise" asp-route-name="@User.Identity.Name" asp-controller="Account">@ViewResourcesModel["ChangePassword"]</a></p>
 
         </div>
     </div>

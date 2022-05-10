@@ -41,21 +41,42 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
-using ExampleWebSite.ViewModels;
+#line 6 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Items;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Collections;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 8 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Comments;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
+using ExampleWebSite.ViewModels.Account;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 13 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\_ViewImports.cshtml"
 using Microsoft.AspNetCore.Identity;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"01e50a4474d7ff46d9de4274109a11e68b0481dc", @"/Views/Shared/Partials/_headerPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4ac91f125f01ec1be8c8df689801b46ac4bcf2d4", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b6122fc4dd63fd57d875fd09fc5da9841c6eccd7", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Partials__headerPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("navbar-brand text-white"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -107,7 +128,7 @@ using Microsoft.AspNetCore.Identity;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("\r\n<header>\r\n    <nav class=\"navbar-dark navbar navbar-expand-md navbar-toggleable-sm navbar-light HeadStyle box-shadow mb-3\">\r\n        <div class=\"container\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc11312", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc11891", async() => {
                 WriteLiteral("ExampleWebSite");
             }
             );
@@ -137,7 +158,7 @@ using Microsoft.AspNetCore.Identity;
 
                     <li class=""nav-item"">
                         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc13516", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc14095", async() => {
 #nullable restore
 #line 14 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\Shared\Partials\_headerPartial.cshtml"
                                                                                                              Write(ViewResourcesModel["NewCollections"]);
@@ -164,7 +185,7 @@ using Microsoft.AspNetCore.Identity;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc15541", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc16120", async() => {
 #nullable restore
 #line 17 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\Shared\Partials\_headerPartial.cshtml"
                                                                                                                     Write(ViewResourcesModel["MyCollections"]);
@@ -191,7 +212,7 @@ using Microsoft.AspNetCore.Identity;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc17572", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc18151", async() => {
 #nullable restore
 #line 20 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\Shared\Partials\_headerPartial.cshtml"
                                                                                                               Write(ViewResourcesModel["Create"]);
@@ -229,7 +250,7 @@ using Microsoft.AspNetCore.Identity;
 #line hidden
 #nullable disable
             WriteLiteral("                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc19909", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc20488", async() => {
 #nullable restore
 #line 29 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\Shared\Partials\_headerPartial.cshtml"
                                                               Write(ViewResourcesModel["AdminPage"]);
@@ -261,8 +282,8 @@ using Microsoft.AspNetCore.Identity;
 #line hidden
 #nullable disable
             WriteLiteral("            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc21725", async() => {
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "01e50a4474d7ff46d9de4274109a11e68b0481dc21942", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc22304", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "01e50a4474d7ff46d9de4274109a11e68b0481dc22521", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -303,7 +324,7 @@ using Microsoft.AspNetCore.Identity;
 #line hidden
 #nullable disable
             WriteLiteral("            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc24518", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc25097", async() => {
 #nullable restore
 #line 35 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\Shared\Partials\_headerPartial.cshtml"
                                                                              Write(ViewResourcesModel["Login"]);
@@ -328,7 +349,7 @@ using Microsoft.AspNetCore.Identity;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc26219", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc26798", async() => {
 #nullable restore
 #line 36 "D:\проекты\ExampleWebSite\ExampleWebSite\Views\Shared\Partials\_headerPartial.cshtml"
                                                                                 Write(ViewResourcesModel["Register"]);
@@ -363,7 +384,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("    </nav>\r\n    <div>\r\n\r\n\r\n");
             WriteLiteral("    </div>\r\n    <hr size=\"3\">\r\n</header>\r\n\r\n<header class=\"p-3\">\r\n");
             WriteLiteral("        <div class=\"d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start\">\r\n         \r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc28435", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01e50a4474d7ff46d9de4274109a11e68b0481dc29014", async() => {
                 WriteLiteral("\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-10\">\r\n                        <input name=\"SearchString\" class=\"bg-dark form-control mr-sm-2\" type=\"text\"");
                 BeginWriteAttribute("placeholder", " placeholder=\"", 3134, "\"", 3183, 1);
 #nullable restore

@@ -17,9 +17,7 @@ namespace ExampleWebSite.Data.Repositories
         }
         public Task Create(PropertiesElementModel model, int collectionId)
         {
-            //_context.Properties
             throw new NotImplementedException();
-
         }
 
         public Task Delete(PropertiesElementModel model)

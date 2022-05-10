@@ -27,7 +27,6 @@ namespace ExampleWebSite.Data.Repositories
             _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
         }
-
         public async Task EditCommentAsync(int CommentId)
         {
             throw new NotImplementedException();

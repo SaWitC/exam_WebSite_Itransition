@@ -1,0 +1,18 @@
+﻿@model EditPhoneViewModel
+
+<div id="login" class="text-white simple-login-container card-body w-media mx-auto bg-dark mt-5" style="width:22rem">
+    <h2 class="text-center">@ViewResourcesModel["ChangePhone"]</h2>
+
+    <form asp-action="EditPhone" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="text-center w-100">
+            <input class="bg-swap" type="tel" maxlength="14" asp-for="PhoneNumber" id="tel" />
+            <input class="btn bg-swap" type="submit" value="@ViewResourcesModel["Save"]"/>
+        </div>
+        <div class="text-center"><span class="text-danger" asp-validation-for="PhoneNumber"></span></div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

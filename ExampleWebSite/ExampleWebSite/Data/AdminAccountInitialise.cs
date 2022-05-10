@@ -21,13 +21,19 @@ namespace ExampleWebSite.Data
             {
                 await roleManager.CreateAsync(new IdentityRole("employee"));
             }
+            if (await roleManager.FindByNameAsync("SuperAdmin") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("SuperAdmin"));
+            }
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
                 User admin = new User { Email = adminEmail, UserName = adminEmail };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(admin, "SuperAdmin");
                     await userManager.AddToRoleAsync(admin, "admin");
+
                 }
             }
         }

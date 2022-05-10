@@ -1,4 +1,4 @@
-﻿@model ExampleWebSite.ViewModels.Items.FindItemsViewModel
+﻿@model FindItemsViewModel
 
 @foreach (var item in Model.Items)
 {
@@ -58,8 +58,6 @@
             data: { ItemId: itemId },
             success: function (data) {
                 console.log(data);
-                //var response = JSON.parse(data)
-                //console.log(response);
                 if (data.status) {
                     Element.innerHTML = `<i class="fa text-danger fa-heart"></i> ${data.count}`;
                 }

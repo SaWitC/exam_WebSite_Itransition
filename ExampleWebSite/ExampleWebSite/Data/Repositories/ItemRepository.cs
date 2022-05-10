@@ -24,8 +24,7 @@ namespace ExampleWebSite.Data.Repositories
             _context = context;
         }
         public async Task<EntityEntry<ItemModel>> CreateAsync(CreateItemViewModel model)
-        {
-            
+        {      
             model.Item.CollectionId = model.collectionId;
             var item =await  _context.Items.AddAsync(model.Item);
             await _context.SaveChangesAsync();
@@ -60,7 +59,7 @@ namespace ExampleWebSite.Data.Repositories
             return null;
         }
         public async Task<ItemModel> FindByTitleAsync(string title)=> await _context.Items.FirstOrDefaultAsync(o=>o.Title ==title);
-        public async Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId)=> await _context.Items.AsNoTracking().Where(o => o.CollectionId == collectionId).ToListAsync();
+        //public async Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId)=> await _context.Items.AsNoTracking().Where(o => o.CollectionId == collectionId).ToListAsync();
         public async Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip, int Size, string UserName=null)//later change
         {
             //select Items.Title
@@ -83,7 +82,6 @@ namespace ExampleWebSite.Data.Repositories
                     return CheckstatusIsLiked(await x.Skip(skip).Take(Size).ToListAsync(),userId);
             }
             return await x.Skip(skip).Take(Size).ToListAsync();
-
         }
         public IEnumerable<ItemModel> TakeItemBy_collection(int collectionId, int skip, int pageSize, string UserName = null)
         {
@@ -96,7 +94,6 @@ namespace ExampleWebSite.Data.Repositories
                     return CheckstatusIsLiked(Items, userId);
             }
             return Items;
-
         }
         private IEnumerable<ItemModel> CheckstatusIsLiked(IEnumerable<ItemModel> items,string userId)
         {

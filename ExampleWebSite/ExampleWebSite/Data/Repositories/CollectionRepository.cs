@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
+using ExampleWebSite.ViewModels.Collections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-   
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ExampleWebSite.Data.Repositories
 {
@@ -22,15 +23,17 @@ namespace ExampleWebSite.Data.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(CreateCollectionViewModel model)
+        public async Task<EntityEntry<CollectionModel>> CreateAsync(CreateCollectionViewModel model)
         { 
-            _context.Collections.Add(model.collection);
+            var collectionEntry=_context.Collections.Add(model.collection);
             await _context.SaveChangesAsync();
+            return collectionEntry;
         }
-        public async Task CreateAsync(CollectionModel collection)
+        public async Task<EntityEntry<CollectionModel>> CreateAsync(CollectionModel collection)
         {
-            _context.Collections.Add(collection);
+            var collectionEntry=_context.Collections.Add(collection);
             await _context.SaveChangesAsync();
+            return collectionEntry;
         }
 
         public async Task Delete(int Id)
@@ -43,11 +46,11 @@ namespace ExampleWebSite.Data.Repositories
         {
             return await _context.Collections.ToListAsync();
         }
-        public async Task<CollectionModel> FindByTitleAsync(string title) => await _context.Collections.FirstOrDefaultAsync(o=>o.Title==title);
+        //public async Task<CollectionModel> FindByTitleAsync(string title) => await _context.Collections.FirstOrDefaultAsync(o=>o.Title==title);
 
         public async Task<CollectionModel> FindByIdAsync(int id)=> await _context.Collections.FirstOrDefaultAsync(o => o.Id == id);
 
-        public async Task<IEnumerable<CollectionModel>> FindByAvtorIdAsync(string avtorName) => await _context.Collections.Where(o=>o.AvtorName== avtorName).ToListAsync();
+        //public async Task<IEnumerable<CollectionModel>> FindByAvtorIdAsync(string avtorName) => await _context.Collections.Where(o=>o.AvtorName== avtorName).ToListAsync();
 
         public async Task DeleteAsyncById(int Id)
         {
@@ -62,11 +65,11 @@ namespace ExampleWebSite.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CollectionModel>> TakeCollection_SkipAsync(int skip,int pageSize)
-        {
-            return await _context.Collections.OrderBy(t => t.Id).Skip(skip).
-                Take(pageSize).ToListAsync();
-        }
+        //public async Task<IEnumerable<CollectionModel>> TakeCollection_SkipAsync(int skip,int pageSize)
+        //{
+        //    return await _context.Collections.OrderBy(t => t.Id).Skip(skip).
+        //        Take(pageSize).ToListAsync();
+        //}
 
         public async Task DeleteAsync(CollectionModel collection)
         {
@@ -78,7 +81,6 @@ namespace ExampleWebSite.Data.Repositories
         {
 
             IQueryable<CollectionMinViewModel> collections = _context.Collections.AsNoTracking()
-            //.Include(o => o.Thema)
             .OrderBy(o => o.Id)
             .Skip(skip)
             .Take(pageSize)
@@ -89,14 +91,11 @@ namespace ExampleWebSite.Data.Repositories
         public IQueryable<CollectionMinViewModel> TakeCollectionMinByAvtor_Skip(int skip, int pageSize, string AvtorName)
         {
             IQueryable<CollectionMinViewModel> collections = _context.Collections.AsNoTracking()
-            //.Include(o => o.Thema)
             .OrderBy(o => o.Id)
             .Skip(skip)
             .Take(pageSize)
             .Where(o=>o.AvtorName ==AvtorName)
             .Select(x => new CollectionMinViewModel { Id = x.Id, Title = x.Title, AvtorName = x.AvtorName, ShortDesc = x.ShortDesc, Thema = x.Thema.Title });
-
-            
 
             return collections;
         }

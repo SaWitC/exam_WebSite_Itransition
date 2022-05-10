@@ -20,6 +20,7 @@ using ExampleWebSite.ResourcesModels;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using ExampleWebSite.Hubs;
+using ExampleWebSite.Data.ConfigurationModels;
 
 namespace ExampleWebSite
 {
@@ -29,12 +30,13 @@ namespace ExampleWebSite
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AdminAccountDataModel>(Configuration);
+            services.Configure<AppConfigDataModel>(Configuration);
+
             services.AddMvc();
             services.AddAuthorization(options => {
                 options.AddPolicy("IsBanedPolicy", policy => policy.RequireClaim("IsBaned", false.ToString()));
@@ -96,8 +98,7 @@ namespace ExampleWebSite
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            
+     
             app.UseRouting();
 
             app.UseAuthentication();

@@ -17,9 +17,9 @@ namespace ExampleWebSite.Components.GenerateProperties
             _collection = collection;
             _propertiesModel = properties;
         }
-        public async Task GeneratePropertiesAsync(string CollectionTitle,IEnumerable<string> PropertiesTitles,string Datatype)
+        public async Task GeneratePropertiesAsync(int collectionId,IEnumerable<string> PropertiesTitles,string Datatype)
         {
-            var collection = await _collection.FindByTitleAsync(CollectionTitle);
+            var collection = await _collection.FindByIdAsync(collectionId);
             if (collection != null && PropertiesTitles != null && PropertiesTitles.Count() > 0)
             {
                 List<PropertiesModel> elements = new List<PropertiesModel>();

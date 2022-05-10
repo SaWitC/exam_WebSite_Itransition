@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 
 using ExampleWebSite.Data;
 using Korzh.EasyQuery.Services;
+using ExampleWebSite.Data.ConfigurationModels;
+using Microsoft.Extensions.Options;
 
 namespace ExampleWebSite.Controllers
 {
@@ -29,12 +31,10 @@ namespace ExampleWebSite.Controllers
         private readonly ICollectionRepository _collection;
         private readonly IpropertiesElementsRepository _propertiesElements;
         private readonly IpropertiesModelRepository _propertiesModel;
-
-        //private readonly IThemeRepository _Themes;
         private readonly IItemRepository _item;
-        //private readonly UserManager<User> _userManager;
+        IOptions<AppConfigDataModel> _options;
 
-        private int CommentCount =2;
+        private static int CommentSize;
 
         public ItemController(
             ITagRepository tag,
@@ -44,10 +44,9 @@ namespace ExampleWebSite.Controllers
             ICollectionRepository collection,
             IpropertiesModelRepository propertiesModel,
             ICommentRepository comment,
-            ExamWebSiteDBContext context)
+            ExamWebSiteDBContext context,
+            IOptions<AppConfigDataModel> options)
         {
-            _context = context;
-
             _tag = tag;
             _item_Tags_Relationship = item_Tags_Relationship;
             _comment = comment;
@@ -55,8 +54,11 @@ namespace ExampleWebSite.Controllers
             _propertiesElements= properties;
             _item = item;
             _propertiesModel = propertiesModel;
+            _options = options;
+
+            CommentSize = int.Parse(_options.Value.CommentSize);
         }
-        // detatils =============================================================
+
         [HttpGet]
         public ActionResult Details(int? id,int? p)
         {
@@ -73,7 +75,7 @@ namespace ExampleWebSite.Controllers
                 itemViewModel.Tags = _item_Tags_Relationship.GetTagsByItemId((int)id);
                 itemViewModel.Properties = _propertiesElements.GetPropertiesByItemId((int)id);
                 itemViewModel.Item = _item.GetItemById((int)id);
-                itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentCount, (int)id);
+                itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
                 return View(itemViewModel);
             }
             else
@@ -85,13 +87,11 @@ namespace ExampleWebSite.Controllers
         }
         private ItemDetailsViewModel GetComments(int itemId, int page = 1)
         {
-            var CommentToSkip = page * CommentCount;
+            var CommentToSkip = page * CommentSize;
 
-            return new ItemDetailsViewModel() { comments = _comment.TakeCommentsByBlogId_Skip(CommentToSkip, CommentCount, itemId) };
+            return new ItemDetailsViewModel() { comments = _comment.TakeCommentsByBlogId_Skip(CommentToSkip, CommentSize, itemId) };
         }
 
-
-        //Create ================================================================================
         [Authorize]
         [HttpGet]
         public async Task<ActionResult> Create(int? collectionid)
@@ -145,7 +145,9 @@ namespace ExampleWebSite.Controllers
                 return View();
             }
         }
-        //Edit ======================================================================
+
+        [Authorize]
+        [HttpGet]
         public async Task<ActionResult> Edit(int? ItemId)
         {
             if (ItemId != null)
@@ -166,15 +168,12 @@ namespace ExampleWebSite.Controllers
             }
             return NotFound();
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> Edit(EditItemViewModel model)
         {
             try
             {
-                //model..Collection = await _collection.FindByIdAsync(model.collectionId);
-               
-
                 if (ModelState.IsValid)
                 {
                     var item = _item.GetItemById(model.itemId);
@@ -214,8 +213,7 @@ namespace ExampleWebSite.Controllers
                 return View(model);
             }
         }
-        
-        //Delete ====================================================================
+        [Authorize]
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -224,105 +222,29 @@ namespace ExampleWebSite.Controllers
                 var item = _item.GetItemById((int)id);
                 return View(item);
             }
-
             return NotFound();
-
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
         [ActionName("Delete")]
-        public async Task<ActionResult> DeleteConfirmed(int id)//edit
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             var item = _item.GetItemById((int)id);
             await _item.Delete(item);
             return RedirectToAction("index","home");
         }
 
-        //Find =======================================================================
-       // [HttpPost]
-        //public IActionResult Find(FindItemsViewModel model,string SearchString)
-        //{
-        //    if (!string.IsNullOrEmpty(SearchString))
-        //    {
-        //        var items = _context.Themes.AsQueryable();
-
-        //        model.Items = items.FullTextSearchQuery(SearchString);
-        //        return View(model);
-        //    }
-        //    //if (!string.IsNullOrEmpty(Tag))
-        //    //{
-
-        //    //}
-
-        //    return View(model);
-        //}
-
-        //[HttpGet]
-        //public IActionResult Find(string SearchString)
-        //{
-        //    //var options = new FullTextSearchOptions
-        //    //{
-        //    //    Depth = 2,
-        //    //    Filter = (propinfo) =>
-        //    //    {
-        //    //        //if (propinfo.DeclaringType == (typeof(ItemModel){
-        //    //        //    return propinfo.PropertyType == typeof(Cus)
-        //    //        //}
-        //    //        if (propinfo.PropertyType == typeof(string))
-        //    //        {
-
-        //    //        }
-
-        //    //    }
-        //    //};
-
-        //    FindItemsViewModel mode = new FindItemsViewModel();
-        //    var items =_context.Items;
-        //    if (!string.IsNullOrEmpty(SearchString))
-        //    {
-        //        var arr = new test[4]
-        //        {
-        //            new test{value="first" },
-        //            new test{value="second" },
-        //            new test{value="threed" },
-        //            new test{value="fourth" },
-
-        //        };
-        //        var arr2 =arr.AsQueryable().FullTextSearchQuery("f");
-
-
-        //        //List<ItemModel> items = new List<ItemModel>();
-        //        //mode.Items= items.FullTextSearchQuery<ItemModel>(SearchString);
-        //        //mode.Items = _context.Items.Where(i => (i.Title != null && i.Title.ToLower().Contains("t") | i.Tags != null && i.Tags.ToLower().Contains("t"))).ToList();
-
-               
-        //    }
-        //    else
-        //    {
-        //        mode.Items = _context.Items.ToList();
-        //    }
-        //    return View(mode);
-        //}
         [HttpGet]
         public async Task<IActionResult> Find (string SearchString, string TagString)
         {
-
-            FindItemsViewModel mode = new FindItemsViewModel();
-            //if (!string.IsNullOrEmpty(TagString))
-            //{
-            //    mode.Items = await _item.TakeItemByTag_SkipAsync(TagString, 0, 5);
-            //    return View(mode);
-            //}
+            FindItemsViewModel model = new FindItemsViewModel();
             if (!string.IsNullOrEmpty(SearchString))
             {
-
                 var options = new FullTextSearchOptions
                 {
                     Depth = 2,
-
-                    // filter to use search for string fields we chose
                     Filter = (propInfo) =>
                     {
                         if (propInfo.DeclaringType == typeof(ItemModel))
@@ -345,63 +267,13 @@ namespace ExampleWebSite.Controllers
                 };
 
                 var inteers =await _context.Items.FullTextSearchQuery(SearchString, options).ToListAsync();
-                mode.Items = inteers;
-                mode.SearchString = SearchString;
-                return View(mode);
+                model.Items = inteers;
+                model.SearchString = SearchString;
+                return View(model);
             }
-           // mode.Items = _context.Items.AsQueryable();
+            model.Items = null;
         
-            return View();
+            return View(model);
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> Find(string SearchString,string TagString)
-        //{
-        //    FindItemsViewModel mode = new FindItemsViewModel();
-        //    if (!string.IsNullOrEmpty(TagString))
-        //    {  
-        //        mode.Items= await _item.TakeItemByTag_SkipAsync(TagString, 0, 5);
-        //        return View(mode);
-        //    }
-        //    //var items = _context.Items.ToList();
-        //    if (!string.IsNullOrEmpty(SearchString))
-        //    {
-        //        //test t = new test { value = "first", v2=23 };
-        //        //test t2 = new test { value = "second",v2=11 };
-        //        //test t3 = new test { value = "222222",v2=45 };
-        //        //test t4 = new test { value = "4444f",v2=99 };
-
-        //        //List<test> arr = new List<test>();
-        //        //arr.Add(t);
-        //        //arr.Add(t2);
-        //        //arr.Add(t3);
-        //        //arr.Add(t4);
-
-        //        // var arr2 = arr.AsQueryable().FullTextSearchQuery(SearchString);
-        //        //mode.stt = arr2.ToList();
-
-        //        var items = _context.Themes.AsQueryable().FullTextSearchQuery(SearchString);
-
-        //        //var items = _context.Themes
-        //        //    .Where(x => EF.Functions.FreeText(x.Title,SearchString));
-
-        //        //var items = _context.Themes.Where(c => EF.Functions.FreeText(EF.Property<string>(c, c.Title), SearchString)).ToList();
-        //        //mode.Items = items;
-        //        // var list = items.ToPagedList(_eqManager.Chunk.Page, 15);
-        //        return View(mode);
-
-        //    }
-        //    else
-        //    {
-        //        //mode.Items = _context.Themes.AsQueryable();
-        //    }
-        //    return View(mode);
-        //}
-        //public async Task<IEnumerable<string>> GetTags(string SearchString)
-        //{
-        //    return await _item.GetTags(SearchString);
-        //}
-
-
     }
 }
