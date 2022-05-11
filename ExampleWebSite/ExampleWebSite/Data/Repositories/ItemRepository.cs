@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExampleWebSite.Components;
 using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
+using ExampleWebSite.Models.ModelsForProcessing;
 using ExampleWebSite.ViewModels;
 using ExampleWebSite.ViewModels.Items;
 using Korzh.EasyQuery.Linq;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using static ExampleWebSite.Controllers.ItemController;
 
 namespace ExampleWebSite.Data.Repositories
 {
@@ -47,19 +50,41 @@ namespace ExampleWebSite.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ItemModel>> Find(FindItemsViewModel model)
+        public IEnumerable<SearchResoultModel> Find(FindItemsByTextViewModel model)
         {
             if (model != null)
             {
-                var items = _context.Items.AsQueryable();
-                if (model.SearchString != null) {
-                    var resitems =await items.FullTextSearchQuery(model.SearchString).Take(5).ToListAsync();
-                }
+                IQueryable<SearchResoultModel> items;
+                IEnumerable<SearchResoultModel> Result =new List<SearchResoultModel>();
+                
+                if (!string.IsNullOrEmpty(model.SearchString))
+                {
+                    //SQL
+                    //                Select Items.id,Items.Title from Items
+                    //union select Comments.ItemId,Comments.AvtorName from Comments
+                    //union Select PropertiesElement.ItemId,PropertiesElement.Title from PropertiesElement
+
+                     items = _context.Items.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
+                        .Select(p => new SearchResoultModel { Type = "_item", id = p.Id })
+                        .Union(_context.Comments.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
+                        .Select(p => new SearchResoultModel { Type = "comments", id = p.ItemId }))
+                        .Union(_context.PropertiesElement.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
+                        .Select(p => new SearchResoultModel { Type = "Properties", id = p.ItemId }))
+                        .Union(_context.Collections.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
+                        .Select(p => new SearchResoultModel { Type = "Collection", id = p.Id }));
+
+                    Result = PerformingSearchResoult(items.Take(20));
+                } 
+                return Result;
             }
             return null;
         }
-        public async Task<ItemModel> FindByTitleAsync(string title)=> await _context.Items.FirstOrDefaultAsync(o=>o.Title ==title);
-        //public async Task<IEnumerable<ItemModel>> FindByCollectionIdAsync(int collectionId)=> await _context.Items.AsNoTracking().Where(o => o.CollectionId == collectionId).ToListAsync();
+
+        //public IEnumerable<SearchResoultModel> FindByTag(string TagString,int Size,int Page)
+        //{
+            
+        //}
+
         public async Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip, int Size, string UserName=null)//later change
         {
             //select Items.Title
@@ -113,6 +138,37 @@ namespace ExampleWebSite.Data.Repositories
                 }
             }
             return items;
+        }
+        private static IEnumerable<SearchResoultModel> PerformingSearchResoult(IEnumerable<SearchResoultModel> items)
+        {
+            var ToCheck = items.OrderBy(o => o.Type).ToList();
+            List<SearchResoultModel> Result = new List<SearchResoultModel>();
+            List<SearchResoultModel> ToDelete = new List<SearchResoultModel>();
+
+            foreach (var item in ToCheck)
+            {
+                if (item.Type == "_item")
+                {
+                    bool ContainsInComent = ToCheck.Contains(new SearchResoultModel { Type = "comments", id = item.id });
+                    bool ContainsInProperties = ToCheck.Contains(new SearchResoultModel { Type = "Properties", id = item.id });
+                    if (ContainsInComent)
+                    {
+                        item.InComments = true;
+                        ToDelete.Add(new SearchResoultModel { Type = "comments", id = item.id });
+                    }
+                    if (ContainsInProperties)
+                    {
+                        item.InProperties = true;
+                        ToDelete.Add(new SearchResoultModel { Type = "Properties", id = item.id });
+                    }
+                }
+                Result.Add(item);
+            }
+            foreach (var item in ToDelete)
+            {
+                Result.Remove(item);
+            }
+            return Result;
         }
     }
 }

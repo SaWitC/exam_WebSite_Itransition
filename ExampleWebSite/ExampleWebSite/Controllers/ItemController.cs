@@ -23,7 +23,6 @@ namespace ExampleWebSite.Controllers
 {
     public class ItemController : Controller
     {
-        private readonly ExamWebSiteDBContext _context;
 
         private readonly ITagRepository _tag;
         private readonly IItemTagsrelationshipRepository _item_Tags_Relationship;
@@ -35,6 +34,8 @@ namespace ExampleWebSite.Controllers
         IOptions<AppConfigDataModel> _options;
 
         private static int CommentSize;
+        private static int ItemSize;
+
 
         public ItemController(
             ITagRepository tag,
@@ -44,7 +45,6 @@ namespace ExampleWebSite.Controllers
             ICollectionRepository collection,
             IpropertiesModelRepository propertiesModel,
             ICommentRepository comment,
-            ExamWebSiteDBContext context,
             IOptions<AppConfigDataModel> options)
         {
             _tag = tag;
@@ -56,6 +56,7 @@ namespace ExampleWebSite.Controllers
             _propertiesModel = propertiesModel;
             _options = options;
 
+            ItemSize = int.Parse(_options.Value.ItemSize);
             CommentSize = int.Parse(_options.Value.CommentSize);
         }
 
@@ -84,12 +85,6 @@ namespace ExampleWebSite.Controllers
         public PartialViewResult _WriteMoreComments()
         {
             return PartialView();
-        }
-        private ItemDetailsViewModel GetComments(int itemId, int page = 1)
-        {
-            var CommentToSkip = page * CommentSize;
-
-            return new ItemDetailsViewModel() { comments = _comment.TakeCommentsByBlogId_Skip(CommentToSkip, CommentSize, itemId) };
         }
 
         [Authorize]
@@ -235,45 +230,46 @@ namespace ExampleWebSite.Controllers
             await _item.Delete(item);
             return RedirectToAction("index","home");
         }
+        public async Task<IActionResult> FindItemByTag(string TagString,int? page=0)
+        {
+            FindItemViewModel model = new FindItemViewModel();
+            model.TagString = TagString;
+            if (page != null)
+            {
+                int ItemsToSkip = (int)page * ItemSize;
+                var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+                if (isAjax)
+                {
+                    return PartialView("_WriteMoreItemsByTag", await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize));
+                }
+                
+                model.items= await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize);
+                return View(model);
+            }
+            return View(model);
+        }
 
         [HttpGet]
-        public async Task<IActionResult> Find (string SearchString, string TagString)
+        public IActionResult Find (string SearchString, string TagString)
         {
-            FindItemsViewModel model = new FindItemsViewModel();
+            FindItemsByTextViewModel model = new FindItemsByTextViewModel();
             if (!string.IsNullOrEmpty(SearchString))
             {
-                var options = new FullTextSearchOptions
-                {
-                    Depth = 2,
-                    Filter = (propInfo) =>
-                    {
-                        if (propInfo.DeclaringType == typeof(ItemModel))
-                        {
-                            return propInfo.PropertyType == typeof(string);
-                        }
-                        //else if (propInfo.PropertyType == typeof(string))
-                        //{
-                        //    if (propInfo.DeclaringType == typeof(Customer))
-                        //    {
-                        //        return propInfo.Name == "CompanyName" || propInfo.Name == "Country";
-                        //    }
-                        //    else if (propInfo.DeclaringType == typeof(Employee))
-                        //    {
-                        //        return propInfo.Name == "FirstName" || propInfo.Name == "LastName";
-                        //    }
-                        //}
-                        return false;
-                    }
-                };
+                model.SearchString = SearchString;
 
-                var inteers =await _context.Items.FullTextSearchQuery(SearchString, options).ToListAsync();
-                model.Items = inteers;
+                model.SearchResoultModels = _item.Find(model);
                 model.SearchString = SearchString;
                 return View(model);
             }
-            model.Items = null;
-        
+            model.SearchResoultModels = null;
             return View(model);
         }
+        private ItemDetailsViewModel GetComments(int itemId, int page = 1)
+        {
+            var CommentToSkip = page * CommentSize;
+
+            return new ItemDetailsViewModel() { comments = _comment.TakeCommentsByBlogId_Skip(CommentToSkip, CommentSize, itemId) };
+        }
+
     }
 }

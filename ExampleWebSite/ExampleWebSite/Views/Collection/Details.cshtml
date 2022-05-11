@@ -29,7 +29,7 @@
         <div id="RenderItem" class="row">
             @await Html.PartialAsync("_writeMoreItems.cshtml")
         </div>
-        <button class="text-center btn bg_Green" onclick="LoadComments()">load Mode</button>
+        <button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
     }
 </div>
 
@@ -51,7 +51,7 @@
 $('div#loading').hide();
 var page = 0;
 var _inCallback = false;
-function LoadComments() {
+    function LoadItems() {
     if (page > -1 && !_inCallback) {
         _inCallback = true;
         page++;

@@ -1,0 +1,40 @@
+﻿@model FindItemViewModel
+
+
+@if (Model.items != null)
+{
+    <div id="RenderItem" class="row">
+        @await Html.PartialAsync("_WriteMoreItemsByTag.cshtml")
+    </div>
+    <button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
+}
+
+<script>
+//load more item
+$('div#loading').hide();
+var page = 0;
+var _inCallback = false;
+    function LoadItems() {
+    if (page > -1 && !_inCallback) {
+        _inCallback = true;
+        page++;
+        $('div#loading').show();
+        console.log(page);
+        $.ajax({
+            type: 'GET',
+            url: "@Url.Action("FindItemByTag", "Item")",
+            data: { TagString:@Model.TagString, p: page },
+            success: function (data, textstatus) {
+                if (data != '') {
+                    $("#RenderItem").append(data);
+                }
+                else {
+                    page = -1;
+                }
+                _inCallback = false;
+                $("div#loading").hide();
+            }
+        });
+    }
+}
+</script>

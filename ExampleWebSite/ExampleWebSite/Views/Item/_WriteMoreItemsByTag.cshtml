@@ -1,0 +1,57 @@
+﻿@model FindItemViewModel
+
+@foreach (var item in Model.items)
+{
+    <div class="col-4">
+        <div class="card">
+            <div class="table table-info">
+                <h5 class="category-social">
+                </h5>
+                <h4 class="card-caption">
+                    <a href="#">@item.Title</a>
+                </h4>
+                <div class="ftr">
+                    <div class="author">
+                        <a class="btn text_color bg-info" asp-action="Details" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Details"]</a>
+                    </div>
+                    @if (item.IsLiked == true)
+                    {
+                        <div class="stats">  <a id="like+@item.Id" onclick="LikeBtnOnclick(@item.Id,`like+@item.Id`)"><i class="fa text-danger fa-heart"></i> @item.likesCount</a></div>
+                    }
+                    else
+                    {
+                        <div class="stats">  <a id="like+@item.Id" onclick="LikeBtnOnclick(@item.Id,`like+@item.Id`)"><i class="fa fa-heart"></i> @item.likesCount</a></div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<script>
+    //like
+    function LikeBtnOnclick(itemId, htmlElemId) {
+        var Element = document.getElementById(htmlElemId)
+        $.ajax({
+            type: 'Get',
+            url: "@Url.Action("Like","Like")",
+            data: { ItemId: itemId },
+            success: function (data) {
+                console.log(data);
+                if (data.status) {
+                    Element.innerHTML = `<i class="fa text-danger fa-heart"></i> ${data.count}`;
+                }
+                else {
+                    Element.innerHTML = `<i class="fa fa-heart"></i> ${data.count}`;
+                }
+            },
+            error: function (data) {
+                if (data.message == undefined) {
+                    alert("@ViewResourcesModel["AuthorizedPlease"]");
+                }
+            }
+        })
+    }
+</script>

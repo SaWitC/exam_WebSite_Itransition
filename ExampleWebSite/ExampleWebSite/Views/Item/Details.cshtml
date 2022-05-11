@@ -15,7 +15,7 @@
         {
             @foreach (var item in Model.Tags)
             {
-                <a class="ml-auto mr-auto btn bg_Green" asp-action="Find" asp-controller="Item" asp-route-TagString="@item.Title">@item.Title</a>
+                <a class="ml-auto mr-auto btn bg_Green" asp-action="FindItemByTag" asp-controller="Item" asp-route-TagString="@item.Title">@item.Title</a>
             }
         }
         else
@@ -79,33 +79,6 @@ else
 <div id="notify"></div>
 
 <script>
-    @*var page = 0;
-    var _inCallback = false;
-    window.addEventListener('scroll', function () {
-
-        if (page > -1 && !_inCallback) {
-            _inCallback = true;
-            page++;
-            $('div#loading').show();
-            console.log(page);
-            $.ajax({
-                type: 'GET',
-                url: "@Url.Action("Details","Item")",
-                data: { id: @Model.Item.Id, p: page },
-                success: function (data, textstatus) {
-                    if (data != '') {
-                        $("#renderScope").append(data);
-                    }
-                    else {
-                        page = -1;
-                    }
-                    _inCallback = false;
-                    $("div#loading").hide();
-                }
-            });
-        }
-    });*@
-
     var page = 0;
     var _inCallback = false;
     function LoadComments() {
