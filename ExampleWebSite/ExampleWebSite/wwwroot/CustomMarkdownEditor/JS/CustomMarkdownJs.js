@@ -17,33 +17,32 @@
 
 $(document).ready(function(){
     $("#MarkdownEditor").html(`<div class=" m-auto btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group mr-2" role="group" aria-label="First group">
+                <div class="btn-group-sm mr-2" role="group" aria-label="First group">
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'# ');" class="btn btn-secondary">H1</button>
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'## ');" class="btn btn-secondary">H2</button>
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'### ');" class="btn btn-secondary">H3</button>
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'#### ');" class="btn btn-secondary">H4</button>
+                </div>
 
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'# ');" class="btn btn-secondary">H1</button>
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'## ');" class="btn btn-secondary">H2</button>
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'### ');" class="btn btn-secondary">H3</button>
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'#### ');" class="btn btn-secondary">H4</button>
-    </div>
+                <div class="btn-group-sm mr-2" role="group" aria-label="Second group">
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'**text** ');" class="btn btn-secondary"><b>Ж</b></button>
 
-    <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'**text** ');" class="btn btn-secondary"><b>Ж</b></button>
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'*text*');" class="btn btn-secondary">К</button>
 
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'*text*');" class="btn btn-secondary">К</button>
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'***text***');" class="btn btn-secondary">ЖК</button>
+                </div>
 
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'***text***');" class="btn btn-secondary">ЖК</button>
-    </div>
+                <div class="btn-group-sm mr-2" role="group" aria-label="Second group">
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'1. text ');" class="btn btn-secondary"><b>1</b></button>
 
-    <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'1. text ');" class="btn btn-secondary"><b>1</b></button>
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'- text');" class="btn btn-secondary">.</button>
 
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'- text');" class="btn btn-secondary">.</button>
+                    <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'* text');" class="btn btn-secondary">-</button>
+                </div>
 
-        <button type="button" onclick="insertTextAtCursor(document.getElementById('markdownText'),'* text');" class="btn btn-secondary">-</button>
-    </div>
-
-    <div class="btn-group" role="group" aria-label="Third group">
-        <button type="button" onclick="view()" class="btn btn-secondary">View</button>
-    </div>
-</div>`)
+                <div class="btn-group-sm" role="group" aria-label="Third group">
+                    <button type="button" onclick="view()" class="btn btn-secondary">View</button>
+                </div>
+            </div>`)
 });
 

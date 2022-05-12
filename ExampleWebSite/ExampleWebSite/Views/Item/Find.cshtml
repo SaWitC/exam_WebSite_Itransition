@@ -1,54 +1,80 @@
 ﻿@model FindItemsByTextViewModel
 
-@if (Model.SearchResoultModels != null)
-{
-    foreach (var item in Model.SearchResoultModels)
+<div class="row">
+    @if (Model.SearchResoultModels != null)
     {
-
-    <h1>Текст найден в @item.Type @item.id</h1>
-        if (item.Type == "collection")
+        foreach (var item in Model.SearchResoultModels)
         {
-        <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.id">Collection</a>
-        }
-        else
-        {
-            if (item.Type == "_item")
+            if (item.Type == "Collection")
             {
-            <p>inComments @item.InComments</p>
-            <p>inProperti @item.InProperties</p>
-
-            <a asp-controller="Item" asp-action="Details" asp-route-id="@item.id">Item</a>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="table table-info bg-success">
+                            <h4 class="card-caption">
+                                <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.id"> @ViewResourcesModel["textFound"] @ViewResourcesModel["InProperties"] @ViewResourcesModel["OfTheCollection"]  @item.Title</a>
+                            </h4>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a class="btn text_color bg-info" asp-action="Details" asp-controller="Collection" asp-route-id="@item.id">@ViewResourcesModel["Details"]</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
             else
             {
-            <a asp-controller="Item" asp-action="Details" asp-route-id="@item.id">Item</a>
+                if (item.Type == "_item")
+                {
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="table table-info">
+                                <h4 class="card-caption">
+                                    <a asp-action="Details" asp-controller="Item" asp-route-id="@item.id">@ViewResourcesModel["textFound"] @item.Title</a>
+                                </h4>
+                                <div class="ftr">
+                                    <div class="author">
+                                        <a class="btn text_color bg-info" asp-action="Details" asp-controller="Item" asp-route-id="@item.id">@ViewResourcesModel["Details"]</a>
+                                    </div>
+                                    @if (item.InComments)
+                                    {
+                                        <p>incoment <input class="float-right" checked disabled type="checkbox" /> </p>
+                                    }
+                                    else
+                                    {
+                                        <p>incoment <input class="float-right" disabled type="checkbox" /> </p>
+                                    }
+                                    @if (item.InProperties)
+                                    {
+                                        <p>incoment<input class="float-right" checked disabled type="checkbox" /> </p>
+                                    }
+                                    else
+                                    {
+                                        <p>incoment <input class="float-right" disabled type="checkbox" /></p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="table table-info">
+                                <h4 class="card-caption">
+                                    <a asp-action="Details" asp-controller="Item" asp-route-id="@item.id">@ViewResourcesModel["textFound"]  @item.Type </a>
+                                </h4>
+                                <div class="ftr">
+                                    <div class="author">
+                                        <a class="btn text_color bg-info" asp-action="Details" asp-controller="Item" asp-route-id="@item.id">@ViewResourcesModel["Details"]</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             }
         }
     }
-}
-
-@*<script>
-    //like
-    function LikeBtnOnclick(itemId, htmlElemId) {
-        var Element = document.getElementById(htmlElemId)
-        $.ajax({
-            type: 'Get',
-            url: "@Url.Action("Like","Like")",
-            data: { ItemId: itemId },
-            success: function (data) {
-                console.log(data);
-                if (data.status) {
-                    Element.innerHTML = `<i class="fa text-danger fa-heart"></i> ${data.count}`;
-                }
-                else {
-                    Element.innerHTML = `<i class="fa fa-heart"></i> ${data.count}`;
-                }
-            },
-            error: function (data) {
-                if (data.message == undefined) {
-                    alert("@ViewResourcesModel["AuthorizedPlease"]");
-                }
-            }
-        })
-    }
-</script>*@
+</div>

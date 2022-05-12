@@ -23,14 +23,13 @@
         })
 </script>
 
-<div>
+<div class="col-md-9">
     @if (!string.IsNullOrEmpty(Model.AvtorName))
     {
         <div class="lightBlueGreen w-100">
             <p><b>@ViewResourcesModel["author_will_be"] :</b> @Model.AvtorName</p>
         </div>
     }
-
     <form enctype="multipart/form-data" asp-action="Create" asp-controller="Collection" method="post">
         <input hidden value="@Model.AvtorName" asp-for="AvtorName" />
         <div asp-validation-summary="ModelOnly"></div>
@@ -43,24 +42,23 @@
             <label asp-for="collection.ShortDesc"></label>
 
             @*<textarea style="hyphens:auto; min-width:50%" asp-for="collection.ShortDesc" id="kv-01" rows="15" class="markdown" required data-bs-version="3" data-theme="fa4" title="Krajee Markdown Editor">
-                </textarea>*@
+        </textarea>*@
 
+            <span class="text-danger" asp-validation-for="collection.ShortDesc"></span>
             <div id="MarkdownEditor">
-
             </div>
             <div class="row">
-                <span class="text-danger" asp-validation-for="collection.ShortDesc"></span>
                 <div class="col-md-6">
-
-                    <textarea asp-for="collection.ShortDesc" style="resize: none;height:300px;" class="w-100" id="markdownText"># text </textarea>
+                    <textarea asp-for="collection.ShortDesc" style="resize: none;height:300px;" class="w-100 Textarea_color" id="markdownText"># text </textarea>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 div_border_custom">
                     <div style="overflow:auto; max-height:300px" class="w-100" id="ShortDesk">
 
                     </div>
                 </div>
             </div>
-            <hr class="hr_custom" />   
+            <hr class="hr_custom" />
+            <select class="form-select bg_Green selectpicker" asp-for="ThemaTitle" id="Themss"></select>
         </div>
 
         <hr class="hr_custom" />
@@ -70,21 +68,6 @@
             <input asp-for="ImageFile" accept="image/jpg,image/jpeg" />
         </div>
         <hr class="hr_custom" />
-
-        <h1>@ViewResourcesModel["AddNewPropertiesMessage"]</h1>
-        <p>@ViewResourcesModel["AddNewPropertiesMessageDetails"]</p>
-
-        <input hidden id="num" value="0" type="number" />
-        <input hidden id="str" value="0" type="number" />
-        <input hidden id="date" value="0" type="number" />
-        <input hidden id="bool" value="0" type="number" />
-
-        <select asp-for="ThemaTitle" id="Themss"> </select>
-
-        <button class="bg_Green btn" type="button" onclick="createNum()">@ViewResourcesModel["numberPropertiesEl"]</button>
-        <button class="bg_Green btn" type="button" onclick="createStr()">@ViewResourcesModel["stringPropertiesEl"]</button>
-        <button class="bg_Green btn" type="button" onclick="createDate()">@ViewResourcesModel["datePropertiesEl"]</button>
-        <button class="bg_Green btn" type="button" onclick="createBool()">@ViewResourcesModel["boolPropertiesEl"]</button>
 
         <div id="generateElement">
             <div class="text_color" id="generateNum">
@@ -110,62 +93,11 @@
     <button>string</button>
 </div>
 
--
-<script>
+<div class="col-md-3">
+    @await Html.PartialAsync("Partials/_createCollectionSidebar.cshtml")
+</div>
 
-    $(document).ready(() => {
-        $('#generateNum').hide();
-        $('#generateStr').hide();
-        $('#generateBool').hide();
-        $('#generateDate').hide();
-
-    })
-
-    function createNum() {
-        $('#generateNum').show();
-        var val = parseInt($("#num").val()) + 1
-        if (val < 4) {
-            $("#generateNum").append(`<input class="input-group input_custom" type="text" name="PropertiesNumTitles" placeholder="@ViewResourcesModel["TitleNumberPropertiesField"]"/>`);
-            $("#num").val(val)
-        }
-        else $("#num").val(3)
-    }
-
-    function createStr() {
-        $('#generateStr').show();
-
-        var val = parseInt($("#str").val()) + 1
-        if (val < 4) {
-            $("#generateStr").append(`<input class="input_custom" type="text" name="PropertiesStrTitles" placeholder="@ViewResourcesModel["TitleStringPropertiesField"]"/>`);
-            $("#str").val(val)
-        }
-        else $("#str").val(3)
-    }
-
-    function createDate() {
-        $('#generateDate').show();
-
-        var val = parseInt($("#date").val()) + 1
-        if (val < 4) {
-            $("#generateDate").append(`<input type="text" name="PropertiesDateTitles" placeholder="@ViewResourcesModel["TitleDatePropertiesField"]"/>`);
-            $("#date").val(val)
-        }
-        else $("#date").val(3)
-    }
-    function createBool() {
-        $('#generateBool').show();
-
-        var val = parseInt($("#bool").val()) + 1
-        if (val < 4) {
-            $("#generateBool").append(`<input type="text" name="PropertiesBoolTitles" placeholder="@ViewResourcesModel["TitleBoolPropertiesField"]"/>`);
-            $("#bool").val(val)
-        }
-        else $("#bool").val(3)
-    }
-</script>
-
-
-@* textarea *@
+@* textarea markdown *@
 
 <script type="text/javascript">
 

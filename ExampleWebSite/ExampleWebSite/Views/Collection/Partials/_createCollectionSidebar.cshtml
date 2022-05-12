@@ -1,0 +1,65 @@
+﻿
+<h3>@ViewResourcesModel["AddNewPropertiesMessage"]</h3>
+<p>@ViewResourcesModel["AddNewPropertiesMessageDetails"]</p>
+
+<input hidden id="num" value="0" type="number" />
+<input hidden id="str" value="0" type="number" />
+<input hidden id="date" value="0" type="number" />
+<input hidden id="bool" value="0" type="number" />
+
+<button class="bg_Green btn" type="button" onclick="createNum()">@ViewResourcesModel["numberPropertiesEl"]</button>
+<button class="bg_Green btn" type="button" onclick="createStr()">@ViewResourcesModel["stringPropertiesEl"]</button>
+<button class="bg_Green btn" type="button" onclick="createDate()">@ViewResourcesModel["datePropertiesEl"]</button>
+<button class="bg_Green btn" type="button" onclick="createBool()">@ViewResourcesModel["boolPropertiesEl"]</button>
+
+<script>
+    $(document).ready(() => {
+        $('#generateNum').hide();
+        $('#generateStr').hide();
+        $('#generateBool').hide();
+        $('#generateDate').hide();
+
+    })
+
+    function createNum() {
+        $('#generateNum').show();
+        var val = parseInt($("#num").val()) + 1
+        if (val < 4) {
+            $("#generateNum").append(`<input class="input-group input_custom" type="text" name="PropertiesNumTitles" placeholder="@ViewResourcesModel["TitleNumberPropertiesField"]"/>`);
+            $("#num").val(val)
+        }
+        else $("#num").val(3)
+    }
+
+    function createStr() {
+        $('#generateStr').show();
+
+        var val = parseInt($("#str").val()) + 1
+        if (val < 4) {
+            $("#generateStr").append(`<input class="input-group input_custom" type="text" name="PropertiesStrTitles" placeholder="@ViewResourcesModel["TitleStringPropertiesField"]"/>`);
+            $("#str").val(val)
+        }
+        else $("#str").val(3)
+    }
+
+    function createDate() {
+        $('#generateDate').show();
+
+        var val = parseInt($("#date").val()) + 1
+        if (val < 4) {
+            $("#generateDate").append(`<input class="input-group input_custom" type="text" name="PropertiesDateTitles" placeholder="@ViewResourcesModel["TitleDatePropertiesField"]"/>`);
+            $("#date").val(val)
+        }
+        else $("#date").val(3)
+    }
+    function createBool() {
+        $('#generateBool').show();
+
+        var val = parseInt($("#bool").val()) + 1
+        if (val < 4) {
+            $("#generateBool").append(`<input class="input-group input_custom" type="text" name="PropertiesBoolTitles" placeholder="@ViewResourcesModel["TitleBoolPropertiesField"]"/>`);
+            $("#bool").val(val)
+        }
+        else $("#bool").val(3)
+    }
+</script>

@@ -2,7 +2,7 @@
     #gray #404040
     #dark #1f1e1e;
     #white #white
-    #green ##008080
+    #green #008080
 
 
 */
@@ -61,4 +61,10 @@ body {
 
 .bg_swap_gray {
     background-color:#404040;
+}
+
+.Textarea_color {
+    background-color: #1f1e1e;
+    color: white;
+    border: solid 1px white;
 }

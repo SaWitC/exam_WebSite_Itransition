@@ -1,8 +1,6 @@
 ﻿@model ItemDetailsViewModel
 
 <script src="~/microsoft-signalr/signalr.min.js"></script>
-
-<hr size="3" class="hr_custom" />
 <h3>@Model.Item.Title</h3>
 <hr size="3" class="hr_custom" />
 <div></div>
@@ -123,18 +121,20 @@ else
     }
 </script>
 
-<div>
+<div class="form-outline mb-4">
     <input id="id" hidden value="@Model.Item.Id" />
-    <textarea type="text" id="message" maxlength="500" placeholder="@ViewResourcesModel["MaxCommentLenght500"]"></textarea>
+    <textarea class="form-control" type="text" id="message" maxlength="500" placeholder="@ViewResourcesModel["MaxCommentLenght500"]"></textarea>
+    <label class="form-label" for="form4Example3">Message</label>
     <button onclick="SentComment()" class="btn">@ViewResourcesModel["Enter"]</button>
 </div>
+
 
 <script>
     const hubConnection = new signalR.HubConnectionBuilder()
         .withUrl("/chat")
         .build();
 
-    // получение сообщения от сервера
+    // get message from server
     hubConnection.on('comment'+'@Model.Item.Id', function (message) {
 
         //$("#renderData").append(data);

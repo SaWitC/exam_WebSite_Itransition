@@ -109,5 +109,14 @@ body {
     -ms-hyphens: auto;
     -moz-hyphens: auto;
     hyphens: auto;
-
+}
+.thead_green {
+    background-color: #008080;
+    color: #dedede;
+    border: 1px solid #000000;
+}
+.search_input{
+    max-height:40px;
+    height:40px;
+    min-height:40px;
 }

@@ -13,6 +13,7 @@ namespace ExampleWebSite.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "Required")]
         [Display(Name = "ItemTitle")]
+        [MaxLength(100, ErrorMessage = "MaxLenghtTitle100"), MinLength(3, ErrorMessage = "MinLenghtTitle3")]
         public string Title { get; set; }
         [Required(ErrorMessage = "Required")]
         [Display(Name ="TagsName")]

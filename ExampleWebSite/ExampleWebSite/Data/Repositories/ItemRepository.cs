@@ -64,26 +64,47 @@ namespace ExampleWebSite.Data.Repositories
                     //union select Comments.ItemId,Comments.AvtorName from Comments
                     //union Select PropertiesElement.ItemId,PropertiesElement.Title from PropertiesElement
 
-                     items = _context.Items.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
-                        .Select(p => new SearchResoultModel { Type = "_item", id = p.Id })
-                        .Union(_context.Comments.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
-                        .Select(p => new SearchResoultModel { Type = "comments", id = p.ItemId }))
-                        .Union(_context.PropertiesElement.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
-                        .Select(p => new SearchResoultModel { Type = "Properties", id = p.ItemId }))
-                        .Union(_context.Collections.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
-                        .Select(p => new SearchResoultModel { Type = "Collection", id = p.Id }));
 
-                    Result = PerformingSearchResoult(items.Take(20));
+                    //items = _context.Items.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
+                    //    .Select(i => new SearchResoultModel { Type = "_item", id = i.Id, Title = "fefefe" })
+                    //    .Union(_context.Collections.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchCollectionOptions)
+                    //    .Select(c => new SearchResoultModel { Type = "Collection", id = c.Id, Title = "dfefe" }))
+                    //    .Union(_context.Comments.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions).GroupBy(o=>o.ItemId)
+                    //    .Select(c => new SearchResoultModel { Type = "comments", id = c.Key, Title = "comment" }));
+
+                    //select count(Comments.ItemId) from Comments group by ItemId
+
+
+                    items = _context.Items.AsNoTracking().FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
+                        .Select(p => new SearchResoultModel { Type = "_item", id = p.Id, Title = p.Title })
+                        .Union(_context.Comments.AsNoTracking().FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
+                        .GroupBy(o => o.ItemId)
+                        .Select(p => new SearchResoultModel
+                        {
+                            Type = "comments",
+                            id = p.Key,
+                            Title = _context.Items.FirstOrDefault(o => o.Id == p.Key).Title
+                        }))
+                        .Union(_context.PropertiesElement.AsNoTracking().FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
+                        .GroupBy(o => o.ItemId)
+                        .Select(p => new SearchResoultModel
+                        {
+                            Type = "Properties",
+                            id = p.Key,
+                            Title = _context.Items.FirstOrDefault(o => o.Id == p.Key).Title
+                        }))
+                        .Union(_context.Collections.AsNoTracking().FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchCollectionOptions)
+                        .Select(p => new SearchResoultModel { Type = "Collection", id = p.Id, Title = p.Title }));
+
+                    Result =PerformingSearchResoult(items.Take(20));
+                    //Result = items.Take(20);
                 } 
                 return Result;
             }
             return null;
         }
 
-        //public IEnumerable<SearchResoultModel> FindByTag(string TagString,int Size,int Page)
-        //{
-            
-        //}
+
 
         public async Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip, int Size, string UserName=null)//later change
         {

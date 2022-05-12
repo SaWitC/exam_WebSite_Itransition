@@ -231,6 +231,12 @@
   <data name="Help" xml:space="preserve">
     <value>Помощь</value>
   </data>
+  <data name="InComment" xml:space="preserve">
+    <value>в коментариях</value>
+  </data>
+  <data name="InProperties" xml:space="preserve">
+    <value>в описании</value>
+  </data>
   <data name="IsBaned" xml:space="preserve">
     <value>Статус Пользователя</value>
   </data>
@@ -270,11 +276,17 @@
   <data name="NotBaned" xml:space="preserve">
     <value>Аккаунт не заблокирован</value>
   </data>
+  <data name="Nothing found" xml:space="preserve">
+    <value>Ничего не найдено</value>
+  </data>
   <data name="NumberProperties" xml:space="preserve">
     <value>Числовые поля</value>
   </data>
   <data name="numberPropertiesEl" xml:space="preserve">
     <value>Дополнительное числовое поле</value>
+  </data>
+  <data name="OfTheCollection" xml:space="preserve">
+    <value>коллекции</value>
   </data>
   <data name="OperationsWithUser" xml:space="preserve">
     <value>Операции над пользователем</value>
@@ -317,6 +329,9 @@
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Теги</value>
+  </data>
+  <data name="textFound" xml:space="preserve">
+    <value>Текст найден в</value>
   </data>
   <data name="Thema" xml:space="preserve">
     <value>Тема</value>

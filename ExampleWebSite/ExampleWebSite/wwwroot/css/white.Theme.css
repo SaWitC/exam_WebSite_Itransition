@@ -59,3 +59,8 @@ body {
 .bg_swap_gray {
     background-color: #eeeeee;
 }
+.Textarea_color {
+    background-color: white;
+    color: black;
+    border: solid 1px #1f1e1e;
+}
