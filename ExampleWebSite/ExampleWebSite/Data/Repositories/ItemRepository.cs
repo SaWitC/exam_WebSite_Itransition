@@ -29,6 +29,8 @@ namespace ExampleWebSite.Data.Repositories
         public async Task<EntityEntry<ItemModel>> CreateAsync(CreateItemViewModel model)
         {      
             model.Item.CollectionId = model.collectionId;
+            var collection = await _context.Collections.FirstOrDefaultAsync(o=>o.Id==model.collectionId);
+            collection.ItemCount = collection.ItemCount + 1;
             var item =await  _context.Items.AddAsync(model.Item);
             await _context.SaveChangesAsync();
             return item;
@@ -36,6 +38,8 @@ namespace ExampleWebSite.Data.Repositories
         public async Task Delete(ItemModel model)
         {
             _context.Items.Remove(model);
+            var collection = await _context.Collections.FirstOrDefaultAsync(o => o.Id == model.CollectionId);
+            collection.ItemCount = collection.ItemCount - 1;
             await _context.SaveChangesAsync();
         }
         public ItemModel GetItemById(int id)=> _context.Items.FirstOrDefault(o=>o.Id ==id);

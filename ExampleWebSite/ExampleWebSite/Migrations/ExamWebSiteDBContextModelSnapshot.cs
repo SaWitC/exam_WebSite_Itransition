@@ -86,6 +86,9 @@ namespace ExampleWebSite.Migrations
                     b.Property<string>("ImageLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ItemCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("ShortDesc")
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)")

@@ -1,0 +1,33 @@
+﻿<div>
+<h4>@ViewResourcesModel["TagCloud"]</h4>
+<div id="TagCloud">
+
+</div>
+</div>
+
+
+<script>
+    function Tagc() {
+        $.ajax({
+            type: 'GET',
+            url: "@Url.Action("GetBestPopylarTags2", "tag")",
+            success: function (data, textstatus) {
+                if (data != '') {
+                    //$("#RenderUsers").append(data);
+                    div = document.getElementById("TagCloud");
+                    var value = 30;
+                    data.forEach(el => {
+                        value = value - 2;
+                        div.innerHTML += `<a class="m-0" style="font-size:${value}px;" href="../../Item/FindItemByTag/?TagString=${el.title}">${el.title}</a><hr class="m-0"/>`;
+                    });
+                }
+                else {
+                    alert("error")
+                }
+                _inCallback = false;
+                $("div#loading").hide();
+            }
+        });
+    }
+    Tagc();
+</script>

@@ -1,4 +1,6 @@
-﻿using ExampleWebSite.Models;
+﻿using ExampleWebSite.Data.Interfaces;
+using ExampleWebSite.Models;
+using ExampleWebSite.ViewModels.Collections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,15 +14,24 @@ namespace ExampleWebSite.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ICollectionRepository _collection;
+        public HomeController(ILogger<HomeController> logger,ICollectionRepository collection)
         {
             _logger = logger;
+            _collection = collection;
         }
 
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                CollectionDetailsViewModel model = _collection.GetCollectionWithMaxItims();
+                return View(model);
+            }
+            catch
+            {
+                return View(null);
+            }
         }
 
         public IActionResult Privacy()

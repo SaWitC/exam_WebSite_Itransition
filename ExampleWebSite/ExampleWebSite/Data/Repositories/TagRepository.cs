@@ -1,5 +1,6 @@
 ﻿using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
+using ExampleWebSite.Models.ModelsForProcessing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ namespace ExampleWebSite.Data.Repositories
 {
     public class TagRepository : ITagRepository
     {
-
         private static List<string> PerformTags(string TagsString)
         {
             if (string.IsNullOrEmpty(TagsString)) return null;
@@ -70,6 +70,24 @@ namespace ExampleWebSite.Data.Repositories
                        where sa.TagId == itemId
                        select s;
             return tags.ToList();
+        }
+
+        public async Task<IEnumerable<TagPopylarModel>> GetBestPopularTags()
+        {
+
+            //Select count(ItemTagsrelationships.ItemId),tagId
+            //from ItemTagsrelationships
+            //group by ItemTagsrelationships.TagId
+
+            //var Tags =
+
+            return await _context.ItemTagsrelationships.GroupBy(o => o.TagId)
+                .Select(o => new TagPopylarModel
+                {
+                    TagId = o.Key,
+                    count = o.Count(),
+                    Title = _context.Tags.FirstOrDefault(p => p.Id == o.Key).Title
+                }).OrderByDescending(o => o.count).Take(10).ToListAsync();
         }
     }
 }

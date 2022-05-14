@@ -76,6 +76,7 @@ namespace ExampleWebSite.Controllers
                 itemViewModel.Tags = _item_Tags_Relationship.GetTagsByItemId((int)id);
                 itemViewModel.Properties = _propertiesElements.GetPropertiesByItemId((int)id);
                 itemViewModel.Item = _item.GetItemById((int)id);
+                itemViewModel.AvtorName = _collection.GetAvtorNameByCollectionId(itemViewModel.Item.CollectionId);
                 itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
                 return View(itemViewModel);
             }
@@ -131,7 +132,7 @@ namespace ExampleWebSite.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Collection");
             }
                 return View(model);
             }
@@ -199,7 +200,7 @@ namespace ExampleWebSite.Controllers
                             await _propertiesElements.UpdateRangeAsync(properties);
                         }
                     }
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Collection");
                 }
                 return View(model);
             }
@@ -228,7 +229,7 @@ namespace ExampleWebSite.Controllers
         {
             var item = _item.GetItemById((int)id);
             await _item.Delete(item);
-            return RedirectToAction("index","home");
+            return RedirectToAction("index", "Collection");
         }
         public async Task<IActionResult> FindItemByTag(string TagString,int? page=0)
         {
@@ -240,10 +241,10 @@ namespace ExampleWebSite.Controllers
                 var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
                 if (isAjax)
                 {
-                    return PartialView("_WriteMoreItemsByTag", await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize));
+                    return PartialView("_WriteMoreItemsByTag", await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize,User.Identity.Name));
                 }
                 
-                model.items= await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize);
+                model.items= await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize,User.Identity.Name);
                 return View(model);
             }
             return View(model);

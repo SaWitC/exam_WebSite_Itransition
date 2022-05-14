@@ -105,5 +105,18 @@ namespace ExampleWebSite.Data.Repositories
             return _context.Collections.FirstOrDefault(o => o.Id == collectionId).AvtorName;
         }
 
+        public CollectionDetailsViewModel GetCollectionWithMaxItims()//////////////////
+        {
+            CollectionDetailsViewModel model = new CollectionDetailsViewModel();
+            var count = _context.Collections.Max(o => o.ItemCount);
+            model.ImageUrl = count.ToString();
+            model.collection = _context.Collections.FirstOrDefault(o=>o.ItemCount==count);
+            return model;
+        }
+
+        public string GetAvtorNamebyCollectionid(int id)
+        {
+            return _context.Collections.FirstOrDefault(o=>o.Id==id).AvtorName;
+        }
     }
 }

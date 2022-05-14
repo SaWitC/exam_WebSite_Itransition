@@ -66,7 +66,7 @@ namespace ExampleWebSite.Controllers
                     await _userManager.AddClaimAsync(user, new Claim("IsBaned", user.IsBaned.ToString())); ;
 
                     await _signInManager.SignInAsync(user, true);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Collection");
                 }
                 else
                 {
@@ -106,7 +106,7 @@ namespace ExampleWebSite.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "Collection");
                         }
                     }
                 }

@@ -4,9 +4,12 @@
 {
     foreach (var item in Model)
     {
-
         <tr>
-            <th><p>@item.Title</p></th>
+            <th>
+                <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                    @item.Title
+                </span>
+            </th>
             <td><p>@item.Thema</p></td>
             <td> <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id">Go</a></td>
             <td>@item.AvtorName</td>

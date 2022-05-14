@@ -103,7 +103,6 @@ body {
 }
 
 .long_text{
-
     overflow-wrap: break-word;
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
@@ -119,4 +118,22 @@ body {
     max-height:40px;
     height:40px;
     min-height:40px;
+}
+#sidebar{
+    position:fixed;
+    width:25%;
+    height:100%;
+}
+.sidebar{
+    width:0;
+    display:none;
+}
+.active{
+    display:block;
+}
+
+.card_Height {
+    height: 260px;
+    max-height: 260px;
+    min-height: 260px;
 }

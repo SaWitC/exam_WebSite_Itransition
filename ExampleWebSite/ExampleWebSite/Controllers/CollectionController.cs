@@ -51,7 +51,22 @@ namespace ExampleWebSite.Controllers
             ItemSize = int.Parse(_options.Value.ItemSize);
             YandexToken = _options.Value.YandexToken;
         }
-        public ActionResult Index(int? id=0)
+
+        public IActionResult Index()
+        {
+            try
+            {
+                CollectionDetailsViewModel model = _collection.GetCollectionWithMaxItims();
+                model.items = GetItemsMinByCollections(model.collection.Id, 0).items;
+                return View(model);
+                //return View(model);
+            }
+            catch
+            {
+                return View(null);
+            }
+        }
+        public ActionResult Collections(int? id=0)
         {
             int page = id ?? 0;
             var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
@@ -131,6 +146,7 @@ namespace ExampleWebSite.Controllers
                     await generate.GeneratePropertiesAsync(collectionId, model.PropertiesStrTitles, "string");
                     await generate.GeneratePropertiesAsync(collectionId, model.PropertiesDateTitles, "date");
                     await generate.GeneratePropertiesAsync(collectionId, model.PropertiesBoolTitles, "bool");
+                    await generate.GeneratePropertiesAsync(collectionId, model.PropertieSmallStringTitles, "smallstr");
 
                     //yandex disk
                     var Collection = await _collection.FindByIdAsync(collectionId);
@@ -142,7 +158,7 @@ namespace ExampleWebSite.Controllers
                     }
                     await _collection.UpdateAsync(Collection);
 
-                    return RedirectToAction(nameof(Index), "Home");
+                    return RedirectToAction(nameof(Index), "Collection");
                 }
                 else
                     return View(model);
@@ -205,7 +221,7 @@ namespace ExampleWebSite.Controllers
             }
             catch
             {
-                return RedirectToAction("index", "home");
+                return RedirectToAction("Index", "Collection");
             }
         }
 
@@ -233,7 +249,7 @@ namespace ExampleWebSite.Controllers
            
             await CollectionImage.DeleteImageAsync(YandexToken, $"collection_{collection.Id}_");
             await _collection.DeleteAsync(collection);
-            return RedirectToAction("index", "home");
+            return RedirectToAction("Index", "Collection");
         }
 
         [HttpGet]

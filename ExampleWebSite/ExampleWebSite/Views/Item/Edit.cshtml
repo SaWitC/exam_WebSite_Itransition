@@ -40,7 +40,7 @@
 </script>
 
 
-<div>
+<div class="col-md-9">
     <form method="post" asp-controller="Item" asp-action="Edit">
         <input hidden asp-for="itemId" />
         <div asp-validation-summary="ModelOnly"></div>
@@ -92,7 +92,7 @@
                         <div class="col-md-6">
                             <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
                             <input hidden name="Properties[@i].title" value="@item.Title" type="text" />
-                            <textarea name="Properties[@i].value" style="resize: none;height:300px;" class="w-100 Textarea_color" id="markdownText+@i"># text </textarea>
+                            <textarea maxlength="3000" name="Properties[@i].value" style="resize: none;height:300px;" class="w-100 Textarea_color" id="markdownText+@i"># text </textarea>
                         </div>
                         <div class="col-md-6 div_border_custom">
                             <div style="overflow:auto; max-height:296px" class="w-100" id="ViewDiv+@i">
@@ -132,12 +132,26 @@
                             <input class="bg_swap_gray input-group" id="datePicker" name="Properties[@i].value" type="date" value="@item.Value" />
                         </div>
                     }
+                    if (item.Type == "smallstr")
+                    {
+                        <div class="div_border_custom col-6"><b>@item.Title</b></div>
+                        <div class="div_border_custom col-6">
+                            <div class="form-group">
+                                <input hidden name="Properties[@i].type" value="@item.Type" type="text" />
+                                <input hidden name="Properties[@i].title" value="@item.Title" type="text" />
+                                <input class="bg_swap_gray input-group" maxlength="300" name="Properties[@i].value" type="text" /> 
+                            </div>
+                        </div>
+                    }
                     i++;
                 }
             }
         </div>
         <input type="submit" value="sent" />
     </form>
+</div>
+<div>
+    @await Html.PartialAsync("../Shared/Partials/_SidebarPartial.cshtml")
 </div>
 
 <script>

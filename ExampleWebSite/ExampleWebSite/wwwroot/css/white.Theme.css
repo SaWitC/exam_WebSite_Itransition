@@ -38,7 +38,7 @@ body {
 }
 
 .text_color {
-    color: #0f0f0f;
+    color: #1f1e1e;
 }
 
 .Table_custom {
@@ -63,4 +63,7 @@ body {
     background-color: white;
     color: black;
     border: solid 1px #1f1e1e;
+}
+p {
+    color: #1f1e1e;
 }
