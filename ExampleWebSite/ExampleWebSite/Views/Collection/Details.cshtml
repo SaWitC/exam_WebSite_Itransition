@@ -1,41 +1,46 @@
 ﻿@model ExampleWebSite.ViewModels.Collections.CollectionDetailsViewModel
 
 <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.1/dist/showdown.min.js"></script>
-<div class="col-md-9">
-    <div>
-
-        @if (Model.ImageUrl != null)
+<div>
+    <div class="w-100">
+        @if (Model.collection.AvtorName == User.Identity.Name || User.IsInRole("admin"))
         {
-            <img class="img-fluid" src="@Model.ImageUrl">
-        }
-        <h4 class="text-wrap">@Model.collection.Title</h4>
-        <h6>@Model.collection.Thema</h6>
-
-        <textarea hidden id="markdownText">@Model.collection.ShortDesc</textarea>
-
-        <div style="overflow:auto;" class="h-auto w-100" id="ShortDesk">
-            <hr class="hr_custom" />
-        </div>
-
-        @if (Model.items != null)
-        {
-            <div id="RenderItem" class="row">
-                @await Html.PartialAsync("_writeMoreItems.cshtml")
-            </div>
-            <button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
+            <a class="ml-auto mr-auto btn bg_Green" asp-action="create" asp-controller="item" asp-route-collectionid="@Model.collection.Id">create Item</a>
+            <a class="ml-auto mr-auto btn bg_Green" asp-action="Edit" asp-controller="Collection" asp-route-collectionid="@Model.collection.Id">@ViewResourcesModel["Edit"]</a>
+            <a class="ml-auto mr-auto btn bg_Green" asp-action="Delete" asp-controller="Collection" asp-route-id="@Model.collection.Id">@ViewResourcesModel["Delete"]</a>
         }
     </div>
-</div>
-<div class="col-3">
-    @if (Model.collection.AvtorName == User.Identity.Name || User.IsInRole("admin"))
+
+    @if (Model.ImageUrl != null)
     {
+<<<<<<< HEAD
         @await Html.PartialAsync("Partials/_controlSidebar.cshtml")
+        <hr class="hr_custom"/>
+        <h4 class=" text-center">@ViewResourcesModel["filtration"]</h4>
+        @await Html.PartialAsync("Partials/_FiltrationPartial.cshtml")
+
+=======
+        <img class="img-fluid" src="@Model.ImageUrl">
+>>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
     }
-    else
+    <h3>@Model.collection.Title</h3>
+    <h6>@Model.collection.Thema</h6>
+
+    <textarea hidden id="markdownText">@Model.collection.ShortDesc</textarea>
+    <div id="ShortDesk">
+
+    <hr class="hr_custom" />
+
+    </div>
+    @if (Model.items != null)
     {
-        @await Html.PartialAsync("../Shared/Partials/_SidebarPartial.cshtml")
+        <div id="RenderItem" class="row">
+            @await Html.PartialAsync("_writeMoreItems.cshtml")
+        </div>
+        <button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
     }
 </div>
+
 
 
 <script type="text/javascript">

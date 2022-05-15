@@ -1,5 +1,7 @@
 ﻿@model EditCollectionViewModel
 
+<h1>Edit page</h1>
+
 <script>
      $(document).ready(function () {
             $.ajax({
@@ -23,53 +25,48 @@
         })
 </script>
 
-<div class="col-md-9">
-    <form enctype="multipart/form-data" method="post" asp-action="Edit">
-        <div asp-validation-summary="ModelOnly"></div>
-        <div class="form-group">
-            <label asp-for="Title"></label>
-            <input asp-for="Title" />
-            <span asp-validation-for="Title"></span>
+<form enctype="multipart/form-data" method="post" asp-action="Edit">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ShortDesc"></label>
+
+        @*<textarea style="hyphens:auto; min-width:50%" asp-for="collection.ShortDesc" id="kv-01" rows="15" class="markdown" required data-bs-version="3" data-theme="fa4" title="Krajee Markdown Editor">
+            </textarea>*@
+
+        <span class="text-danger" asp-validation-for="ShortDesc"></span>
+        <div id="MarkdownEditor">
         </div>
-        <div class="form-group">
-            <label asp-for="ShortDesc"></label>
-
-            @*<textarea style="hyphens:auto; min-width:50%" asp-for="collection.ShortDesc" id="kv-01" rows="15" class="markdown" required data-bs-version="3" data-theme="fa4" title="Krajee Markdown Editor">
-                </textarea>*@
-
-            <span class="text-danger" asp-validation-for="ShortDesc"></span>
-            <div id="MarkdownEditor">
+        <div class="row">
+            <div class="col-md-6">
+                <textarea asp-for="ShortDesc" style="resize: none;height:300px;" class="w-100 Textarea_color" id="markdownText"># text </textarea>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <textarea asp-for="ShortDesc" style="resize: none;height:300px;" class="w-100 Textarea_color" id="markdownText"># text </textarea>
-                </div>
-                <div class="col-md-6 div_border_custom">
-                    <div style="overflow:auto; max-height:300px" class="w-100" id="ShortDesk">
+            <div class="col-md-6 div_border_custom">
+                <div style="overflow:auto; max-height:300px" class="w-100" id="ShortDesk">
 
-                    </div>
                 </div>
             </div>
-            <hr class="hr_custom" />
-            <select class="form-select bg_Green" asp-for="ThemaTitle" id="Themss"></select>
         </div>
+        <hr class="hr_custom" />
+        <select class="form-select bg_Green" asp-for="ThemaTitle" id="Themss"></select>
+    </div>
 
-        <div class="form-group">
-            <input hidden asp-for="Collectionid" />
-        </div>
+    <div class="form-group">
+        <input hidden asp-for="Collectionid" />
+    </div>
 
-        <div class="form-group">
-            <label>image</label>
-            <input asp-for="ImageFile" accept="image/jpg,image/jpeg" />
-        </div>
+    <div class="form-group">
+        <label>image</label>
+        <input asp-for="ImageFile" accept="image/jpg,image/jpeg" />
+    </div>
 
-        <input type="submit" value="@ViewResourcesModel["EditConfirm"]" />
-    </form>
-</div>
+    <input type="submit" value="@ViewResourcesModel["EditConfirm"]" />
+</form>
 
-<div class="col-md-3">
-    @await Html.PartialAsync("../Shared/Partials/_SidebarPartial.cshtml")
-</div>
 @* textarea markdown *@
 
 <script type="text/javascript">

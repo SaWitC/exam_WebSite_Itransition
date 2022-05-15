@@ -1,5 +1,4 @@
 ﻿using ExampleWebSite.Models;
-using ExampleWebSite.Models.ModelsForProcessing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +13,6 @@ namespace ExampleWebSite.Data.Interfaces
         public IEnumerable<TagModel> GetTagsBySearchString(string SearchString, int Quantity);
         public Task<IEnumerable<TagModel>> CreateTagsAsync(string TagsString);
         public IEnumerable<TagModel> GetTagsByItemId(int id);
-
-        public Task<IEnumerable<TagPopylarModel>> GetBestPopularTags();
 
     }
 }

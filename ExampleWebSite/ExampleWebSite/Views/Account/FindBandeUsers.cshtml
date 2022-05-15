@@ -2,9 +2,9 @@
 
 <div class="col-md-12 text-center">
     <div>
-        <form asp-action="FindUsersByName" asp-controller="Account" method="get" class="input-group text-white col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <form asp-action="FindBandeUsers" asp-controller="Account" method="get" class="input-group text-white col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <div class="input-group mb-3">
-                <input type="text" asp-for="SearchString" class="search_input border-secondary form-control" placeholder="UserName" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input type="text" asp-for="SearchString" class="search_input border-secondary form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button type="submit" class="search_input btn btn-info m-0">@ViewResourcesModel["Search"]</button>
                 </div>
@@ -15,7 +15,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     var pageus = 0;
@@ -29,7 +28,7 @@
             console.log(pageus);
             $.ajax({
                 type: 'GET',
-                url: "@Url.Action("FindUsersByName","Account")",
+                url: "@Url.Action("FindBandeUsers", "Account")",
                 data: { },
                 success: function (data, textstatus) {
                     if (data != '') {

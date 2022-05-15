@@ -3,14 +3,15 @@
 @foreach (var item in Model.items)
 {
 
-    <div class="col-6">
+    <div class="col-4">
         <div class="card">
             <div class="table table-info">
-                <h5 class="card-caption">
-                    <span class="d-inline-block text-truncate" style="max-width: 150px;">
-                        <a asp-action="Details" asp-controller="Item" asp-route-id="@item.Id">@item.Title</a>
-                    </span>
+                <h5 class="category-social">
+                    @*<i class="fa fa-twitter"></i> Twitter*@
                 </h5>
+                <h4 class="card-caption">
+                    <a href="#">@item.Title</a>
+                </h4>
                 <div class="ftr">
                     <div class="author">
                         <a class="btn text_color bg-info" asp-action="Details" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Details"]</a>
@@ -27,6 +28,22 @@
             </div>
         </div>
     </div>
+
+    @*<div class="col-md-3">
+            <div class="card m-2 bg_swap_border" style="width:90%;">
+                <a asp-route-UserName="@item.Title" asp-controller="Account" asp-action="CheckInfoAboutUser" type="button" class="long_text btn gray_custom btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From: ">click me</a>
+                <div class="card-body">
+                    <p class=" long_text card-title text-wrap">@item.Title</p>
+                    @if (Model.AvtorName == User.Identity.Name || User.IsInRole("admin"))
+                    {
+                        <a class="text_color btn" asp-action="Delete" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Delete"]</a>
+                    }
+                    <div class="card bg_swap_border">
+                        <a class="text_color btn" asp-action="Details" asp-controller="Item" asp-route-id="@item.Id">@ViewResourcesModel["Details"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 }
 
 

@@ -19,7 +19,6 @@ namespace ExampleWebSite.ViewModels.Collections
         public IEnumerable<string> PropertiesStrTitles { get; set; }
         public IEnumerable<string> PropertiesDateTitles { get; set; }
         public IEnumerable<string> PropertiesBoolTitles { get; set; }
-        public IEnumerable<string> PropertieSmallStringTitles { get; set; }
         public IFormFile ImageFile { get; set; }
         public string AvtorName { get; set; }
     }

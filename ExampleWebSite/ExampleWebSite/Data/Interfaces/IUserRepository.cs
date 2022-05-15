@@ -9,6 +9,8 @@ namespace ExampleWebSite.Data.Interfaces
     public interface IUserRepository
     {
         public IEnumerable<User> TakeMoreUsers(int size, int page, string UserName, string FinderName);
+        public IEnumerable<User> TakeMoreBanedUsers(int size, int page, string UserName, string FinderName);
+
         public Task BanUsersAsync(IEnumerable<string> UsersNames);
         //public Task BanUserAsync(string UsersNames);
         //public Task BanUserAsync(User user);
@@ -18,6 +20,8 @@ namespace ExampleWebSite.Data.Interfaces
         public Task EditCultureAsync(string UserName, string cultureCode);
         public Task<bool> GiveRole(string UserName, string Role);
         public Task<bool> RemoveRoleFromUser(string UserName, string Role);
+        public Task<bool> DeleteUserAsync(string username);
+        public Task<bool> DeleteUserAsync(User user);
 
     }
 }

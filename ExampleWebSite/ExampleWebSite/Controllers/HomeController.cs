@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 ﻿using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
 using ExampleWebSite.ViewModels;
 using ExampleWebSite.ViewModels.Collections;
+=======
+﻿using ExampleWebSite.Models;
+>>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,24 +19,15 @@ namespace ExampleWebSite.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICollectionRepository _collection;
-        public HomeController(ILogger<HomeController> logger,ICollectionRepository collection)
+
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _collection = collection;
         }
 
         public IActionResult Index()
         {
-            try
-            {
-                CollectionDetailsViewModel model = _collection.GetCollectionWithMaxItims();
-                return View(model);
-            }
-            catch
-            {
-                return View(null);
-            }
+            return View();
         }
 
         public IActionResult Privacy()

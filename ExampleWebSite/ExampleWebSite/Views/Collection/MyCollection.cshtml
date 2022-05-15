@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<CollectionMinViewModel>
 
-<div class="col-md-9">
+<div>
     <div class="container">
         <table class="table text_color Table_custom Table_custom">
             <thead class="thead_green">
@@ -18,34 +18,31 @@
         <button class="text-center btn bg_Green" onclick="loadItems()">load Mode</button>
     </div>
 </div>
-<div class="col-md-3">
-    @await Html.PartialAsync("../Shared/Partials/_SidebarPartial.cshtml")
-</div>
 
-    <script>
-        $('div#loading').hide();
-        var page = 0;
-        var _inCallback = false;
-        function loadItems() {
-            if (page > -1 && !_inCallback) {
-                _inCallback = true;
-                page++;
-                $('div#loading').show();
-                console.log(page);
-                $.ajax({
-                    type: 'GET',
-                    url: '/Collection/MyCollection/' + page,
-                    success: function (data, textstatus) {
-                        if (data != '') {
-                            $("#renderCollections").append(data);
-                        }
-                        else {
-                            page = -1;
-                        }
-                        _inCallback = false;
-                        $("div#loading").hide();
-                    }
-                });
+<script>
+$('div#loading').hide();
+var page = 0;
+var _inCallback = false;
+function loadItems() {
+    if (page > -1 && !_inCallback) {
+        _inCallback = true;
+        page++;
+        $('div#loading').show();
+        console.log(page);
+        $.ajax({
+            type: 'GET',
+            url: '/Collection/MyCollection/' + page,
+            success: function (data, textstatus) {
+                if (data != '') {
+                    $("#renderCollections").append(data);
+                }
+                else {
+                    page = -1;
+                }
+                _inCallback = false;
+                $("div#loading").hide();
             }
-        }
-    </script>
+        });
+    }
+}
+</script>

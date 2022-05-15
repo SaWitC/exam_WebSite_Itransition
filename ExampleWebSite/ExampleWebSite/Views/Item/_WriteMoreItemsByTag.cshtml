@@ -2,13 +2,13 @@
 
 @foreach (var item in Model.items)
 {
-    <div class="col-6">
+    <div class="col-4">
         <div class="card">
-            <div class="table table-info">
+            <div class="table bg_Green">
+                <h5 class="category-social">
+                </h5>
                 <h4 class="card-caption">
-                    <span class="d-inline-block text-truncate" style="max-width: 150px;">
-                        <a asp-action="Details" asp-controller="Item" asp-route-id="@item.Id">@item.Title</a>
-                    </span>
+                    <a href="#">@item.Title</a>
                 </h4>
                 <div class="ftr">
                     <div class="author">

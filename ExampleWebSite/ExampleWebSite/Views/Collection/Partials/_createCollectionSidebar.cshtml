@@ -1,33 +1,16 @@
-﻿<div>
-    <input hidden id="num" value="0" type="number" />
-    <input hidden id="str" value="0" type="number" />
-    <input hidden id="date" value="0" type="number" />
-    <input hidden id="bool" value="0" type="number" />
-    <input hidden id="smString" value="0" type="number" />
+﻿
+<h3>@ViewResourcesModel["AddNewPropertiesMessage"]</h3>
+<p>@ViewResourcesModel["AddNewPropertiesMessageDetails"]</p>
 
-    <div class="w-100 btn-group-vertical">
-        <div class="btn-group">
-            <button class="bg_Green btn w-100" type="button" onclick="createNum()">@ViewResourcesModel["numberPropertiesEl"]</button>
-            <button data-toggle="tooltip" data-placement="right" title="@ViewResourcesModel["AditionalNumber"]" class="bg_Green btn">?</button>
-        </div>
-        <div class="btn-group">
-            <button class="bg_Green btn w-100" type="button" onclick="createStr()">@ViewResourcesModel["stringPropertiesEl"]</button>
-            <button data-toggle="tooltip" data-placement="right" title="@ViewResourcesModel["AditionalBigstring"]" class="bg_Green btn">?</button>
-        </div>
-        <div class="btn-group">
-            <button class="bg_Green btn w-100 " type="button" onclick="createDate()">@ViewResourcesModel["datePropertiesEl"]</button>
-            <button data-toggle="tooltip" data-placement="right" title="@ViewResourcesModel["AditionalDate"]" class="bg_Green btn">?</button>
-        </div>
-        <div class="btn-group">
-            <button class="bg_Green btn w-100 " type="button" onclick="createBool()">@ViewResourcesModel["boolPropertiesEl"]</button>
-            <button data-toggle="tooltip" data-placement="right" title="@ViewResourcesModel["AditionalBool"]" class="bg_Green btn">?</button>
-        </div>
-        <div class="btn-group">
-            <button class="bg_Green btn w-100" type="button" onclick="createSmallString()">@ViewResourcesModel["smalStringPropertiesEl"]</button>
-            <button data-toggle="tooltip" data-placement="right" title="@ViewResourcesModel["AditionalSmalstring"]" class="bg_Green btn">?</button>
-        </div>
-    </div>
-</div>
+<input hidden id="num" value="0" type="number" />
+<input hidden id="str" value="0" type="number" />
+<input hidden id="date" value="0" type="number" />
+<input hidden id="bool" value="0" type="number" />
+
+<button class="bg_Green btn" type="button" onclick="createNum()">@ViewResourcesModel["numberPropertiesEl"]</button>
+<button class="bg_Green btn" type="button" onclick="createStr()">@ViewResourcesModel["stringPropertiesEl"]</button>
+<button class="bg_Green btn" type="button" onclick="createDate()">@ViewResourcesModel["datePropertiesEl"]</button>
+<button class="bg_Green btn" type="button" onclick="createBool()">@ViewResourcesModel["boolPropertiesEl"]</button>
 
 <script>
     $(document).ready(() => {
@@ -35,7 +18,6 @@
         $('#generateStr').hide();
         $('#generateBool').hide();
         $('#generateDate').hide();
-        $('#generateSmalString').hide();
 
     })
 
@@ -79,15 +61,5 @@
             $("#bool").val(val)
         }
         else $("#bool").val(3)
-    }
-    function createSmallString() {
-        $('#generateSmalString').show();
-
-        var val = parseInt($("#smString").val()) + 1
-        if (val < 4) {
-            $("#generateSmalString").append(`<input class="input-group input_custom" type="text" name="PropertieSmallStringTitles" placeholder="@ViewResourcesModel["TitlesmalStringPropertiesField"]"/>`);
-            $("#smString").val(val)
-        }
-        else $("#smString").val(3)
     }
 </script>

@@ -2,7 +2,7 @@
 <header>
     <nav class="navbar-dark navbar navbar-expand-md navbar-toggleable-sm navbar-light HeadStyle box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand text-white" asp-area="" asp-controller="Collection" asp-action="Index">ExampleWebSite</a>
+            <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">ExampleWebSite</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon text-white"></span>
@@ -11,7 +11,7 @@
                 <ul class="navbar-nav flex-grow-1">
 
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Collection" asp-action="Collections">@ViewResourcesModel["NewCollections"]</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Collection" asp-action="Index">@ViewResourcesModel["NewCollections"]</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" asp-area="" asp-controller="Collection" asp-action="MyCollection">@ViewResourcesModel["MyCollections"]</a>

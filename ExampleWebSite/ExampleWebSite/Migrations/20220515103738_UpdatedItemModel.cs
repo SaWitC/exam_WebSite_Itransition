@@ -2,7 +2,7 @@
 
 namespace ExampleWebSite.Migrations
 {
-    public partial class UpdateUserModel : Migration
+    public partial class UpdatedItemModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

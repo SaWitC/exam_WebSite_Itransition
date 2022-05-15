@@ -1,13 +1,17 @@
 ﻿@model User
 
-<div class="col-lg-3">
-    @await Html.PartialAsync("Partials/_NavigationPartial.cshtml")
-</div>
-<div class="col-lg-9 UserInfo ">
-    <p><b>@ViewResourcesModel["UserName"]":</b>  @Model.UserName</p>
-    <hr class="hr_custom" />
-    <p><b>@ViewResourcesModel["Email"]":</b>  @Model.Email</p>
-    <hr class="hr_custom" />
-    <p><b>@ViewResourcesModel["PhoneNumber"]":</b>  @Model.PhoneNumber <a class="float-right" asp-action="EditPhone" asp-controller="Account">Изменить</a></p>
-    <hr class="hr_custom" />
-</div>
+@*<div class="container">*@
+    <div class="row">
+        <div class="col-md-3">
+            @await Html.PartialAsync("Partials/_NavigationPartial.cshtml")
+        </div>
+        <div class="col-md-9 UserInfo ">
+            <p><b>@ViewResourcesModel["UserName"]":</b>  @Model.UserName</p>
+            <hr class="hr_custom" />
+            <p><b>@ViewResourcesModel["Email"]":</b>  @Model.Email</p>
+            <hr class="hr_custom" />
+            <p><b>@ViewResourcesModel["PhoneNumber"]":</b>  @Model.PhoneNumber <a class="float-right" asp-action="EditPhone" asp-controller="Account">Изменить</a></p>
+            <hr class="hr_custom" />
+        </div>
+    </div>
+@*</div>*@ 

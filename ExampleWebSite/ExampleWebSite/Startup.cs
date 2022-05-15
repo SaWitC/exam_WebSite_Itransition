@@ -113,7 +113,7 @@ namespace ExampleWebSite
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Collection}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapHub<CommentHub>("/chat");
             });
         }

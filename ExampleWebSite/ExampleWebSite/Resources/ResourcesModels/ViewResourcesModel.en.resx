@@ -123,24 +123,6 @@
   <data name="AddNewPropertiesMessageDetails" xml:space="preserve">
     <value>you can use additional fields to specify additional data about the collection elements for example for books year of publication</value>
   </data>
-  <data name="AditionalBigstring" xml:space="preserve">
-    <value>text with formated</value>
-  </data>
-  <data name="AditionalBool" xml:space="preserve">
-    <value>additional field switch with two states off/on</value>
-  </data>
-  <data name="AditionalDate" xml:space="preserve">
-    <value>additional field for date</value>
-  </data>
-  <data name="AditionalNumber" xml:space="preserve">
-    <value>additional field for numbers</value>
-  </data>
-  <data name="AditionalSmalstring" xml:space="preserve">
-    <value>additional field for short text</value>
-  </data>
-  <data name="AdminCanDo" xml:space="preserve">
-    <value>Admin can do: </value>
-  </data>
   <data name="AdminCanDoText1" xml:space="preserve">
     <value>The site admin can block and unblock user accounts</value>
   </data>
@@ -155,9 +137,6 @@
   </data>
   <data name="AuthorizedPlease" xml:space="preserve">
     <value>Please Log in</value>
-  </data>
-  <data name="AuthorizetToSentMessage" xml:space="preserve">
-    <value>you can't send a comment (please log in)</value>
   </data>
   <data name="author_will_be" xml:space="preserve">
     <value>The author will be</value>
@@ -184,7 +163,10 @@
     <value>Switches</value>
   </data>
   <data name="boolrPropertiesEl" xml:space="preserve">
-    <value>Switch (off/on)</value>
+    <value>Additional switch field</value>
+  </data>
+  <data name="CannNotBeNullTitle" xml:space="preserve">
+    <value>if you do not specify a name for the additional field, it will not be created</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change password</value>
@@ -201,20 +183,29 @@
   <data name="CollectionTitle" xml:space="preserve">
     <value>Collection Title</value>
   </data>
-  <data name="ControlPanel" xml:space="preserve">
-    <value>Control panel</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
   <data name="CreateCollectionFromUser" xml:space="preserve">
     <value>Create a collection on behalf of the user</value>
   </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created date</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>From</value>
+  </data>
   <data name="DateProperties" xml:space="preserve">
     <value>Dates</value>
   </data>
   <data name="datePropertiesEl" xml:space="preserve">
-    <value>Date</value>
+    <value>Additional date field</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="DateUpdate" xml:space="preserve">
+    <value>Last update date</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -239,6 +230,12 @@
   </data>
   <data name="ErrorLoadDataMessage" xml:space="preserve">
     <value>Failed to load data</value>
+  </data>
+  <data name="FilterSettings" xml:space="preserve">
+    <value>Filter settings</value>
+  </data>
+  <data name="filtration" xml:space="preserve">
+    <value>Filtration</value>
   </data>
   <data name="FindUser" xml:space="preserve">
     <value>Find the author</value>
@@ -303,9 +300,6 @@
   <data name="NoHaveAccount" xml:space="preserve">
     <value>do you have an account?</value>
   </data>
-  <data name="NoMoreInfo" xml:space="preserve">
-    <value>No additional information</value>
-  </data>
   <data name="NotBaned" xml:space="preserve">
     <value>Account is not baned</value>
   </data>
@@ -316,7 +310,7 @@
     <value>Number fields</value>
   </data>
   <data name="numberPropertiesEl" xml:space="preserve">
-    <value>Number</value>
+    <value>Additional numeric field</value>
   </data>
   <data name="OfTheCollection" xml:space="preserve">
     <value>of the collection :</value>
@@ -354,15 +348,6 @@
   <data name="SearchString" xml:space="preserve">
     <value>Text (descriptions, titles, comments)</value>
   </data>
-  <data name="Sent" xml:space="preserve">
-    <value>Sent</value>
-  </data>
-  <data name="SmallStringProperties" xml:space="preserve">
-    <value>additional fields for short text</value>
-  </data>
-  <data name="smalStringPropertiesEl" xml:space="preserve">
-    <value>Short text</value>
-  </data>
   <data name="Stamps" xml:space="preserve">
     <value>Stamps</value>
   </data>
@@ -370,10 +355,7 @@
     <value>Text fields</value>
   </data>
   <data name="stringPropertiesEl" xml:space="preserve">
-    <value>Text with formated</value>
-  </data>
-  <data name="TagCloud" xml:space="preserve">
-    <value>Tag cloud</value>
+    <value>additional text field</value>
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
@@ -392,9 +374,6 @@
   </data>
   <data name="TitleNumberPropertiesField" xml:space="preserve">
     <value>Name of the additional number field</value>
-  </data>
-  <data name="TitlesmalStringPropertiesField" xml:space="preserve">
-    <value>name of the additional field</value>
   </data>
   <data name="TitleStringPropertiesField" xml:space="preserve">
     <value>Name of the additional text field</value>

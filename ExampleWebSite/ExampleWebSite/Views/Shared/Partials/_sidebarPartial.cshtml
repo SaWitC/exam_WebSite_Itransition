@@ -21,9 +21,6 @@
                         div.innerHTML += `<a class="m-0" style="font-size:${value}px;" href="../../Item/FindItemByTag/?TagString=${el.title}">${el.title}</a><hr class="m-0"/>`;
                     });
                 }
-                else {
-                    alert("error")
-                }
                 _inCallback = false;
                 $("div#loading").hide();
             }

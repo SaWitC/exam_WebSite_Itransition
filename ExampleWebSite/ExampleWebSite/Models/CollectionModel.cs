@@ -29,6 +29,5 @@ namespace ExampleWebSite.Models
         public string AvtorName { get;set; }
         public IEnumerable<PropertiesModel> OptionalPropertiesTemplate { get; set; }
         public string ImageLink { get; set; }
-        public int ItemCount { get; set; } = 0;
     }
 }

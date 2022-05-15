@@ -86,9 +86,6 @@ namespace ExampleWebSite.Migrations
                     b.Property<string>("ImageLink")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ItemCount")
-                        .HasColumnType("int");
-
                     b.Property<string>("ShortDesc")
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)")
@@ -151,6 +148,9 @@ namespace ExampleWebSite.Migrations
 
                     b.Property<int>("CollectionId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("LastUpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()

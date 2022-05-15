@@ -25,7 +25,10 @@ namespace ExampleWebSite.Data.Repositories
         }
         private bool CheckUserName(string UserName)
         {
-            if (_options.Value.AdminAccountEmail != UserName) return true;
+            if (!string.IsNullOrEmpty(UserName))
+            {
+                if (_options.Value.AdminAccountEmail != UserName) return true;
+            }
             return false;
         }
 
@@ -80,6 +83,26 @@ namespace ExampleWebSite.Data.Repositories
             {
                 return _userManager.Users.Skip(skip).Take(size).Where(o => o.UserName != FinderName &&
                 o.UserName != admin);
+            }
+        }
+        public IEnumerable<User> TakeMoreBanedUsers(int size, int page, string UserName, string FinderName)
+        {
+            var admin = _options.Value.AdminAccountEmail;
+            int skip = size * page;
+            if (!string.IsNullOrEmpty(UserName))
+            {
+                return _userManager.Users.Skip(skip).Take(size).Where(
+                    o => o.UserName != FinderName &&
+                    o.UserName != admin &&
+                    o.IsBaned == true&&
+                    o.UserName.ToLower().Contains(UserName.ToLower()));
+            }
+            else
+            {
+                return _userManager.Users.Skip(skip).Take(size).Where(
+                    o => o.UserName != FinderName &&
+                    o.IsBaned == true &&
+                    o.UserName != admin);
             }
         }
 
@@ -139,6 +162,41 @@ namespace ExampleWebSite.Data.Repositories
             {
                 var resoult = await _userManager.RemoveFromRoleAsync(user, Role);
                 if (resoult.Succeeded) return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteUserAsync(string username)
+        {
+            if (CheckUserName(username))
+            {
+                try
+                {
+                    var user = await _userManager.FindByNameAsync(username);
+                    await _userManager.DeleteAsync(user);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }   
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteUserAsync(User user)
+        {
+            if (CheckUserName(user.UserName))
+            {
+                try
+                {
+                    await _userManager.DeleteAsync(user);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
             return false;
         }

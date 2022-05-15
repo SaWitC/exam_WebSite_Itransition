@@ -24,10 +24,9 @@ namespace ExampleWebSite.Data.Interfaces
         //public Task<CollectionModel> FindByTitleAsync(string title);
         public Task<CollectionModel> FindByIdAsync(int id);
         //public Task<IEnumerable<CollectionModel>> FindByAvtorIdAsync(string avtorName);
+
         //public Task<IEnumerable<CollectionModel>> TakeCollection_SkipAsync(int skip,int pageSize);
         public string GetAvtorNameByCollectionId(int collectionId);
-        public CollectionDetailsViewModel GetCollectionWithMaxItims();
-        public string GetAvtorNamebyCollectionid(int id);
 
 
 

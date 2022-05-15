@@ -23,15 +23,14 @@
         })
 </script>
 
-<form enctype="multipart/form-data" asp-action="Create" asp-controller="Collection" method="post">
-    <div class="col-md-12">
-        @if (!string.IsNullOrEmpty(Model.AvtorName))
-        {
-            <div class="lightBlueGreen w-100">
-                <p><b>@ViewResourcesModel["author_will_be"] :</b> @Model.AvtorName</p>
-            </div>
-        }
-        @*<form enctype="multipart/form-data" asp-action="Create" asp-controller="Collection" method="post">*@
+<div class="col-md-9">
+    @if (!string.IsNullOrEmpty(Model.AvtorName))
+    {
+        <div class="lightBlueGreen w-100">
+            <p><b>@ViewResourcesModel["author_will_be"] :</b> @Model.AvtorName</p>
+        </div>
+    }
+    <form enctype="multipart/form-data" asp-action="Create" asp-controller="Collection" method="post">
         <input hidden value="@Model.AvtorName" asp-for="AvtorName" />
         <div asp-validation-summary="ModelOnly"></div>
         <div class="form-group">
@@ -43,7 +42,7 @@
             <label asp-for="collection.ShortDesc"></label>
 
             @*<textarea style="hyphens:auto; min-width:50%" asp-for="collection.ShortDesc" id="kv-01" rows="15" class="markdown" required data-bs-version="3" data-theme="fa4" title="Krajee Markdown Editor">
-                </textarea>*@
+        </textarea>*@
 
             <span class="text-danger" asp-validation-for="collection.ShortDesc"></span>
             <div id="MarkdownEditor">
@@ -70,44 +69,75 @@
         </div>
         <hr class="hr_custom" />
 
+<<<<<<< HEAD
         @*</form>*@
     </div>
-    <div class="col-12">
+    <div class="col-md-12">
         <h3>@ViewResourcesModel["AddNewPropertiesMessage"]</h3>
         <p>@ViewResourcesModel["AddNewPropertiesMessageDetails"]</p>
     </div>
-    <div class="col-md-5">
-        @await Html.PartialAsync("Partials/_createCollectionSidebar.cshtml")
-    </div>
-    <div class="col-md-7">
-        <div id="generateElement">
-            <div class="m-0" id="generateNum">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["NumberProperties"]</h4>
-            </div>
-            <div class="m-0" id="generateStr">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["StringProperties"]</h4>
-            </div>
-            <div class="m-0" id="generateBool">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["BoolProperties"]</h4>
-            </div>
-            <div class="m-0" id="generateDate">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["DateProperties"]</h4>
-            </div>
-            <div class="m-0" id="generateSmalString">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["SmallStringProperties"]</h4>
+    <div class="row">
+        <div class="col-md-5">
+            @await Html.PartialAsync("Partials/_createCollectionSidebar.cshtml")
+        </div>
+        <div class="col-md-7">
+            <div id="generateElement">
+                <div class="m-0" id="generateNum">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["NumberProperties"]</h4>
+                </div>
+                <div class="m-0" id="generateStr">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["StringProperties"]</h4>
+                </div>
+                <div class="m-0" id="generateBool">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["BoolProperties"]</h4>
+                </div>
+                <div class="m-0" id="generateDate">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["DateProperties"]</h4>
+                </div>
+                <div class="m-0" id="generateSmalString">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["SmallStringProperties"]</h4>
+                </div>
             </div>
         </div>
+
     </div>
 
     <div class="col-md-12 text-center m-0">
+        <p class="text-danger">@ViewResourcesModel["CannNotBeNullTitle"]</p>
+=======
+        <div id="generateElement">
+            <div class="text_color" id="generateNum">
+                <hr class="hr_custom" />
+                <h4>@ViewResourcesModel["NumberProperties"]</h4>
+            </div>
+            <div id="generateStr">
+                <hr class="hr_custom" />
+                <h4>@ViewResourcesModel["StringProperties"]</h4>
+            </div>
+            <div id="generateBool">
+                <hr class="hr_custom" />
+                <h4>@ViewResourcesModel["BoolProperties"]</h4>
+            </div>
+            <div id="generateDate">
+                <hr class="hr_custom" />
+                <h4>@ViewResourcesModel["DateProperties"]</h4>
+            </div>
+        </div>
+
+>>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
         <input class="btn bg_green_b" type="submit" value="@ViewResourcesModel["Create"]" />
-    </div>
-</form>
+    </form>
+    <button>string</button>
+</div>
+
+<div class="col-md-3">
+    @await Html.PartialAsync("Partials/_createCollectionSidebar.cshtml")
+</div>
 
 @* textarea markdown *@
 

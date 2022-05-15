@@ -38,8 +38,8 @@ body {
     border: 2px solid #0d7373;
 }
 
-.text_color {
-    color: #cdcdcd;
+.text_color{
+    color:#e2e2e2;
 }
 
 .Table_custom {
@@ -67,8 +67,4 @@ body {
     background-color: #1f1e1e;
     color: white;
     border: solid 1px white;
-}
-
-p {
-    color: #cdcdcd;
 }

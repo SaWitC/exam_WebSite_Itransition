@@ -1,6 +1,81 @@
 ﻿@model ItemDetailsViewModel
 
 <script src="~/microsoft-signalr/signalr.min.js"></script>
+<h3>@Model.Item.Title</h3>
+<hr size="3" class="hr_custom" />
+<div></div>
+<a class="text_color btn" asp-action="Delete" asp-controller="Item" asp-route-id="@Model.Item.Id">@ViewResourcesModel["Delete"]</a>
+<a class="text_color btn" asp-action="Edit" asp-controller="Item" asp-route-ItemId="@Model.Item.Id">@ViewResourcesModel["Edit"]</a>
+<div>
+    <p>
+        <b>@ViewResourcesModel["Tags"] :</b>
+        @if (Model.Tags != null)
+        {
+            @foreach (var item in Model.Tags)
+            {
+                <a class="ml-auto mr-auto btn bg_Green" asp-action="FindItemByTag" asp-controller="Item" asp-route-TagString="@item.Title">@item.Title</a>
+            }
+        }
+        else
+        {
+            @ViewResourcesModel["NoHasTags"]
+        }
+    </p>
+</div>
+
+
+
+@if (Model.Properties != null)
+{
+    foreach (var item in Model.Properties)
+    {
+        <div class="row justify-content-md-start">
+            @if (item.Type == "number" || item.Type == "date")
+            {
+                <div class="div_border_custom col-6"><b>@item.Title</b></div>
+                <div class="div_border_custom col-6">@item.Value</div>
+            }
+            else if (item.Type == "bool")
+            {
+                if (item.Value == "on")
+                {
+                    <div class="div_border_custom col-6"><b>@item.Title</b></div>
+                    <div class="div_border_custom col-6"><img alt="yes" class="Check-icon" src="~/icons/yes_check.png" /></div>
+                }
+                else
+                {
+                    <div class="div_border_custom col-6"><b>@item.Title</b></div>
+                    <div class="div_border_custom col-6"><img alt="no" class="Check-icon" src="~/icons/no_check.png" /></div>
+                    <input type="checkbox" disabled />
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <h3>@item.Title</h3>
+                    @item.Value
+                </div>
+            }
+        </div>
+    }
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    @await Html.PartialAsync("Partials/_WriteCommentPartial.cshtml");
+}
+else
+{
+    <h3>you are is not autentiacted</h3>
+}
+<div id="renderScope">
+    @await Html.PartialAsync("_WriteMoreComments.cshtml")
+</div>
+
+<button onclick="LoadComments()">load Mode</button>
+
+<div id="notify"></div>
+
 <script>
     var page = 0;
     var _inCallback = false;
@@ -12,7 +87,7 @@
             console.log(page);
             $.ajax({
                 type: 'GET',
-                url: "@Url.Action("Details", "Item")",
+                url: "@Url.Action("Details","Item")",
                 data: { id: @Model.Item.Id,p:page },
                 success: function (data, textstatus) {
                     if (data != '') {
@@ -46,99 +121,13 @@
     }
 </script>
 
-<div class="col-md-9">
-    <div>
-        <p>
-            <b>@ViewResourcesModel["Tags"] :</b>
-            @if (Model.Tags != null)
-            {
-                @foreach (var item in Model.Tags)
-                {
-                    <a class="m-1" asp-action="FindItemByTag" asp-controller="Item" asp-route-TagString="@item.Title">@item.Title</a>
-                }
-            }
-            else
-            {
-                @ViewResourcesModel["NoHasTags"]
-            }
-        </p>
-    </div>
-
-    <h4 class="text-wrap">@Model.Item.Title</h4>
-    <hr size="2" class="hr_custom" />
-
-    @if (Model.Properties != null && Model.Properties.Count() > 0)
-    {
-        foreach (var item in Model.Properties)
-        {
-            <div class="row justify-content-md-start">
-                @if (item.Type == "number" || item.Type == "date" || item.Type == "smallstr")
-                {
-                    <div class="div_border_custom col-6"><b>@item.Title</b></div>
-                    <div class="div_border_custom col-6">@item.Value</div>
-                }
-                else if (item.Type == "bool")
-                {
-                    if (item.Value == "on")
-                    {
-                        <div class="div_border_custom col-6"><b>@item.Title</b></div>
-                        <div class="div_border_custom col-6"><img alt="yes" class="Check-icon" src="~/icons/yes_check.png" /></div>
-                    }
-                    else
-                    {
-                        <div class="div_border_custom col-6"><b>@item.Title</b></div>
-                        <div class="div_border_custom col-6"><img alt="no" class="Check-icon" src="~/icons/no_check.png" /></div>
-                        <input type="checkbox" disabled />
-                    }
-                }
-                else
-                {
-                    <div class="col-12">
-                        <h3>@item.Title</h3>
-                        @item.Value
-                    </div>
-                }
-            </div>
-        }
-    }
-    else
-    {
-        <h5>@ViewResourcesModel["NoMoreInfo"]</h5>
-    }
-    @if (User.Identity.IsAuthenticated)
-    {
-        @await Html.PartialAsync("Partials/_WriteCommentPartial.cshtml");
-    }
-    else
-    {
-        <h5>@ViewResourcesModel["AuthorizetToSentMessage"]</h5>
-    }
-
-    <hr size="2" class="hr_custom" />
-
-    <div class="form-outline mb-4">
-        <input id="id" hidden value="@Model.Item.Id" />
-        <textarea class="form-control" type="text" id="message" maxlength="500" placeholder="@ViewResourcesModel["MaxCommentLenght500"]"></textarea>
-        <button onclick="SentComment()" class="btn">@ViewResourcesModel["Sent"]</button>
-    </div>
-
-    <div class="w-100">
-        <div id="renderScope">
-            @await Html.PartialAsync("_WriteMoreComments.cshtml")
-        </div>
-    </div>
-    <div id="notify"></div>
+<div class="form-outline mb-4">
+    <input id="id" hidden value="@Model.Item.Id" />
+    <textarea class="form-control" type="text" id="message" maxlength="500" placeholder="@ViewResourcesModel["MaxCommentLenght500"]"></textarea>
+    <label class="form-label" for="form4Example3">Message</label>
+    <button onclick="SentComment()" class="btn">@ViewResourcesModel["Enter"]</button>
 </div>
-<div class="col-3">
-    @if (Model.AvtorName == User.Identity.Name || User.IsInRole("admin"))
-    {
-        @await Html.PartialAsync("Partials/_controlSidebar.cshtml")
-    }
-    else
-    {
-        @await Html.PartialAsync("../Shared/Partials/_SidebarPartial.cshtml")
-    }
-</div>
+
 
 <script>
     const hubConnection = new signalR.HubConnectionBuilder()
@@ -147,37 +136,39 @@
 
     // get message from server
     hubConnection.on('comment'+'@Model.Item.Id', function (message) {
-        let elem = document.createElement("p");
-        var elem2 = `<hr class="my-0" style="height: 1px;" />
 
-        <div class="card-body p-4">
-            <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3"
-                     src="~/icons/iconUser.png" alt="avatar" width="60"
-                     height="60" />
-                <div>
-                    <h6 class="fw-bold mb-1"></h6>
-                    <div class="d-flex align-items-center mb-3">
-                    </div>
-                    <p class="mb-0">${
-                       Message}
-                    </p>
-                </div>
-            </div>
-        </div>`
+        //$("#renderData").append(data);
+        // создает элемент <p> для сообщения пользователя
+        let elem = document.createElement("p");
+        var elem2 = `<div class="card" style="width:auto;">
+    <div class="form-group">
+
+        <div class="card-body bg-info btn-lg active w-100 h-auto" role="button" aria-pressed="true">
+            <button type="button" class="btn btn-secondary btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From:">
+                ?
+            </button>
+            <h5 class="card-text text-wrap">user</h5>
+            <p class="card-text text-wrap">${message}</p>
+        </div>
+    </div>
+</div>`
         elem.appendChild(document.createTextNode(message));
 
         document.getElementById("notify").appendChild(elem);
         $("#notify").html(elem2);
+
+
     });
     hubConnection.start();
 
 
     hubConnection.on("UserConnected", function (connectionId) {
+        //$("#users").html();
         console.log("connected " + connectionId)
     });
 
     hubConnection.on("UserConnected", function (connectionId) {
+        //$("#users").html();
         console.log("Disconnected " + connectionId)
     });
 </script>

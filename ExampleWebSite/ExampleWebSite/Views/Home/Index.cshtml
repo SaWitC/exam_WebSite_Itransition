@@ -1,24 +1,8 @@
-﻿@model CollectionDetailsViewModel
-
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
 @*@inject IHtmlLocalizer<ViewResourcesModel> ViewResourcesModel*@
-
-@if (Model != null)
-{
-    <h1>@Model.ImageUrl</h1>
-    <h2>@Model.collection.Title</h2>
-}
-
-@if (Model.items != null)
-{
-    <div id="RenderItem" class="row">
-        @await Html.PartialAsync("../Collection/_writeMoreItems.cshtml")
-    </div>
-}
-<button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
 
 <div class="text-center">
     <h1 class="display-4">@ViewResourcesModel["Hello"]</h1>
@@ -26,33 +10,3 @@
 
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-
-<script>
-//load more item
-$('div#loading').hide();
-var page = 0;
-var _inCallback = false;
-    function LoadItems() {
-    if (page > -1 && !_inCallback) {
-        _inCallback = true;
-        page++;
-        $('div#loading').show();
-        console.log(page);
-        $.ajax({
-            type: 'GET',
-            url: "@Url.Action("Details","Collection")",
-            data: { id: @Model.collection.Id,p:page },
-            success: function (data, textstatus) {
-                if (data != '') {
-                    $("#RenderItem").append(data);
-                }
-                else {
-                    page = -1;
-                }
-                _inCallback = false;
-                $("div#loading").hide();
-            }
-        });
-    }
-}
-</script>

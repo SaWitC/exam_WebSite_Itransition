@@ -1,17 +1,13 @@
 ﻿@model FindItemViewModel
 
-<div class="col-md-9">
-    @if (Model.items != null)
-    {
-        <div id="RenderItem" class="row">
-            @await Html.PartialAsync("_WriteMoreItemsByTag.cshtml")
-        </div>
-        <button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
-    }
-</div>
-<div class="col-md-3">
-    @await Html.PartialAsync("../Shared/Partials/_SidebarPartial.cshtml")
-</div>
+
+@if (Model.items != null)
+{
+    <div id="RenderItem" class="row">
+        @await Html.PartialAsync("_WriteMoreItemsByTag.cshtml")
+    </div>
+    <button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
+}
 
 <script>
 //load more item

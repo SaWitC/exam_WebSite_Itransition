@@ -120,4 +120,10 @@
   <data name="BadPassworOrEmail" xml:space="preserve">
     <value>Не верный логин или пароль</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Войди</value>
+  </data>
+  <data name="PasswordChanged" xml:space="preserve">
+    <value>Пароль изменен</value>
+  </data>
 </root>

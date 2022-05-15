@@ -4,12 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
-using ExampleWebSite.Models.ModelsForProcessing;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ExampleWebSite.Controllers
 {
-    public class TagController: Microsoft.AspNetCore.Mvc.Controller
+    public class TagController
     {
         private readonly ITagRepository _tag;
         public TagController(ITagRepository tag)
@@ -20,7 +18,8 @@ namespace ExampleWebSite.Controllers
         {
             return _tag.GetTagsBySearchString(SearchString, 5);
         }
-        [ResponseCache(Duration =3000,Location =ResponseCacheLocation.Client)]
+<<<<<<< HEAD
+        [ResponseCache(Duration =3000,Location =ResponseCacheLocation.Any)]
         public async Task<IActionResult> GetBestPopylarTags()
         {
             var model = await _tag.GetBestPopularTags();
@@ -31,5 +30,7 @@ namespace ExampleWebSite.Controllers
             var model = await _tag.GetBestPopularTags();
             return model;
         }
+=======
+>>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
     }
 }

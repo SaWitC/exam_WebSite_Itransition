@@ -14,7 +14,5 @@ namespace ExampleWebSite.ViewModels.Items
         public IQueryable<CommentModel> comments { get; set; }
         public IEnumerable<TagModel> Tags { get; set; } = null;
 
-        public string AvtorName { get; set; }
-
     }
 }

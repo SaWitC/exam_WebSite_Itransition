@@ -40,26 +40,19 @@ namespace ExampleWebSite.Components.Midleware
 
                     if (user != null)
                     {
-                        if (user.IsBaned == false)
-                        {
-                            await _next.Invoke(context);
-
-                        }
-                        else
+                        if (user.IsBaned == true)
                         {
                             await SigninManager.SignOutAsync();
                             context.Response.Redirect("YourAccountIsBaned");
                         }
                     }
-
                     //SampleDate.InitialiseThemes(context);//initialse category
                 }
                 catch (Exception ex)
                 {
-                    await _next.Invoke(context);
+                   
                 }
             }
-
             //var user = scope.ServiceProvider.GetRequiredService<IUser>();
             await _next.Invoke(context);
         }

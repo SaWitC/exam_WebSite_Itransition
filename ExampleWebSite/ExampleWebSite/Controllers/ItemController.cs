@@ -18,6 +18,8 @@ using ExampleWebSite.Data;
 using Korzh.EasyQuery.Services;
 using ExampleWebSite.Data.ConfigurationModels;
 using Microsoft.Extensions.Options;
+using ExampleWebSite.Models.ModelsForProcessing;
+using ExampleWebSite.ViewModels.Collections;
 
 namespace ExampleWebSite.Controllers
 {
@@ -61,27 +63,45 @@ namespace ExampleWebSite.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration =4000,Location =ResponseCacheLocation.Client)]
         public ActionResult Details(int? id,int? p)
         {
-            if (id != null)
+            try
             {
-                int page = p ?? 0;
-                var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
-                if (isAjax)
+                if (id != null)
                 {
-                    return PartialView("_WriteMoreComments", GetComments((int)id, page));
+                    int page = p ?? 0;
+                    var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+                    if (isAjax)
+                    {
+                        return PartialView("_WriteMoreComments", GetComments((int)id, page));
+                    }
+
+                    var itemViewModel = new ItemDetailsViewModel();
+                    itemViewModel.Tags = _item_Tags_Relationship.GetTagsByItemId((int)id);
+                    itemViewModel.Properties = _propertiesElements.GetPropertiesByItemId((int)id);
+                    itemViewModel.Item = _item.GetItemById((int)id);
+                    itemViewModel.AvtorName = _collection.GetAvtorNameByCollectionId(itemViewModel.Item.CollectionId);
+                    itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
+                    return View(itemViewModel);
                 }
+<<<<<<< HEAD
+                else
+                    return NotFound();
+=======
                 
                 var itemViewModel = new ItemDetailsViewModel();
                 itemViewModel.Tags = _item_Tags_Relationship.GetTagsByItemId((int)id);
                 itemViewModel.Properties = _propertiesElements.GetPropertiesByItemId((int)id);
                 itemViewModel.Item = _item.GetItemById((int)id);
-                itemViewModel.AvtorName = _collection.GetAvtorNameByCollectionId(itemViewModel.Item.CollectionId);
                 itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
                 return View(itemViewModel);
+>>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
             }
-            else
+            catch
+            {
                 return NotFound();
+            }
         }
         public PartialViewResult _WriteMoreComments()
         {
@@ -132,7 +152,7 @@ namespace ExampleWebSite.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", "Collection");
+                    return RedirectToAction("Index", "Home");
             }
                 return View(model);
             }
@@ -200,7 +220,7 @@ namespace ExampleWebSite.Controllers
                             await _propertiesElements.UpdateRangeAsync(properties);
                         }
                     }
-                    return RedirectToAction("Index", "Collection");
+                    return RedirectToAction("Index", "Home");
                 }
                 return View(model);
             }
@@ -210,17 +230,33 @@ namespace ExampleWebSite.Controllers
             }
         }
         [Authorize]
-        [HttpGet]
-        public ActionResult Delete(int? id)
+        [HttpPost]
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id != null)
             {
                 var item = _item.GetItemById((int)id);
-                return View(item);
+                if (item != null)
+                {
+                    await _item.Delete(item);
+                    return RedirectToAction("MyCollections", "Collection");
+                }
             }
             return NotFound();
         }
 
+<<<<<<< HEAD
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
+        //[ActionName("Delete")]
+        //public async Task<ActionResult> DeleteConfirmed(int id)
+        //{
+        //    var item = _item.GetItemById((int)id);
+        //    await _item.Delete(item);
+        //    return RedirectToAction("index", "Collection");
+        //}
+=======
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -229,8 +265,9 @@ namespace ExampleWebSite.Controllers
         {
             var item = _item.GetItemById((int)id);
             await _item.Delete(item);
-            return RedirectToAction("index", "Collection");
+            return RedirectToAction("index","home");
         }
+>>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
         public async Task<IActionResult> FindItemByTag(string TagString,int? page=0)
         {
             FindItemViewModel model = new FindItemViewModel();
@@ -241,10 +278,10 @@ namespace ExampleWebSite.Controllers
                 var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
                 if (isAjax)
                 {
-                    return PartialView("_WriteMoreItemsByTag", await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize,User.Identity.Name));
+                    return PartialView("_WriteMoreItemsByTag", await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize));
                 }
                 
-                model.items= await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize,User.Identity.Name);
+                model.items= await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize);
                 return View(model);
             }
             return View(model);
@@ -264,13 +301,20 @@ namespace ExampleWebSite.Controllers
             }
             model.SearchResoultModels = null;
             return View(model);
-        }
+        }   
         private ItemDetailsViewModel GetComments(int itemId, int page = 1)
         {
             var CommentToSkip = page * CommentSize;
 
             return new ItemDetailsViewModel() { comments = _comment.TakeCommentsByBlogId_Skip(CommentToSkip, CommentSize, itemId) };
         }
+
+        public async Task<IActionResult> Filter(CollectionDetailsViewModel model)
+        {
+            model.items = await _item.FilterAsync(model.Filter);
+            return RedirectToAction("Details","Collection",new {model});
+        }
+
 
     }
 }

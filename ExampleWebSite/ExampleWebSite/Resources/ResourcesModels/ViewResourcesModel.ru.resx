@@ -123,24 +123,6 @@
   <data name="AddNewPropertiesMessageDetails" xml:space="preserve">
     <value>вы можете использовать дополнительные поля для того чтобы указать дополнительные данные о элементах колекции например для книг год издания</value>
   </data>
-  <data name="AditionalBigstring" xml:space="preserve">
-    <value>Дополнительное поле для большого текста с поддержкой markdown</value>
-  </data>
-  <data name="AditionalBool" xml:space="preserve">
-    <value>Дополнительное поле имеющее два состояния вкл и выкл</value>
-  </data>
-  <data name="AditionalDate" xml:space="preserve">
-    <value>Дополнительное поле с датой</value>
-  </data>
-  <data name="AditionalNumber" xml:space="preserve">
-    <value>Дополнительное поле число для чисел </value>
-  </data>
-  <data name="AditionalSmalstring" xml:space="preserve">
-    <value>Дополнительное поле для краткого текста </value>
-  </data>
-  <data name="AdminCanDo" xml:space="preserve">
-    <value>Админ может делать:</value>
-  </data>
   <data name="AdminCanDoText1" xml:space="preserve">
     <value>Админ сайта может блокировать и разблокировать акаунты пользователей</value>
   </data>
@@ -155,9 +137,6 @@
   </data>
   <data name="AuthorizedPlease" xml:space="preserve">
     <value>AuthorizedPlease</value>
-  </data>
-  <data name="AuthorizetToSentMessage" xml:space="preserve">
-    <value>вы не можете отправить коментарий (авторизуйтесь, пожалуйста)</value>
   </data>
   <data name="author_will_be" xml:space="preserve">
     <value>Автором коллекции будет</value>
@@ -184,7 +163,10 @@
     <value>Переключатели</value>
   </data>
   <data name="boolrPropertiesEl" xml:space="preserve">
-    <value>Переключатель (да/нет)</value>
+    <value>Дополнительное поле переключатель</value>
+  </data>
+  <data name="CannNotBeNullTitle" xml:space="preserve">
+    <value>если не указать название у дополнительного поля оно не будет создано</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Изменить пароль</value>
@@ -201,20 +183,29 @@
   <data name="CollectionTitle" xml:space="preserve">
     <value>Название коллекции</value>
   </data>
-  <data name="ControlPanel" xml:space="preserve">
-    <value>Панель управления</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>Создать</value>
   </data>
   <data name="CreateCollectionFromUser" xml:space="preserve">
     <value>Создать коллекцию от имени пользователя</value>
   </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>От</value>
+  </data>
   <data name="DateProperties" xml:space="preserve">
     <value>Даты</value>
   </data>
   <data name="datePropertiesEl" xml:space="preserve">
-    <value>Дата</value>
+    <value>Дополнительное поле дата</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>До</value>
+  </data>
+  <data name="DateUpdate" xml:space="preserve">
+    <value>Дата обновления</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
@@ -239,6 +230,12 @@
   </data>
   <data name="ErrorLoadDataMessage" xml:space="preserve">
     <value>Не удалось загрузить данные</value>
+  </data>
+  <data name="FilterSettings" xml:space="preserve">
+    <value>Настройки фильтрации</value>
+  </data>
+  <data name="filtration" xml:space="preserve">
+    <value>Фильтарция</value>
   </data>
   <data name="FindUser" xml:space="preserve">
     <value>Найти автора</value>
@@ -303,9 +300,6 @@
   <data name="NoHaveAccount" xml:space="preserve">
     <value>Нет аккаунта?</value>
   </data>
-  <data name="NoMoreInfo" xml:space="preserve">
-    <value>Нет дополнительной информации</value>
-  </data>
   <data name="NotBaned" xml:space="preserve">
     <value>Аккаунт не заблокирован</value>
   </data>
@@ -316,7 +310,7 @@
     <value>Числовые поля</value>
   </data>
   <data name="numberPropertiesEl" xml:space="preserve">
-    <value>Число</value>
+    <value>Дополнительное числовое поле</value>
   </data>
   <data name="OfTheCollection" xml:space="preserve">
     <value>коллекции</value>
@@ -354,15 +348,6 @@
   <data name="SearchString" xml:space="preserve">
     <value>Текст (описания,названия,коментария)</value>
   </data>
-  <data name="Sent" xml:space="preserve">
-    <value>отправить</value>
-  </data>
-  <data name="SmallStringProperties" xml:space="preserve">
-    <value>Дополнительные поля краткий текст</value>
-  </data>
-  <data name="smalStringPropertiesEl" xml:space="preserve">
-    <value>Короткий текст</value>
-  </data>
   <data name="Stamps" xml:space="preserve">
     <value>Марки</value>
   </data>
@@ -370,10 +355,7 @@
     <value>Текстовые поля</value>
   </data>
   <data name="stringPropertiesEl" xml:space="preserve">
-    <value>Текст с форматированием</value>
-  </data>
-  <data name="TagCloud" xml:space="preserve">
-    <value>Облако тегов</value>
+    <value>дополнительное текстовое поле</value>
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Теги</value>
@@ -393,11 +375,8 @@
   <data name="TitleNumberPropertiesField" xml:space="preserve">
     <value>Название дополнительно поля (число)</value>
   </data>
-  <data name="TitlesmalStringPropertiesField" xml:space="preserve">
-    <value>Название дополнительно поля (строка)</value>
-  </data>
   <data name="TitleStringPropertiesField" xml:space="preserve">
-    <value>Название дополнительно поля (для текста)</value>
+    <value>Название дополнительно поля (строка)</value>
   </data>
   <data name="UnBan" xml:space="preserve">
     <value>Разблокировать</value>

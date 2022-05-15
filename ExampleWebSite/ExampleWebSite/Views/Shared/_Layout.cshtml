@@ -1,9 +1,4 @@
-﻿@*@using Microsoft.AspNetCore.Mvc.Localization
-@using ExampleWebSite.ResourcesModels*@
-
-@*@inject IHtmlLocalizer<ViewResourcesModel> ViewResourcesModel*@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -19,7 +14,8 @@
 <body class="text_color">
     @await Html.PartialAsync("Partials/_headerPartial.cshtml")
     <main role="main" class="pb-3">
-        <div class="container"> 
+        <div class="container">
+
             <div class="row">
                 @RenderBody()
             </div>
