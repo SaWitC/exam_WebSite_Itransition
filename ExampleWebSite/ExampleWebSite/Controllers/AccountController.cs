@@ -69,7 +69,7 @@ namespace ExampleWebSite.Controllers
                 var resoult = await _userManager.CreateAsync(user, model.Password);
                 if (resoult.Succeeded)
                 {
-                    await _userManager.AddClaimAsync(user, new Claim("IsBaned", user.IsBaned.ToString())); ;
+                    //await _userManager.AddClaimAsync(user, new Claim("IsBaned", user.IsBaned.ToString())); ;
 
                     await _signInManager.SignInAsync(user, true);
                     return RedirectToAction("Index", "Collection");
@@ -129,7 +129,6 @@ namespace ExampleWebSite.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-
         #region ChangePassNoAuthorize
         [HttpGet]
         public IActionResult SendEmailMessageforChangePass()
@@ -187,6 +186,9 @@ namespace ExampleWebSite.Controllers
                         await _userManager.UpdateAsync(user);
 
                         ToMessageViewModel Message = new ToMessageViewModel();
+                        Message.Href = Url.Action("Login","Account");
+                        Message.HrefText = _stringLocalizer["Login"];
+                        Message.Message = _stringLocalizer["PasswordChanged"];
 
                         return RedirectToAction("ToMessage","Home", new { MessageModel=Message });
                     }
@@ -347,6 +349,8 @@ namespace ExampleWebSite.Controllers
         public IActionResult FindUsersByName(string SearchString,int page=0)
         {
             var model = new FindUserViewModel();
+            model.SearchString = SearchString;
+
             var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
             if (isAjax)
             {
@@ -356,36 +360,37 @@ namespace ExampleWebSite.Controllers
             model.Users = _userRepository.TakeMoreUsers(UserSize, 0, SearchString, User.Identity.Name);
             return View(model);
         }
+        [Authorize]
+        [HttpGet]
+        public IActionResult FindBandeUsers(string SearchString, int page = 0)
+        {
+            var model = new FindUserViewModel();
+            var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            if (isAjax)
+            {
+                model.Users = _userRepository.TakeMoreBanedUsers(UserSize, page, SearchString, User.Identity.Name);
+                return PartialView("_WriteMoreUsers", model);
+            }
+            model.Users = _userRepository.TakeMoreBanedUsers(UserSize, 0, SearchString, User.Identity.Name);
+            return View(model);
+        }
 
         public IActionResult _WriteMoreUsers()
         {
             return PartialView();
         }
-        //ban ============================================================================
-        //[HttpPost]
-        //[Authorize(Roles ="admin")]
-        //public async Task<IActionResult> Ban(FindUserViewModel model,string User)
-        //{
-        //    if (User != null)
-        //    {
-        //        await _userRepository.BanUserAsync(User);
-        //    }
-        //    if (model != null)
-        //        return RedirectToAction("FindUsersByName", "Account",model);
-        //    else
-        //        return Ok();
-        //}
 
-        //[HttpPost]
-        //[Authorize(Roles = "admin")]
-        //public async Task<IActionResult> UnBan(FindUserViewModel model, string User)
-        //{
-        //    if (User != null)
-        //    {
-        //        await _userRepository.UnblockUserAsunc(User);
-        //    }
-        //    return RedirectToAction("FindUsersByName", "Account", model);
-        //}
+        [HttpPost]
+        [Authorize(Roles ="admin")]
+        public async Task<IActionResult> DeleteUser(string UserName)
+        {
+            var model = new FindUserViewModel();
+            model.Users = _userRepository.TakeMoreBanedUsers(UserSize, 0,"", User.Identity.Name);
+
+            await _userRepository.DeleteUserAsync(UserName);
+
+            return RedirectToAction("FindUsersByName", "Account",model);
+        }
 
         [HttpPost]
         [Authorize(Roles = "admin")]

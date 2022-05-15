@@ -1,9 +1,9 @@
 ﻿<div class="col-12">
 
     <div id="login" class="text-white simple-login-container card-body w-media mx-auto bg-dark mt-5" style="width:22rem">
-        <p class="text_color h2">@ViewResourcesModel["Password_recovery"]</p>
+        <p class="text-white h2">@ViewResourcesModel["Password_recovery"]</p>
         <div id="content">
-            <p class="text_color h4">@ViewResourcesModel["EmailMessage"]</p>
+            <p class="text-white h4">@ViewResourcesModel["EmailMessage"]</p>
         </div>
         <div id="dish">
             @*<form method="post" id="form-em">*@
@@ -13,7 +13,7 @@
                 <input id="emailinp" name="" placeholder="Email" class="input-group-text bg-swap input-group" type="email" />
                 <span class="text-danger" id="spanerror">@ViewResourcesModel["IncorectEmail"]</span>
             </div>
-            <input type="submit" class="btn bg-swap" onclick="sentEm()" value="@ViewResourcesModel["Sent"]" />
+            <input type="submit" class="btn bg-info" onclick="sentEm()" value="@ViewResourcesModel["Sent"]" />
             @*</form>*@
         <p class="text-white">@ViewResourcesModel["NoHaveAccount"]<a asp-controller="Account" asp-action="Register">@ViewResourcesModel["Register"]</a><span class="fontawesome-arrow-right"></span></p>
         </div>

@@ -72,39 +72,43 @@
 
         @*</form>*@
     </div>
-    <div class="col-12">
+    <div class="col-md-12">
         <h3>@ViewResourcesModel["AddNewPropertiesMessage"]</h3>
         <p>@ViewResourcesModel["AddNewPropertiesMessageDetails"]</p>
     </div>
-    <div class="col-md-5">
-        @await Html.PartialAsync("Partials/_createCollectionSidebar.cshtml")
-    </div>
-    <div class="col-md-7">
-        <div id="generateElement">
-            <div class="m-0" id="generateNum">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["NumberProperties"]</h4>
-            </div>
-            <div class="m-0" id="generateStr">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["StringProperties"]</h4>
-            </div>
-            <div class="m-0" id="generateBool">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["BoolProperties"]</h4>
-            </div>
-            <div class="m-0" id="generateDate">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["DateProperties"]</h4>
-            </div>
-            <div class="m-0" id="generateSmalString">
-                <hr class="hr_custom" />
-                <h4>@ViewResourcesModel["SmallStringProperties"]</h4>
+    <div class="row">
+        <div class="col-md-5">
+            @await Html.PartialAsync("Partials/_createCollectionSidebar.cshtml")
+        </div>
+        <div class="col-md-7">
+            <div id="generateElement">
+                <div class="m-0" id="generateNum">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["NumberProperties"]</h4>
+                </div>
+                <div class="m-0" id="generateStr">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["StringProperties"]</h4>
+                </div>
+                <div class="m-0" id="generateBool">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["BoolProperties"]</h4>
+                </div>
+                <div class="m-0" id="generateDate">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["DateProperties"]</h4>
+                </div>
+                <div class="m-0" id="generateSmalString">
+                    <hr class="hr_custom" />
+                    <h4>@ViewResourcesModel["SmallStringProperties"]</h4>
+                </div>
             </div>
         </div>
+
     </div>
 
     <div class="col-md-12 text-center m-0">
+        <p class="text-danger">@ViewResourcesModel["CannNotBeNullTitle"]</p>
         <input class="btn bg_green_b" type="submit" value="@ViewResourcesModel["Create"]" />
     </div>
 </form>

@@ -15,6 +15,7 @@ namespace ExampleWebSite.Controllers
         {
             _theme = theme;
         }
+        [ResponseCache(Duration =30000,Location =ResponseCacheLocation.Any)]
         public async Task<IEnumerable<ThemaModel>> GetThemes()
         {
             return await _theme.TakeAllAsync();

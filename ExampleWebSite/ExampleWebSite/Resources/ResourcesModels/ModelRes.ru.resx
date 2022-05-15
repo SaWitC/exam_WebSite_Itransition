@@ -132,6 +132,9 @@
   <data name="EmailValid" xml:space="preserve">
     <value>Не подходящая электронная почта</value>
   </data>
+  <data name="From" xml:space="preserve">
+    <value>От</value>
+  </data>
   <data name="ImageName" xml:space="preserve">
     <value>Картинка (поддерживаемые форматы jpg)</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="ItemTitle" xml:space="preserve">
     <value>Название элемента коллекции</value>
+  </data>
+  <data name="LastUpdateDate" xml:space="preserve">
+    <value>Дата последнего обновления</value>
   </data>
   <data name="MaxLenghtItemTitle40" xml:space="preserve">
     <value>Название не может быть длинее 40 символов</value>
@@ -210,8 +216,14 @@
   <data name="ThemaTitle" xml:space="preserve">
     <value>Тема</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>Название</value>
+  </data>
   <data name="TitleName" xml:space="preserve">
     <value>Название</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>До</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Имя пользователя</value>

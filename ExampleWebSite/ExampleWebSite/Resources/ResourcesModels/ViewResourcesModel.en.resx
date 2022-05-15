@@ -186,6 +186,9 @@
   <data name="boolrPropertiesEl" xml:space="preserve">
     <value>Switch (off/on)</value>
   </data>
+  <data name="CannNotBeNullTitle" xml:space="preserve">
+    <value>if you do not specify a name for the additional field, it will not be created</value>
+  </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change password</value>
   </data>
@@ -210,11 +213,23 @@
   <data name="CreateCollectionFromUser" xml:space="preserve">
     <value>Create a collection on behalf of the user</value>
   </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created date</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>From</value>
+  </data>
   <data name="DateProperties" xml:space="preserve">
     <value>Dates</value>
   </data>
   <data name="datePropertiesEl" xml:space="preserve">
     <value>Date</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="DateUpdate" xml:space="preserve">
+    <value>Last update date</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -239,6 +254,12 @@
   </data>
   <data name="ErrorLoadDataMessage" xml:space="preserve">
     <value>Failed to load data</value>
+  </data>
+  <data name="FilterSettings" xml:space="preserve">
+    <value>Filter settings</value>
+  </data>
+  <data name="filtration" xml:space="preserve">
+    <value>Filtration</value>
   </data>
   <data name="FindUser" xml:space="preserve">
     <value>Find the author</value>

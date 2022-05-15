@@ -20,7 +20,7 @@ namespace ExampleWebSite.Controllers
         {
             return _tag.GetTagsBySearchString(SearchString, 5);
         }
-        [ResponseCache(Duration =3000,Location =ResponseCacheLocation.Client)]
+        [ResponseCache(Duration =3000,Location =ResponseCacheLocation.Any)]
         public async Task<IActionResult> GetBestPopylarTags()
         {
             var model = await _tag.GetBestPopularTags();

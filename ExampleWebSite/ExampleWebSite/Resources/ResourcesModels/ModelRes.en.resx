@@ -129,6 +129,9 @@
   <data name="Email" xml:space="preserve">
     <value>Email addres</value>
   </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
   <data name="ImageName" xml:space="preserve">
     <value>picture supported formats(jpg)</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="ItemTitle" xml:space="preserve">
     <value>Name of the collection item</value>
+  </data>
+  <data name="LastUpdateDate" xml:space="preserve">
+    <value>date of last update</value>
   </data>
   <data name="MaxLenghtItemTitle40" xml:space="preserve">
     <value>The name cannot be longer than 40 characters</value>
@@ -206,6 +212,9 @@
   </data>
   <data name="TitleName" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>User Name</value>

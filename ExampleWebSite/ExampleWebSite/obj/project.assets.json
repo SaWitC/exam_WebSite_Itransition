@@ -127,6 +127,18 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Core.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Authentication.Google/3.1.15": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Google.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Google.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/3.1.15": {
         "type": "package",
         "compile": {
@@ -3220,6 +3232,21 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Core.xml",
         "microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.authentication.core.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Google/3.1.15": {
+      "sha512": "mPRFbSG8skxnTTa9Epnacw8q9eLD2Cpofl88erM32BEMXsuOO/JFeRsTkEyP/LZs0O+fUkhj/j5CxTW/WSlh8g==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.google/3.1.15",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Google.xml",
+        "microsoft.aspnetcore.authentication.google.3.1.15.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.google.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/3.1.15": {
@@ -9682,6 +9709,7 @@
     ".NETCoreApp,Version=v3.1": [
       "Korzh.EasyQuery.Linq >= 7.2.1",
       "MailKit >= 3.2.0",
+      "Microsoft.AspNetCore.Authentication.Google >= 3.1.15",
       "Microsoft.AspNetCore.Identity >= 2.2.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.15",
       "Microsoft.EntityFrameworkCore >= 3.1.15",
@@ -9745,6 +9773,10 @@
           "MailKit": {
             "target": "Package",
             "version": "[3.2.0, )"
+          },
+          "Microsoft.AspNetCore.Authentication.Google": {
+            "target": "Package",
+            "version": "[3.1.15, )"
           },
           "Microsoft.AspNetCore.Identity": {
             "target": "Package",

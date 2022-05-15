@@ -186,6 +186,9 @@
   <data name="boolrPropertiesEl" xml:space="preserve">
     <value>Переключатель (да/нет)</value>
   </data>
+  <data name="CannNotBeNullTitle" xml:space="preserve">
+    <value>если не указать название у дополнительного поля оно не будет создано</value>
+  </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Изменить пароль</value>
   </data>
@@ -210,11 +213,23 @@
   <data name="CreateCollectionFromUser" xml:space="preserve">
     <value>Создать коллекцию от имени пользователя</value>
   </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>От</value>
+  </data>
   <data name="DateProperties" xml:space="preserve">
     <value>Даты</value>
   </data>
   <data name="datePropertiesEl" xml:space="preserve">
     <value>Дата</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>До</value>
+  </data>
+  <data name="DateUpdate" xml:space="preserve">
+    <value>Дата обновления</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
@@ -239,6 +254,12 @@
   </data>
   <data name="ErrorLoadDataMessage" xml:space="preserve">
     <value>Не удалось загрузить данные</value>
+  </data>
+  <data name="FilterSettings" xml:space="preserve">
+    <value>Настройки фильтрации</value>
+  </data>
+  <data name="filtration" xml:space="preserve">
+    <value>Фильтарция</value>
   </data>
   <data name="FindUser" xml:space="preserve">
     <value>Найти автора</value>

@@ -30,6 +30,10 @@
     @if (Model.collection.AvtorName == User.Identity.Name || User.IsInRole("admin"))
     {
         @await Html.PartialAsync("Partials/_controlSidebar.cshtml")
+        <hr class="hr_custom"/>
+        <h4 class=" text-center">@ViewResourcesModel["filtration"]</h4>
+        @await Html.PartialAsync("Partials/_FiltrationPartial.cshtml")
+
     }
     else
     {

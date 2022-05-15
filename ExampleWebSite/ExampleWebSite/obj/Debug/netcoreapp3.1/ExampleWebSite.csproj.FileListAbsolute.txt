@@ -203,7 +203,6 @@ D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Vi
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Claims\Index.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Claims\Create.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\_writeMoreItems.cshtml.g.cs
-D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Partials\_MarkdownEditorMini.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Item\Edit.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\libman.json
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\ExampleWebSite.Resources.ResourcesModels.ResourcesToControllerModel.en.resources
@@ -229,3 +228,6 @@ D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\BouncyCa
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Account\SendEmailMessageforChangePass.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Home\ToMessage.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePasswortNonAythorise.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Account\FindBandeUsers.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.Google.dll
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Collection\Partials\_FiltrationPartial.cshtml.g.cs

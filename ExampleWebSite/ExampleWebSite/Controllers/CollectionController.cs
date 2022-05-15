@@ -16,6 +16,7 @@ using ExampleWebSite.ViewModels.Collections.Admin;
 using Microsoft.Extensions.Options;
 using ExampleWebSite.Data.ConfigurationModels;
 using ExampleWebSite.ViewModels.Collections;
+using ExampleWebSite.Models.ModelsForProcessing;
 
 namespace ExampleWebSite.Controllers
 {
@@ -77,7 +78,7 @@ namespace ExampleWebSite.Controllers
             return View(GetCollections(page));
         }
 
-        public async Task<ActionResult> Details(int? id,int? p)
+        public async Task<ActionResult> Details(int? id,int? p,string dateFrom=null,string DateTo=null,string Title=null)
         {
             int page = p ?? 0;
             var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
@@ -100,7 +101,11 @@ namespace ExampleWebSite.Controllers
 
                         collection = collection
                     };
-                    detailsModel.items = GetItemsMinByCollections(collection.Id, page).items;
+                    //detailsModel.items = await _item.FilterAsync(new ItemFilterModel {Title =Title,DateFrom=DateTime.Parse(dateFrom),DateTo=DateTime.Parse(DateTo) });
+                    detailsModel.items = await _item.FilterAsync(Title, dateFrom,DateTo );
+
+
+                    //detailsModel.items = GetItemsMinByCollections(collection.Id, page).items;
                     detailsModel.AvtorName = collection.AvtorName;
 
                     return View(detailsModel);

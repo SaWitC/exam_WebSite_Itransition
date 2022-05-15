@@ -1,0 +1,19 @@
+﻿
+<div>
+    <form asp-controller="Collection" asp-action="Details" method="get">
+        <div class="form-group">
+            <label >@ViewResourcesModel["TitleName"]</label>
+            <input name="Title" />
+        </div>
+        <p>@ViewResourcesModel["DateUpdate"]</p>
+        <div class="form-group">
+            <label>@ViewResourcesModel["DateFrom"]</label>
+            <input class="bg_swap_gray input-group" id="datePicker" type="date" name="dateFrom" />
+        </div>
+        <div class="form-group">
+            <label>@ViewResourcesModel["DateTo"]</label>
+            <input class="bg_swap_gray input-group" id="datePicker" type="date" name="DateTo"/>
+        </div>
+        <input type="submit" value="@ViewResourcesModel["Filter"]"/>
+    </form>
+</div>

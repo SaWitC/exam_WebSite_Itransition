@@ -5,44 +5,48 @@
 }
 
 <div class="col-md-9">
-    @if(Model.items != null)
+    @if (Model != null)
     {
-        <div id="RenderItem" class="row">
-            @await Html.PartialAsync("../Collection/_writeMoreItems.cshtml")
-        </div>
+        @if (Model.items != null)
+        {
+            <div id="RenderItem" class="row">
+                @await Html.PartialAsync("../Collection/_writeMoreItems.cshtml")
+            </div>
+        }
+        <button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
     }
-    <button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
-</div>
+    </div>
 <div class="col-md-3">
     @await Html.PartialAsync("../Shared/Partials/_SidebarPartial.cshtml")
 </div>
-
-<script>
-//load more item
-$('div#loading').hide();
-var page = 0;
-var _inCallback = false;
-    function LoadItems() {
-    if (page > -1 && !_inCallback) {
-        _inCallback = true;
-        page++;
-        $('div#loading').show();
-        console.log(page);
-        $.ajax({
-            type: 'GET',
-            url: "@Url.Action("Details","Collection")",
-            data: { id: @Model.collection.Id,p:page },
-            success: function (data, textstatus) {
-                if (data != '') {
-                    $("#RenderItem").append(data);
+@if (Model != null) { 
+    <script>
+    //load more item
+    $('div#loading').hide();
+    var page = 0;
+    var _inCallback = false;
+        function LoadItems() {
+        if (page > -1 && !_inCallback) {
+            _inCallback = true;
+            page++;
+            $('div#loading').show();
+            console.log(page);
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("Details","Collection")",
+                data: { id: @Model.collection.Id,p:page },
+                success: function (data, textstatus) {
+                    if (data != '') {
+                        $("#RenderItem").append(data);
+                    }
+                    else {
+                        page = -1;
+                    }
+                    _inCallback = false;
+                    $("div#loading").hide();
                 }
-                else {
-                    page = -1;
-                }
-                _inCallback = false;
-                $("div#loading").hide();
-            }
-        });
+            });
+        }
     }
+    </script>
 }
-</script>

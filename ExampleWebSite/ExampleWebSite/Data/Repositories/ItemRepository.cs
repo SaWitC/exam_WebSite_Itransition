@@ -50,6 +50,7 @@ namespace ExampleWebSite.Data.Repositories
         //}
         public async Task UpdateAsync(ItemModel model)
         {
+            model.LastUpdateDate = DateTime.Now;
             _context.Items.Update(model);
             await _context.SaveChangesAsync();
         }
@@ -107,8 +108,6 @@ namespace ExampleWebSite.Data.Repositories
             }
             return null;
         }
-
-
 
         public async Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip, int Size, string UserName=null)//later change
         {
@@ -195,5 +194,47 @@ namespace ExampleWebSite.Data.Repositories
             }
             return Result;
         }
+
+        public async Task<IEnumerable<ItemModel>> FilterAsync(ItemFilterModel model)
+        {
+            var items = _context.Items.AsQueryable();
+            if (!string.IsNullOrEmpty(model.Title))
+            {
+                items = items.Where(o => o.Title.ToLower().Contains(model.Title.ToLower()));
+            }
+            if (model.DateFrom != null)
+            {
+                items = items.Where(o => o.LastUpdateDate > model.DateFrom);
+            }
+            if (model.DateTo != null)
+            {
+                items = items.Where(o => o.LastUpdateDate < model.DateTo);
+            }
+            return await items.ToListAsync();
+        }
+        public async Task<IEnumerable<ItemModel>> FilterAsync(string title,string DateFrom,string DateTo)
+        {
+            var items = _context.Items.AsQueryable();
+            if (!string.IsNullOrEmpty(title))
+            {
+                items = items.Where(o => o.Title.ToLower().Contains(title.ToLower()));
+            }
+            if (DateFrom != null)
+            {
+                DateTime date;
+                DateTime.TryParse(DateFrom, out date);
+                if (date != null) 
+                    items = items.Where(o => o.LastUpdateDate > date);
+            }
+            if (DateTo != null)
+            {
+                DateTime date;
+                DateTime.TryParse(DateTo, out date);
+                if (date != null)
+                    items = items.Where(o => o.LastUpdateDate < date);
+            }
+            return await items.ToListAsync();
+        }
+
     }
 }

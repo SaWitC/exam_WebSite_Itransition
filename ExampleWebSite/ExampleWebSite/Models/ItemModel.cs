@@ -23,6 +23,8 @@ namespace ExampleWebSite.Models
         public IEnumerable<ItemTagsrelationshipspModel> Tags { get; set; }
         public IEnumerable<PropertiesElementModel> Additionalproperties { get; set; }
         public int likesCount { get; set; }
+        [Display(Name ="LastUpdateDate")]
+        public DateTime LastUpdateDate { get; set; } = DateTime.Now;
 
         [NotMapped]
         public bool IsLiked { get; set; }
