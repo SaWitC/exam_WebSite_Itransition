@@ -1,0 +1,46 @@
+﻿<div class="col-12">
+
+    <div id="login" class="text-white simple-login-container card-body w-media mx-auto bg-dark mt-5" style="width:22rem">
+        <p class="text_color h2">@ViewResourcesModel["Password_recovery"]</p>
+        <div id="content">
+            <p class="text_color h4">@ViewResourcesModel["EmailMessage"]</p>
+        </div>
+        <div id="dish">
+            @*<form method="post" id="form-em">*@
+            <div class="form-group">
+
+                <label class="text-danger">Email</label>
+                <input id="emailinp" name="" placeholder="Email" class="input-group-text bg-swap input-group" type="email" />
+                <span class="text-danger" id="spanerror">@ViewResourcesModel["IncorectEmail"]</span>
+            </div>
+            <input type="submit" class="btn bg-swap" onclick="sentEm()" value="@ViewResourcesModel["Sent"]" />
+            @*</form>*@
+        <p class="text-white">@ViewResourcesModel["NoHaveAccount"]<a asp-controller="Account" asp-action="Register">@ViewResourcesModel["Register"]</a><span class="fontawesome-arrow-right"></span></p>
+        </div>
+    </div>
+    <script>
+        $('#content').hide();
+        $("#spanerror").hide();
+        function sentEm() {
+            var email = $("#emailinp").val();
+            if (Emailvalid(email)) {
+                    $('#dish').hide();
+                    $('#content').show();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SendEmailMessageforChangePass", "Account")",
+                    data: { Email: $("#emailinp").val() },
+                    dataType: "text",
+                    success: function () {
+                    },
+                    error: function () {
+                    }
+                })
+            }
+            else {
+                $("#spanerror").show();
+            }
+        }
+    </script>
+</div>
+

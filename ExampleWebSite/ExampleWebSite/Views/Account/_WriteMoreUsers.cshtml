@@ -4,45 +4,22 @@
 {
     @foreach (var item in Model.Users)
     {
-<div class="card-body lightBlueGreen btn-lg active w-100 h-auto" role="button" aria-pressed="true">
-    <a asp-route-UserName="@item.UserName"asp-controller="Account"asp-action="CheckInfoAboutUser" type="button" class="btn gray_custom btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From: ">
-        @ViewResourcesModel["MoreInfo"]
-    </a>
-    <h5 class="card-text text-wrap">@ViewResourcesModel["UserName"]: @item.UserName</h5>
-    @if (!string.IsNullOrEmpty(item.PhoneNumber))
-    {
-        <p class="card-text text-wrap">@ViewResourcesModel["PhoneNumber"]: @item.PhoneNumber</p>
-    }
-    else
-    {
-        <p class="card-text text-wrap">@ViewResourcesModel["PhoneNumber"]: @ViewResourcesModel["PhoneNumber_is_null"]</p>
-    }
+    <div class="col-md-4">
+        <div class="card-body card_Height lightBlueGreen btn-lg active w-100 h-auto" role="button" aria-pressed="true">
+            <a asp-route-UserName="@item.UserName" asp-controller="Account" asp-action="CheckInfoAboutUser" type="button" class="btn gray_custom btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From: ">
+                @ViewResourcesModel["MoreInfo"]
+            </a>
+            <h5 class="card-text text-wrap">@ViewResourcesModel["UserName"]: @item.UserName</h5>
+            @if (!string.IsNullOrEmpty(item.PhoneNumber))
+            {
+                <p class="card-text text-wrap">@ViewResourcesModel["PhoneNumber"]: @item.PhoneNumber</p>
+            }
+            else
+            {
+                <p class="card-text text-wrap">@ViewResourcesModel["PhoneNumber"]: @ViewResourcesModel["PhoneNumber_is_null"]</p>
+            }
 
-</div>
-
-        @*<tr>
-            <td><a asp-action="CheckInfoAboutUser" asp-controller="Account" asp-route-UserName="@item.UserName"><p>@item.UserName</p></a></td>
-            <td><p>@item.PhoneNumber</p></td>
-            <td> <a asp-controller="Collection" asp-action="Create" asp-route-AvtorName="@item.UserName">@ViewResourcesModel["CreateCollectionFromUser"]</a></td>
-            <td>
-                @if (item.IsBaned)
-                {
-                    <form method="post" asp-action="UnBan" asp-controller="Account">
-                        <input hidden name="FindUserViewModel" value="@Model" />
-                        <input hidden name="User" value="@item.UserName" />
-                        <input class="btn" type="submit" value="@ViewResourcesModel["UnBan"]" />
-                    </form>
-                }
-                else
-                {
-                    <form method="post" asp-action="Ban" asp-controller="Account">
-                        <input hidden name="FindUserViewModel" value="@Model" />
-                        <input hidden name="User" value="@item.UserName" />
-                        <input class="btn" type="submit" value="@ViewResourcesModel["Ban"]" />
-                    </form>
-                }
-            </td>
-            <td><p>@item.IsBaned</p></td>
-        </tr>*@
+        </div>
+    </div>
     }
 }

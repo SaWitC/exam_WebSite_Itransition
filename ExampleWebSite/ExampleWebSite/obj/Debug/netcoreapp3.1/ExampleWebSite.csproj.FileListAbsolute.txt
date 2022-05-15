@@ -222,3 +222,10 @@ D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Vi
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Tag\GetBestPopylarTags.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Item\Partials\_controlSidebar.cshtml.g.cs
 D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Account\_LayoutNotUsed.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Partials\InfoPage.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\MailKit.dll
+D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\MimeKit.dll
+D:\проекты\ExampleWebSite\ExampleWebSite\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Account\SendEmailMessageforChangePass.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Home\ToMessage.cshtml.g.cs
+D:\проекты\ExampleWebSite\ExampleWebSite\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePasswortNonAythorise.cshtml.g.cs

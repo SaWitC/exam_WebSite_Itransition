@@ -2,9 +2,8 @@
 <div>
     <div class="row">
         <div class=" col-md-4">
-            <a asp-action="FindUsersByName" asp-controller="Account" class="btn w-100">@ViewResourcesModel["FindUser"]</a>
-            <a class="btn w-100">@ViewResourcesModel["BanedUsers"]</a>
-            <a class="btn w-100">FindUser</a>
+            <a asp-action="FindUsersByName" asp-controller="Account" class="btn text_color w-100">@ViewResourcesModel["FindUser"]</a>
+            <a asp-action="BanedUsers" asp-controller="Account" class="btn w-100">@ViewResourcesModel["BanedUsers"]</a>
         </div>
         <div class=" col-md-8">
             <h4 class="text_color">@ViewResourcesModel["AdminCanDo"]</h4>

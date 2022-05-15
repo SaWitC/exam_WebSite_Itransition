@@ -1,30 +1,21 @@
 ﻿@model FindUserViewModel
 
 <div>
-    <form asp-action="FindUsersByName" asp-controller="Account">
-        <div class=" d-inline-flex">
-            <input class="input-group" asp-for="SearchString" type="text">
-            <input class="btn" type="submit" value="@ViewResourcesModel["Find"]" />
-        </div>
-    </form>
     <div>
-        @*<table>
-            <thead>
-                <tr>
-                    <th>@ViewResourcesModel["UserName"]</th>
-                    <th>@ViewResourcesModel["PhoneNumber"]</th>
-                    <th>@ViewResourcesModel["CreateCollection"]</th>
-                    <th>@ViewResourcesModel["Ban"]</th>
-                    <th>@ViewResourcesModel["IsBaned"]</th>
-                </tr>
-            </thead>
-            <tbody id="RenderUsers">*@
-                @await Html.PartialAsync("_WriteMoreUsers.cshtml")
-            @*</tbody>
-        </table>*@
+        <form asp-action="FindUsersByName" asp-controller="Account" method="get" class="input-group text-white col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <div class="input-group mb-3">
+                <input type="text" asp-for="SearchString" class="search_input border-secondary form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button type="submit" class="search_input btn btn-info m-0">@ViewResourcesModel["Search"]</button>
+                </div>
+            </div>
+        </form>
+
+        <div>
+            @await Html.PartialAsync("_WriteMoreUsers.cshtml")
+        </div>
     </div>
 </div>
-
 
 <script>
     var pageus = 0;

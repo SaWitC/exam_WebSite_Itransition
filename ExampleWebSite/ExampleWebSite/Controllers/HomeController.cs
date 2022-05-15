@@ -1,5 +1,6 @@
 ﻿using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
+using ExampleWebSite.ViewModels;
 using ExampleWebSite.ViewModels.Collections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -43,6 +44,11 @@ namespace ExampleWebSite.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult ToMessage(ToMessageViewModel MessageModel)
+        {
+            return View(MessageModel);
         }
     }
 }

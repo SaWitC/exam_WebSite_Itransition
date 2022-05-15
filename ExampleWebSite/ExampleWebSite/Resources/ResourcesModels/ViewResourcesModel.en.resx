@@ -231,6 +231,9 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="EmailMessage" xml:space="preserve">
+    <value>If there is a user with such an email in our system, a letter about changing the password will be sent to the mail</value>
+  </data>
   <data name="Enter" xml:space="preserve">
     <value>Enter</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="InComment" xml:space="preserve">
     <value>in the comments</value>
+  </data>
+  <data name="IncorectEmail" xml:space="preserve">
+    <value>Email is incorrect</value>
   </data>
   <data name="InProperties" xml:space="preserve">
     <value>the text was found in the description</value>
@@ -317,6 +323,9 @@
   </data>
   <data name="OperationsWithUser" xml:space="preserve">
     <value>Operations with user</value>
+  </data>
+  <data name="Password_recovery" xml:space="preserve">
+    <value>Password recovery</value>
   </data>
   <data name="PersonalData" xml:space="preserve">
     <value>Personal data</value>
@@ -401,5 +410,8 @@
   </data>
   <data name="WriteTagsWith" xml:space="preserve">
     <value>Enter tags separated by commas(,)</value>
+  </data>
+  <data name="Your_account_isBaned" xml:space="preserve">
+    <value>Your account is Baned</value>
   </data>
 </root>

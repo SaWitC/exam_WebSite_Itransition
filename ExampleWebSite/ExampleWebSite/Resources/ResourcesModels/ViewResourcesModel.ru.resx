@@ -231,6 +231,9 @@
   <data name="Email" xml:space="preserve">
     <value>Электронная почта</value>
   </data>
+  <data name="EmailMessage" xml:space="preserve">
+    <value>Если в нашей системе есть пользователь с таким email то на почту прийдет письмо о смене пароля</value>
+  </data>
   <data name="Enter" xml:space="preserve">
     <value>Войти</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="InComment" xml:space="preserve">
     <value>в коментариях</value>
+  </data>
+  <data name="IncorectEmail" xml:space="preserve">
+    <value>Не корректный Email</value>
   </data>
   <data name="InProperties" xml:space="preserve">
     <value>в описании</value>
@@ -317,6 +323,9 @@
   </data>
   <data name="OperationsWithUser" xml:space="preserve">
     <value>Операции над пользователем</value>
+  </data>
+  <data name="Password_recovery" xml:space="preserve">
+    <value>Восстановление пароля</value>
   </data>
   <data name="PersonalData" xml:space="preserve">
     <value>Персональные данные</value>
@@ -401,5 +410,8 @@
   </data>
   <data name="WriteTagsWith" xml:space="preserve">
     <value>Вводите теги через запятую(,)</value>
+  </data>
+  <data name="Your_account_isBaned" xml:space="preserve">
+    <value>Ваш аккаунт заблокирован</value>
   </data>
 </root>

@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using ExampleWebSite.Hubs;
 using ExampleWebSite.Data.ConfigurationModels;
+using ExampleWebSite.Components.Midleware;
 
 namespace ExampleWebSite
 {
@@ -38,9 +39,12 @@ namespace ExampleWebSite
             services.Configure<AppConfigDataModel>(Configuration);
 
             services.AddMvc();
-            services.AddAuthorization(options => {
-                options.AddPolicy("IsBanedPolicy", policy => policy.RequireClaim("IsBaned", false.ToString()));
-            });
+            //services.AddAuthorization(options => {
+            //    options.AddPolicy("IsBanedPolicy", policy => policy.RequireClaim("IsBaned", false.ToString()));
+            //});
+            // services.AddAuthorization(options => {
+            //     options.AddPolicy("IsBanedRole", policy => policy.RequireRole());
+            //});
 
             services.AddLocalization(options=>options.ResourcesPath = "Resources");
             services.AddSignalR();
@@ -103,6 +107,7 @@ namespace ExampleWebSite
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<CheckUserMidleware>();
 
             app.UseEndpoints(endpoints =>
             {

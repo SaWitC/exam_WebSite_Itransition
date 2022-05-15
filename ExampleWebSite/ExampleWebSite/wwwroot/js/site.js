@@ -3,6 +3,6 @@
 
 // Write your JavaScript code.
 
-function tagCloud(e) {
-    
+function Emailvalid(email) {
+    return new RegExp(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/).test(email);
 }

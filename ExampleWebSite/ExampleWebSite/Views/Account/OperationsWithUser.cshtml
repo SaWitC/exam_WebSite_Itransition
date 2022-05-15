@@ -1,46 +1,44 @@
 ﻿@model InformationAboutUser
 
-<div class="row">
-    <div class="col-md-3">
-        @await Html.PartialAsync("Partials/_NavigationByUserForAdminPartial.cshtml", Model.user)
-    </div>
-    <div class="col-md-9 UserInfo ">
-        <p><b>@ViewResourcesModel["UserName"]":</b>  @Model.user.UserName</p>
-        <hr class="hr_custom" />
-        <a asp-controller="Collection" asp-action="Create" asp-route-AvtorName="@Model.user.UserName">@ViewResourcesModel["CreateCollectionFromUser"]</a>
-        <hr class="hr_custom" />
-        @if (Model.user.IsBaned)
+<div class="col-lg-4">
+    @await Html.PartialAsync("Partials/_NavigationByUserForAdminPartial.cshtml", Model.user)
+</div>
+<div class="col-lg-8 UserInfo ">
+    <p><b>@ViewResourcesModel["UserName"]":</b>  @Model.user.UserName</p>
+    <hr class="hr_custom" />
+    <a asp-controller="Collection" asp-action="Create" asp-route-AvtorName="@Model.user.UserName">@ViewResourcesModel["CreateCollectionFromUser"]</a>
+    <hr class="hr_custom" />
+    @if (Model.user.IsBaned)
+    {
+        <form method="post" asp-action="UnBan" asp-controller="Account">
+            <input hidden name="UserName" value="@Model.user.UserName" />
+            <input class="btn" type="submit" value="@ViewResourcesModel["UnBan"]" />
+        </form>
+    }
+    else
+    {
+        <form method="post" asp-action="Ban" asp-controller="Account">
+            <input hidden name="UserName" value="@Model.user.UserName" />
+            <input class="btn" type="submit" value="@ViewResourcesModel["Ban"]" />
+        </form>
+    }
+    <hr class="hr_custom" />
+
+        @if (Model.roles.Contains("admin"))
         {
-            <form method="post" asp-action="UnBan" asp-controller="Account">
-                <input hidden name="UserName" value="@Model.user.UserName" />
-                <input class="btn" type="submit" value="@ViewResourcesModel["UnBan"]" />
-            </form>
+        <form method="post" asp-action="RemoveRole" asp-controller="Account">
+            <input hidden name="UserName" value="@Model.user.UserName" />
+            <input hidden name="RoleName" value="admin" />
+            <input class="btn text_color" type="submit" value="@ViewResourcesModel["RemoveAdmin_role"]" />
+        </form>
         }
         else
         {
-            <form method="post" asp-action="Ban" asp-controller="Account">
-                <input hidden name="UserName" value="@Model.user.UserName" />
-                <input class="btn" type="submit" value="@ViewResourcesModel["Ban"]" />
-            </form>
+        <form method="post" asp-action="GiveRole" asp-controller="Account">
+            <input hidden name="UserName" value="@Model.user.UserName" />
+            <input hidden name="RoleName" value="admin" />
+            <input class="btn text_color" type="submit" value="@ViewResourcesModel["GiveAdmin_role"]" />
+        </form>
         }
-        <hr class="hr_custom" />
 
-            @if (Model.roles.Contains("admin"))
-            {
-            <form method="post" asp-action="RemoveRole" asp-controller="Account">
-                <input hidden name="UserName" value="@Model.user.UserName" />
-                <input hidden name="RoleName" value="admin" />
-                <input class="btn" type="submit" value="@ViewResourcesModel["RemoveAdmin_role"]" />
-            </form>
-            }
-            else
-            {
-            <form method="post" asp-action="GiveRole" asp-controller="Account">
-                <input hidden name="UserName" value="@Model.user.UserName" />
-                <input hidden name="RoleName" value="admin" />
-                <input class="btn" type="submit" value="@ViewResourcesModel["GiveAdmin_role"]" />
-            </form>
-            }
-
-    </div>
 </div>

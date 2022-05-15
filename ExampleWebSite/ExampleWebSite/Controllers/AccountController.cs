@@ -1,4 +1,5 @@
-﻿using ExampleWebSite.Data.ConfigurationModels;
+﻿using ExampleWebSite.Components.Services;
+using ExampleWebSite.Data.ConfigurationModels;
 using ExampleWebSite.Data.Interfaces;
 using ExampleWebSite.Models;
 using ExampleWebSite.ResourcesModels;
@@ -47,6 +48,11 @@ namespace ExampleWebSite.Controllers
             _AppConfigData = AppConfigData;
 
             UserSize = int.Parse(_AppConfigData.Value.UserSize);
+        }
+        [HttpGet]
+        public IActionResult YourAccountIsBaned()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -123,6 +129,73 @@ namespace ExampleWebSite.Controllers
             return RedirectToAction(nameof(Login));
         }
 
+
+        #region ChangePassNoAuthorize
+        [HttpGet]
+        public IActionResult SendEmailMessageforChangePass()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task SendEmailMessageforChangePass(string Email)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(Email);
+                if (user != null)
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                    var callbackUrl = Url.Action("ChangePasswortNonAythorise", "Account", new { userId = user.Id, code = token },
+                           protocol: Request.Scheme);
+
+                    string message = $"<h2>Изменение пароля </h2>" +
+                        $"<h3>для изменения пароля перейдите по ссылке</h3> <a href =\"{callbackUrl} \">вот ваша ссылка</a>";
+
+                    await EmailMessageService.SendEmailMessageAsync("change password", Email, message);
+                }
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangePasswortNonAythorise(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            ViewBag.userId = userId;
+            if (user != null)
+            {
+                return View();
+            }
+            return View(nameof(Register));
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePasswortNonAythorise(ChangePasswordNonAuthoriseVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.userId);
+                if (user != null)
+                {
+                    var passwordvalidator = HttpContext.RequestServices.GetService(typeof(IPasswordValidator<User>)) as IPasswordValidator<User>;
+
+                    var passwordhaser = HttpContext.RequestServices.GetService(typeof(IPasswordHasher<User>)) as IPasswordHasher<User>;
+                    IdentityResult result = await passwordvalidator.ValidateAsync(_userManager, user, model.NewPass);
+                    if (result.Succeeded)
+                    {
+                        user.PasswordHash = passwordhaser.HashPassword(user, model.NewPass);
+                        await _userManager.UpdateAsync(user);
+
+                        ToMessageViewModel Message = new ToMessageViewModel();
+
+                        return RedirectToAction("ToMessage","Home", new { MessageModel=Message });
+                    }
+                }
+            }
+            return View(model);
+        }
+
+        #endregion
         #region OnlyAuthorize
         [Authorize]
         [HttpGet]
@@ -321,16 +394,8 @@ namespace ExampleWebSite.Controllers
             var user = await _userManager.FindByNameAsync(UserName);
             if (user != null)
             {
-
-                await _userRepository.BanUserAsync(user);
-
-                var Claims = await _userManager.GetClaimsAsync(user);
-                var IsBanedClaim = Claims.FirstOrDefault(o => o.Type == "IsBaned");
-                if (IsBanedClaim != null)
-                {
-                    await _userManager.RemoveClaimAsync(user, IsBanedClaim);
-                    await _userManager.AddClaimAsync(user, new Claim("IsBaned", true.ToString()));
-                }
+                user.IsBaned = true;
+                await _userManager.UpdateAsync(user);
             }
             return RedirectToAction("OperationsWithUser","Account",new { UserName = user.UserName});
         }
@@ -343,15 +408,8 @@ namespace ExampleWebSite.Controllers
 
             if (user != null)
             {
-                await _userRepository.UnblockUserAsunc(user);
-
-                var Claims = await _userManager.GetClaimsAsync(user);
-                var IsBanedClaim = Claims.FirstOrDefault(o => o.Type == "IsBaned");
-                if (IsBanedClaim != null)
-                {
-                    await _userManager.RemoveClaimAsync(user, IsBanedClaim);
-                    await _userManager.AddClaimAsync(user, new Claim("IsBaned", false.ToString()));
-                }
+                user.IsBaned = false;
+                await _userManager.UpdateAsync(user);
             }
             return RedirectToAction("OperationsWithUser","Account",new { UserName = user.UserName});
         }
@@ -391,5 +449,6 @@ namespace ExampleWebSite.Controllers
             // set autenticate cockies
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
+
     }
 }
