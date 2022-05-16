@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JdjsACJPSKG1+QsdFUaGLzs1eRVsrnD27IUwPF2P5w/TO8zftDYehyR6IhIoTBJfkHVYAhwcmDBv0Y0SJmsh4Q==",
+  "dgSpecHash": "yFJomdutBTQzcYh1vJQtzO+59ppoSgPN/cnWLMcck39zfMoNqWBan3kq53kSjN1n7l4477HQknkwcRYAq6REXg==",
   "success": true,
-  "projectFilePath": "D:\\проекты\\ExampleWebSite\\ExampleWebSite\\ExampleWebSite.csproj",
+  "projectFilePath": "D:\\FileCopy\\ExampleWebSite\\ExampleWebSite\\ExampleWebSite.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\easydata.core\\1.4.3\\easydata.core.1.4.3.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\korzh.easyquery\\7.2.1\\korzh.easyquery.7.2.1.nupkg.sha512",

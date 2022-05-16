@@ -299,13 +299,5 @@ namespace ExampleWebSite.Controllers
 
             return new ItemDetailsViewModel() { comments = _comment.TakeCommentsByBlogId_Skip(CommentToSkip, CommentSize, itemId) };
         }
-
-        public async Task<IActionResult> Filter(CollectionDetailsViewModel model)
-        {
-            model.items = await _item.FilterAsync(model.Filter);
-            return RedirectToAction("Details","Collection",new {model});
-        }
-
-
     }
 }

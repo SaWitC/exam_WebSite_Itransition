@@ -1,19 +1,63 @@
-﻿
+﻿@model CollectionDetailsViewModel
+
 <div>
-    <form asp-controller="Collection" asp-action="Details" method="get">
+    @*<form asp-controller="Collection" asp-action="Details" method="get">*@
+        @*<input hidden name="CollectionId" value="@Model.collection.Id"/>*@
+
         <div class="form-group">
-            <label >@ViewResourcesModel["TitleName"]</label>
-            <input name="Title" />
+            <label class="text_color" >@ViewResourcesModel["TitleName"]</label>
+            <input id="title" class="input-group" name="Title" />
         </div>
         <p>@ViewResourcesModel["DateUpdate"]</p>
         <div class="form-group">
-            <label>@ViewResourcesModel["DateFrom"]</label>
-            <input class="bg_swap_gray input-group" id="datePicker" type="date" name="dateFrom" />
+            <label class="text_color">@ViewResourcesModel["DateFrom"]</label>
+            <input  class="bg_swap_gray input-group" id="datePicker1" type="date" name="dateFrom" />
         </div>
         <div class="form-group">
-            <label>@ViewResourcesModel["DateTo"]</label>
-            <input class="bg_swap_gray input-group" id="datePicker" type="date" name="DateTo"/>
+            <label class="text_color">@ViewResourcesModel["DateTo"]</label>
+            <input class="bg_swap_gray input-group" id="datePicker2" type="date" name="DateTo"/>
         </div>
-        <input type="submit" value="@ViewResourcesModel["Filter"]"/>
-    </form>
+        <div>
+            <b>@ViewResourcesModel["Sort"]</b>
+            <fieldset id="Sort">
+                <span><input name="Sort" value="1" id="radio1" type="radio" />@ViewResourcesModel["SortByTitle"]</span>
+                <hr />
+                <span><input name="Sort" value="2" id="radio2" type="radio" />@ViewResourcesModel["SortByDate"]</span>
+            </fieldset>
+        </div>
+        <input type="submit"  class="btn bg-info" value="@ViewResourcesModel["filtration"]"/>
+    <input type="button" onclick="LoadItems()" value="Sort"/>
+    @*</form>*@
 </div>
+
+<script>
+    $('div#loading').hide();
+    var page = 0;
+    var _inCallback = false;
+    function LoadItems() {
+        var title = document.getElementById('title').value;
+        alert(title);
+        if (page > -1 && !_inCallback) {
+            _inCallback = true;
+            page++;
+            $('div#loading').show();
+            console.log(page);
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("Details","Collection")",
+                data: { id=@Model.collection.Id, p: 45, Title: title, dateFrom: $("#datePicker1").val(), DateTo: $("datePicker2").val() },
+                success: function (data, textstatus) {
+                    if (data != '') {
+                        $("#RenderItem").append(data);
+                    }
+                    else {
+                        page = -1;
+                        $("#LoadBtn").hide();
+                    }
+                    _inCallback = false;
+                    $("div#loading").hide();
+                }
+            });
+        }
+    }
+</script>

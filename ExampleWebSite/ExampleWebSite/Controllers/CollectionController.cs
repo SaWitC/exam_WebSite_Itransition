@@ -78,19 +78,28 @@ namespace ExampleWebSite.Controllers
             return View(GetCollections(page));
         }
 
-        public async Task<ActionResult> Details(int? id,int? p,string dateFrom=null,string DateTo=null,string Title=null)
+        public async Task<ActionResult> Details(int? id,int? p,ItemFilterModel model)
         {
-            int page = p ?? 0;
-            var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
-            if (isAjax&&id!=null)
-            {
-                var result = GetItemsMinByCollections((int)id, page);
-                result.AvtorName = _collection.GetAvtorNameByCollectionId((int)id);
-                return PartialView("_writeMoreItems",result);
-            }
-
             if (id != null)
             {
+                int page = p ?? 0;
+                var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+                if (isAjax && id != null)
+                {
+                    if (model.Title != "" || model.Sort != null || model.DateTo != null || model.DateFrom != null)
+                    {
+                        var result = await FilterItemByCollectionId(model, (int)id, page);
+                        result.AvtorName = _collection.GetAvtorNameByCollectionId((int)id);
+                        return PartialView("_writeMoreItems", result);
+                    }
+                    else
+                    {
+                        var result = GetItemsMinByCollections((int)id, page);
+                        result.AvtorName = _collection.GetAvtorNameByCollectionId((int)id);
+                        return PartialView("_writeMoreItems", result);
+                    }
+                }
+
                 var collection = await _collection.FindByIdAsync((int)id);
 
                 if (collection!=null)
@@ -101,11 +110,8 @@ namespace ExampleWebSite.Controllers
 
                         collection = collection
                     };
-                    //detailsModel.items = await _item.FilterAsync(new ItemFilterModel {Title =Title,DateFrom=DateTime.Parse(dateFrom),DateTo=DateTime.Parse(DateTo) });
-                    detailsModel.items = await _item.FilterAsync(Title, dateFrom,DateTo );
-
-
-                    //detailsModel.items = GetItemsMinByCollections(collection.Id, page).items;
+                    detailsModel.Filter = model; 
+                    detailsModel.items = await _item.FilterAsync(model,(int)id,page,ItemSize);
                     detailsModel.AvtorName = collection.AvtorName;
 
                     return View(detailsModel);
@@ -115,7 +121,7 @@ namespace ExampleWebSite.Controllers
             else
                 return NotFound();  
         }
-        //[Authorize(Policy= "IsBanedPolicy")]
+
         [Authorize]
         [HttpGet]
         public ActionResult Create(string AvtorName)
@@ -286,6 +292,13 @@ namespace ExampleWebSite.Controllers
             CollectionDetailsViewModel model = new CollectionDetailsViewModel();
             var ItemToSkip = page * ItemSize;
             var ItemList = _item.TakeItemBy_collection(collectionId, ItemToSkip, ItemSize,User.Identity.Name);
+            model.items = ItemList;
+            return model;
+        }
+        public async Task<CollectionDetailsViewModel> FilterItemByCollectionId(ItemFilterModel FilterModel,int id,int page)
+        {
+            CollectionDetailsViewModel model = new CollectionDetailsViewModel();
+            var ItemList = await _item.FilterAsync(FilterModel,id,page,ItemSize);
             model.items = ItemList;
             return model;
         }

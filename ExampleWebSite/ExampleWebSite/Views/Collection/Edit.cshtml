@@ -35,7 +35,7 @@
             <label asp-for="ShortDesc"></label>
 
             @*<textarea style="hyphens:auto; min-width:50%" asp-for="collection.ShortDesc" id="kv-01" rows="15" class="markdown" required data-bs-version="3" data-theme="fa4" title="Krajee Markdown Editor">
-                </textarea>*@
+            </textarea>*@
 
             <span class="text-danger" asp-validation-for="ShortDesc"></span>
             <div id="MarkdownEditor">
@@ -63,7 +63,9 @@
             <input asp-for="ImageFile" accept="image/jpg,image/jpeg" />
         </div>
 
-        <input type="submit" value="@ViewResourcesModel["EditConfirm"]" />
+        <div class="col-md-12 text-center m-0">
+            <input class="btn bg_green_b" type="submit" value="@ViewResourcesModel["EditConfirm"]" />
+        </div>
     </form>
 </div>
 

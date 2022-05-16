@@ -390,6 +390,15 @@
   <data name="smalStringPropertiesEl" xml:space="preserve">
     <value>Short text</value>
   </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="SortByDate" xml:space="preserve">
+    <value>Sort by date</value>
+  </data>
+  <data name="SortByTitle" xml:space="preserve">
+    <value>Sort by title</value>
+  </data>
   <data name="Stamps" xml:space="preserve">
     <value>Stamps</value>
   </data>

@@ -22,7 +22,7 @@
             <div id="RenderItem" class="row">
                 @await Html.PartialAsync("_writeMoreItems.cshtml")
             </div>
-            <button id="loadBtn" class="text-center btn bg_Green" onclick="LoadItems()">@ViewResourcesModel["load_Mode"]</button>
+            <button id="loadBtn" class="text-center btn bg_Green" onclick="LoadMoreItems()">@ViewResourcesModel["load_Mode"]</button>
         }
     </div>
 </div>
@@ -30,10 +30,38 @@
     @if (Model.collection.AvtorName == User.Identity.Name || User.IsInRole("admin"))
     {
         @await Html.PartialAsync("Partials/_controlSidebar.cshtml")
-        <hr class="hr_custom"/>
+        <hr class="hr_custom" />
         <h4 class=" text-center">@ViewResourcesModel["filtration"]</h4>
-        @await Html.PartialAsync("Partials/_FiltrationPartial.cshtml")
+        //@await Html.PartialAsync("Partials/_FiltrationPartial.cshtml")
 
+        <div>
+            @*<form asp-controller="Collection" asp-action="Details" method="get">*@
+            @*<input hidden name="CollectionId" value="@Model.collection.Id"/>*@
+
+            <div class="form-group">
+                <label class="text_color">@ViewResourcesModel["TitleName"]</label>
+                <input id="title" class="input-group text_color bg_swap_gray" name="Title" />
+            </div>
+            <p>@ViewResourcesModel["DateUpdate"]</p>
+            <div class="form-group">
+                <label class="text_color">@ViewResourcesModel["DateFrom"]</label>
+                <input class="text_color bg_swap_gray input-group" id="datePicker1" type="date" name="dateFrom" />
+            </div>
+            <div class="form-group">
+                <label class="text_color">@ViewResourcesModel["DateTo"]</label>
+                <input class="text_color bg_swap_gray bg_swap_gray input-group" id="datePicker2" type="date" name="DateTo" />
+            </div>
+            <div>
+                <b>@ViewResourcesModel["Sort"]</b>
+                <fieldset id="Sort">
+                    <div><input name="Sort" value="1" id="radio1" type="radio" />@ViewResourcesModel["SortByTitle"]</div>
+                    <div><input name="Sort" value="2" id="radio2" type="radio" />@ViewResourcesModel["SortByDate"]</div>
+                </fieldset>
+            </div>
+            @* <input type="submit"  class="btn bg-info" value="@ViewResourcesModel["filtration"]"/>*@
+            <input type="button" onclick="LoadItems()" class="btn bg-info" value="@ViewResourcesModel["filtration"]" />
+            @*</form>*@
+        </div>
     }
     else
     {
@@ -54,32 +82,58 @@
 
 
 <script>
-//load more item
-$('div#loading').hide();
 var page = 0;
 var _inCallback = false;
     function LoadItems() {
     if (page > -1 && !_inCallback) {
         _inCallback = true;
         page++;
-        $('div#loading').show();
         console.log(page);
         $.ajax({
             type: 'GET',
             url: "@Url.Action("Details","Collection")",
-            data: { id: @Model.collection.Id,p:page },
+            data: { id: @Model.collection.Id, p: 0, Title: $("#title").val(), DateFrom: $("#datePicker1").val(), DateTo: $("#datePicker2").val(), Sort: $('input[name="Sort"]:checked').val() },
             success: function (data, textstatus) {
                 if (data != '') {
+                    $("#RenderItem").html(" ");
                     $("#RenderItem").append(data);
+                    page = 0;
                 }
                 else {
                     page = -1;
                     $("#loadBtn").hide();
                 }
                 _inCallback = false;
-                $("div#loading").hide();
             }
         });
     }
 }
 </script>
+
+<script>
+    var _inCallback = false;
+        function LoadMoreItems() {
+        if (page > -1 && !_inCallback) {
+            _inCallback = true;
+            page++;
+            $('div#loading').show();
+            console.log(page);
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("Details","Collection")",
+                data: { id: @Model.collection.Id, p: page, Title: $("#title").val(), DateFrom: $("#datePicker1").val(), DateTo: $("#datePicker2").val(), Sort: $('input[name="Sort"]:checked').val() },
+                success: function (data, textstatus) {
+                    if (data != '') {
+                        $("#RenderItem").append(data);
+                    }
+                    else {
+                        page = -1;
+                        $("#LoadBtn").hide();
+                    }
+                    _inCallback = false;
+                }
+            });
+        }
+    }
+</script>
+}

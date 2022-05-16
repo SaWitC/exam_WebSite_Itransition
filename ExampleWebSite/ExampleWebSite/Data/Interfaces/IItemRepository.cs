@@ -27,8 +27,8 @@ namespace ExampleWebSite.Data.Interfaces
         //public Task<ItemModel> FindByTitleAsync(string title);
         public Task<IEnumerable<ItemModel>> TakeItemByTag_SkipAsync(string tagTitle, int skip,int Size,string UserName=null);
         public IEnumerable<ItemModel> TakeItemBy_collection(int collectionId,int skip,int pageSize, string UserName=null);
-        public Task<IEnumerable<ItemModel>> FilterAsync(ItemFilterModel model);
-        public Task<IEnumerable<ItemModel>> FilterAsync(string title, string DateFrom, string DateTo);
+        public Task<IEnumerable<ItemModel>> FilterAsync(ItemFilterModel model,int id,int page ,int size);
+        //public Task<IEnumerable<ItemModel>> FilterAsync(string title, string DateFrom, string DateTo);
 
     }
 }

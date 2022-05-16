@@ -208,9 +208,9 @@ namespace ExampleWebSite.Data.Repositories
             return Result;
         }
 
-        public async Task<IEnumerable<ItemModel>> FilterAsync(ItemFilterModel model)
+        public async Task<IEnumerable<ItemModel>> FilterAsync(ItemFilterModel model, int id, int page, int size)
         {
-            var items = _context.Items.AsQueryable();
+            var items = _context.Items.AsQueryable().Where(o=>o.CollectionId==id);
             if (!string.IsNullOrEmpty(model.Title))
             {
                 items = items.Where(o => o.Title.ToLower().Contains(model.Title.ToLower()));
@@ -223,31 +223,15 @@ namespace ExampleWebSite.Data.Repositories
             {
                 items = items.Where(o => o.LastUpdateDate < model.DateTo);
             }
-            return await items.ToListAsync();
+            if (model.Sort == 1.ToString())
+            {
+                items = items.OrderBy(o=>o.Title);
+            }
+            else if (model.Sort==2.ToString())
+            {
+                items = items.OrderBy(o=>o.LastUpdateDate);
+            }
+            return await items.Skip(page * size).Take(size).ToListAsync();
         }
-        public async Task<IEnumerable<ItemModel>> FilterAsync(string title,string DateFrom,string DateTo)
-        {
-            var items = _context.Items.AsQueryable();
-            if (!string.IsNullOrEmpty(title))
-            {
-                items = items.Where(o => o.Title.ToLower().Contains(title.ToLower()));
-            }
-            if (DateFrom != null)
-            {
-                DateTime date;
-                DateTime.TryParse(DateFrom, out date);
-                if (date != null) 
-                    items = items.Where(o => o.LastUpdateDate > date);
-            }
-            if (DateTo != null)
-            {
-                DateTime date;
-                DateTime.TryParse(DateTo, out date);
-                if (date != null)
-                    items = items.Where(o => o.LastUpdateDate < date);
-            }
-            return await items.ToListAsync();
-        }
-
     }
 }

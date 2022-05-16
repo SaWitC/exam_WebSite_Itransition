@@ -390,6 +390,15 @@
   <data name="smalStringPropertiesEl" xml:space="preserve">
     <value>Короткий текст</value>
   </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Сортировка</value>
+  </data>
+  <data name="SortByDate" xml:space="preserve">
+    <value>По дате обновления</value>
+  </data>
+  <data name="SortByTitle" xml:space="preserve">
+    <value>По названию</value>
+  </data>
   <data name="Stamps" xml:space="preserve">
     <value>Марки</value>
   </data>
