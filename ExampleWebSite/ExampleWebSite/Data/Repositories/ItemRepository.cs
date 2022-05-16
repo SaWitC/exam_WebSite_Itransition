@@ -29,6 +29,8 @@ namespace ExampleWebSite.Data.Repositories
         public async Task<EntityEntry<ItemModel>> CreateAsync(CreateItemViewModel model)
         {      
             model.Item.CollectionId = model.collectionId;
+            var collection = await _context.Collections.FirstOrDefaultAsync(o=>o.Id==model.collectionId);
+            collection.ItemCount = collection.ItemCount + 1;
             var item =await  _context.Items.AddAsync(model.Item);
             await _context.SaveChangesAsync();
             return item;
@@ -36,6 +38,8 @@ namespace ExampleWebSite.Data.Repositories
         public async Task Delete(ItemModel model)
         {
             _context.Items.Remove(model);
+            var collection = await _context.Collections.FirstOrDefaultAsync(o => o.Id == model.CollectionId);
+            collection.ItemCount = collection.ItemCount - 1;
             await _context.SaveChangesAsync();
         }
         public ItemModel GetItemById(int id)=> _context.Items.FirstOrDefault(o=>o.Id ==id);
@@ -113,20 +117,33 @@ namespace ExampleWebSite.Data.Repositories
             //inner join Tags on(Tags.Id= ItemTagsrelationships.TagId)
             //where Tags.Title = '123'
 
-            var x = from it in _context.Items
+            //Select count(Items.Id) from Items
+            //    inner join ItemTagsrelationships 
+            //    on(Items.Id=ItemTagsrelationships.ItemId)
+            //    inner join Tags 
+            //    on(Tags.Id=ItemTagsrelationships.TagId)
+            //    where Tags.Title='444'
+            //    group by Items.Id
+
+           // var x2 =_context.Items.Count().ke
+
+            var x2 = from it in _context.Items
                     join itta in _context.ItemTagsrelationships
                     on it.Id equals itta.ItemId
                     join ta in _context.Tags
                     on itta.TagId equals ta.Id
                     where ta.Title == tagTitle
                     select it;
+            var x =await x2.Distinct().OrderBy(x=>x.Id).Skip(skip).Take(Size).ToListAsync();
+
             if (!string.IsNullOrEmpty(UserName))
             {
                 string userId = _context.Users.FirstOrDefault(o=>o.UserName==UserName).Id;
                 if (userId != null)
-                    return CheckstatusIsLiked(await x.Skip(skip).Take(Size).ToListAsync(),userId);
+                    return CheckstatusIsLiked(x,userId);
             }
-            return await x.Skip(skip).Take(Size).ToListAsync();
+            return x;
+
         }
         public IEnumerable<ItemModel> TakeItemBy_collection(int collectionId, int skip, int pageSize, string UserName = null)
         {

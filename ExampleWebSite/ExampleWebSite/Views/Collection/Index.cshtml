@@ -1,6 +1,5 @@
-﻿@model IEnumerable<CollectionMinViewModel>
+﻿@model CollectionDetailsViewModel
 
-<<<<<<< HEAD
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -13,8 +12,17 @@
             <div id="RenderItem" class="row">
                 @await Html.PartialAsync("../Collection/_writeMoreItems.cshtml")
             </div>
+            <div id="loading" class="m-5">
+                <div class="loader">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
         }
-        <button class="text-center btn bg_Green" onclick="LoadItems()">load Mode</button>
+        <button id="LoadBtn" class="text-center btn bg_Green" onclick="LoadItems()">@ViewResourcesModel["load_Mode"]</button>
     }
     </div>
 <div class="col-md-3">
@@ -42,54 +50,13 @@
                     }
                     else {
                         page = -1;
+                        $("#LoadBtn").hide();
                     }
                     _inCallback = false;
                     $("div#loading").hide();
-=======
-<div>
-    @*<div class="container">*@
-        <table class="table text_color Table_custom Table_custom">
-            <thead class="thead_green">
-                <tr>
-                    <th scope="col">@ViewResourcesModel["Title"]</th>
-                    <th scope="col">@ViewResourcesModel["Theme"]</th>
-                    <th scope="col">@ViewResourcesModel["More info"]</th>
-                    <th scope="col">@ViewResourcesModel["Avtor"]</th>
-                </tr>
-            </thead>
-            <tbody class="" id="renderCollections">
-                @await Html.PartialAsync("_writeMoreCollections.cshtml")
-            </tbody>
-        </table>
-        <button class="text-center btn bg_Green" onclick="loadItems()">load Mode</button>
-    @*</div>*@ 
-</div>
-
-<script>
-$('div#loading').hide();
-var page = 0;
-var _inCallback = false;
-function loadItems() {
-    if (page > -1 && !_inCallback) {
-        _inCallback = true;
-        page++;
-        $('div#loading').show();
-        console.log(page);
-        $.ajax({
-            type: 'GET',
-            url: '/Collection/Index/' + page,
-            success: function (data, textstatus) {
-                if (data != '') {
-                    $("#renderCollections").append(data);
->>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
                 }
             });
         }
     }
-<<<<<<< HEAD
     </script>
 }
-=======
-}
-</script>
->>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)

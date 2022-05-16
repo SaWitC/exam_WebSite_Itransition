@@ -10,7 +10,7 @@
     function Tagc() {
         $.ajax({
             type: 'GET',
-            url: "@Url.Action("GetBestPopylarTags2", "tag")",
+            url: "@Url.Action("GetBestPopylarTags", "tag")",
             success: function (data, textstatus) {
                 if (data != '') {
                     //$("#RenderUsers").append(data);

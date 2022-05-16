@@ -1,10 +1,6 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "JdjsACJPSKG1+QsdFUaGLzs1eRVsrnD27IUwPF2P5w/TO8zftDYehyR6IhIoTBJfkHVYAhwcmDBv0Y0SJmsh4Q==",
-=======
-  "dgSpecHash": "ew93kZ7wYDC0ErTBvAYktbRNl0q1nS4Ko8e5T7y+2DO0AYZ8pVOiGf+kVohcmBJ1KVewa2X6j9+W74+sviThrw==",
->>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
   "success": true,
   "projectFilePath": "D:\\проекты\\ExampleWebSite\\ExampleWebSite\\ExampleWebSite.csproj",
   "expectedPackageFiles": [

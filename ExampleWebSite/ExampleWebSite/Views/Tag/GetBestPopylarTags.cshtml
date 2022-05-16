@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ExampleWebSite.Models.ModelsForProcessing.TagPopylarModel>
+
+<div>
+        @foreach (var item in Model)
+        {
+        <h2>@item.TagId   @item.count</h2>
+        <hr />
+        }
+    <div id="TagCloud">
+
+    </div>
+    <button onclick="Tagc">load</button>
+<script>
+    function Tagc() {
+        $.ajax({
+            type: 'GET',
+            url: "@Url.Action("GetBestPopylarTags2", "tag")",
+            success: function (data, textstatus) {
+                if (data != '') {
+                    //$("#RenderUsers").append(data);
+                    alert(data);
+                    console.log(data);
+
+                    div = document.getElementById("TagCloud");
+                    var value = 30;
+                    data.forEach(el => {
+                        value = value - 2;
+                        div.innerHTML += `<a style="font-size:${value}px;">${el.title}</a>`;
+                    });
+                }
+                else {
+                    alert("error")
+                }
+                _inCallback = false;
+                $("div#loading").hide();
+            }
+        });
+    }
+</script>
+</div>
+    
+
+
+
+

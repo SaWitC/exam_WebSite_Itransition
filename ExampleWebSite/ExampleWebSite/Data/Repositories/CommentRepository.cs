@@ -32,10 +32,9 @@ namespace ExampleWebSite.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public IQueryable<CommentModel> TakeCommentsByBlogId_Skip(int skip,int takeCount, int itemId)
+        public IEnumerable<CommentModel> TakeCommentsByBlogId_Skip(int skip,int takeCount, int itemId)
         {
-            var comments = _context.Comments.Skip(skip).Where(o => o.ItemId== itemId).Take(takeCount).AsQueryable();
-            return comments;
+            return _context.Comments.Skip(skip).Where(o => o.ItemId == itemId).Take(takeCount).ToList();
         }
     }
 }

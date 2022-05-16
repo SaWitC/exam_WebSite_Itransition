@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Korzh.EasyQuery.Linq" Version="7.2.1" />
     <PackageReference Include="MailKit" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.15" />
@@ -22,6 +26,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\wysiwyg_Markdown_editor\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
   </ItemGroup>
 
 </Project>

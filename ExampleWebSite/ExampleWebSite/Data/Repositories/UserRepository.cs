@@ -45,7 +45,7 @@ namespace ExampleWebSite.Data.Repositories
             }
         }
 
-        public async Task BanUserAsync(string UserName)
+        public async Task<User> BanUserAsync(string UserName)
         {
             if (CheckUserName(UserName))
             {
@@ -54,10 +54,12 @@ namespace ExampleWebSite.Data.Repositories
                 {
                     user.IsBaned = true;
                     await _userManager.UpdateAsync(user);
-                }
+                    return user;
+                }  
             }
+            return null;
         }
-        public async Task BanUserAsync(User user)
+        public async Task<User> BanUserAsync(User user)
         {
             if (CheckUserName(user.UserName))
             {
@@ -65,8 +67,11 @@ namespace ExampleWebSite.Data.Repositories
                 {
                     user.IsBaned = true;
                     await _userManager.UpdateAsync(user);
-                }
+                    return user;
+                }         
             }
+            return null;
+            
         }
 
         public IEnumerable<User> TakeMoreUsers(int size, int page,string UserName,string FinderName)
@@ -106,22 +111,26 @@ namespace ExampleWebSite.Data.Repositories
             }
         }
 
-        public async Task UnblockUserAsunc(string UserName)
+        public async Task<User> UnblockUserAsunc(string UserName)
         {
             var user =await _userManager.FindByNameAsync(UserName);
             if (user != null)
             {
                 user.IsBaned = false;
                 await _userManager.UpdateAsync(user);
+                return user;
             }
+            return null;
         }
-        public async Task UnblockUserAsunc(User user)
+        public async Task<User> UnblockUserAsunc(User user)
         {
             if (user != null)
             {
                 user.IsBaned = false;
                 await _userManager.UpdateAsync(user);
+                return user;
             }
+            return null;
         }
 
         public async Task EditThemaAsync(string UserName, string Thema)

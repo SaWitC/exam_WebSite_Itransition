@@ -31,7 +31,6 @@ namespace ExampleWebSite.Controllers
         private readonly IOptions<AdminAccountDataModel> _options;
         private readonly IOptions<AppConfigDataModel> _AppConfigData;
 
-
         private static int UserSize;//size of Users
         public AccountController(UserManager<User> userManager,
             SignInManager<User> signInManager,
@@ -72,7 +71,7 @@ namespace ExampleWebSite.Controllers
                     //await _userManager.AddClaimAsync(user, new Claim("IsBaned", user.IsBaned.ToString())); ;
 
                     await _signInManager.SignInAsync(user, true);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Collection");
                 }
                 else
                 {
@@ -112,7 +111,7 @@ namespace ExampleWebSite.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "Collection");
                         }
                     }
                 }
@@ -396,27 +395,23 @@ namespace ExampleWebSite.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Ban(string UserName)
         {
-            var user = await _userManager.FindByNameAsync(UserName);
+            var user =await _userRepository.BanUserAsync(UserName);
             if (user != null)
-            {
-                user.IsBaned = true;
-                await _userManager.UpdateAsync(user);
-            }
-            return RedirectToAction("OperationsWithUser","Account",new { UserName = user.UserName});
+                return RedirectToAction("OperationsWithUser", "Account", new { UserName = user.UserName });
+            else
+                return NotFound();
+            
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> UnBan(string UserName)
         {
-            var user = await _userManager.FindByNameAsync(UserName);
-
+            var user =await _userRepository.UnblockUserAsunc(UserName);
             if (user != null)
-            {
-                user.IsBaned = false;
-                await _userManager.UpdateAsync(user);
-            }
-            return RedirectToAction("OperationsWithUser","Account",new { UserName = user.UserName});
+                return RedirectToAction("OperationsWithUser", "Account", new { UserName = user.UserName });
+            else
+                return NotFound();
         }
 
         [HttpPost]
@@ -443,17 +438,17 @@ namespace ExampleWebSite.Controllers
                 return NotFound();
         }
         #endregion
-        private async Task Authenticate(User user)////////////////////////////////////////////////////////////////
-        {
-            var claims = new List<Claim>
-            {
-                new Claim("Isbaned", user.IsBaned.ToString()),
-            };
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-            // set autenticate cockies
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
-        }
+        //private async Task Authenticate(User user)////////////////////////////////////////////////////////////////
+        //{
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim("Isbaned", user.IsBaned.ToString()),
+        //    };
+        //    ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+        //        ClaimsIdentity.DefaultRoleClaimType);
+        //    // set autenticate cockies
+        //    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        //}
 
     }
 }

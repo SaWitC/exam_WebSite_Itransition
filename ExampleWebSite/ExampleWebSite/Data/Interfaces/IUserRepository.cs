@@ -11,11 +11,13 @@ namespace ExampleWebSite.Data.Interfaces
         public IEnumerable<User> TakeMoreUsers(int size, int page, string UserName, string FinderName);
         public IEnumerable<User> TakeMoreBanedUsers(int size, int page, string UserName, string FinderName);
 
-        public Task BanUsersAsync(IEnumerable<string> UsersNames);
-        //public Task BanUserAsync(string UsersNames);
+        //public Task BanUsersAsync(IEnumerable<string> UsersNames);
+        public Task<User> BanUserAsync(string UsersNames);
+        public Task<User> BanUserAsync(User user);
+
         //public Task BanUserAsync(User user);
-        //public Task UnblockUserAsunc(string UserName);
-        //public Task UnblockUserAsunc(User user);
+        public Task<User> UnblockUserAsunc(string UserName);
+        public Task<User> UnblockUserAsunc(User user);
         public Task EditThemaAsync(string UserName, string Thema);
         public Task EditCultureAsync(string UserName, string cultureCode);
         public Task<bool> GiveRole(string UserName, string Role);

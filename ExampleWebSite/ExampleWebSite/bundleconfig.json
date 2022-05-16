@@ -1,0 +1,32 @@
+[
+  {
+    "outputFileName": "wwwroot/css/CardStyles.min.css",
+    "inputFiles": [
+      "wwwroot/css/CardStyles.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/dark.Theme.min.css",
+    "inputFiles": [
+      "wwwroot/css/dark.Theme.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/white.Theme.min.css",
+    "inputFiles": [
+      "wwwroot/css/white.Theme.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/CustomMarkdownEditor/JS/CustomMarkdownJs.min.js",
+    "inputFiles": [
+      "wwwroot/CustomMarkdownEditor/JS/CustomMarkdownJs.js"
+    ]
+  }
+]

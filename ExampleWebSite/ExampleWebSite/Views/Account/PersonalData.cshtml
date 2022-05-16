@@ -22,14 +22,12 @@
 
             <div>
                 <form method="post" asp-action="EditThemeModal" asp-controller="Account">
-                    <button type="submit" value="white" name="Thema">white</button>
-                    <button type="submit" value="dark" name="Thema">dark</button>
-                    <button type="submit" value="auto" name="Thema">auto</button>
+                    <button class="btn bg-info" type="submit" value="white" name="Thema">white</button>
+                    <button class="btn bg-info" type="submit" value="dark" name="Thema">dark</button>
+                    @*<button class="btn bg-info" type="submit" value="auto" name="Thema">auto</button>*@
                 </form>
             </div>
-
-            <a class="btn compItem" asp-action="EditThemeModal" asp-controller="Account">@ViewResourcesModel["Edit"]</a>
-            <hr class="hr_custom" />
+            <hr class="hr_custom m-0" />
             @if (Model != null)
             {
                 <p><b>@ViewResourcesModel["Languages"]":</b>  @Model.CultureCode</p>
@@ -40,12 +38,11 @@
             <div>
                 <input hidden name="user" value="@Model" />
                 <form method="post" asp-action="EditCultre" asp-controller="Account">
-                    <button type="submit" value="ru" name="cultureCode">ru</button>
-                    <button type="submit" value="en" name="cultureCode">en</button>
+                    <button class="btn bg-info" type="submit" value="ru" name="cultureCode">ru</button>
+                    <button class="btn bg-info" type="submit" value="en" name="cultureCode">en</button>
                 </form>
             </div>
-            <button>@ViewResourcesModel["Edit"]</button>
-            <hr class="hr_custom" />
+            <hr class="hr_custom m-0" />
             <p><a asp-action="ChangePasswordAuthorise" asp-route-name="@User.Identity.Name" asp-controller="Account">@ViewResourcesModel["ChangePassword"]</a></p>
 
         </div>

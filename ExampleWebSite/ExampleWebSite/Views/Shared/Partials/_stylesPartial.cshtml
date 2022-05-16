@@ -1,5 +1,6 @@
 ﻿<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/site.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <link href="~/css/CardStyles.css" rel="stylesheet" />
 
@@ -22,11 +23,11 @@
 @if (User.Identity.IsAuthenticated)
 {
     var user = await UserManager.FindByNameAsync(User.Identity.Name);
-    <link href="~/css/@string.Concat(user.ThemeCode,".Theme.css")" rel="stylesheet" />
+    <link href="~/css/@string.Concat(user.ThemeCode,".Theme.min.css")" rel="stylesheet" />
 }
 else
 {
-    <link href="~/css/white.Theme.css" rel="stylesheet" />
+    <link href="~/css/white.Theme.min.css" rel="stylesheet" />
 }
 
 

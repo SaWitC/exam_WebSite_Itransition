@@ -38,6 +38,8 @@ namespace ExampleWebSite
             services.Configure<AdminAccountDataModel>(Configuration);
             services.Configure<AppConfigDataModel>(Configuration);
 
+            services.AddMemoryCache();
+
             services.AddMvc();
             //services.AddAuthorization(options => {
             //    options.AddPolicy("IsBanedPolicy", policy => policy.RequireClaim("IsBaned", false.ToString()));
@@ -101,7 +103,10 @@ namespace ExampleWebSite
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse=stf=>stf.Context.Response.Headers.Add("Cache-Control", "public,max-age=600")
+            });
      
             app.UseRouting();
 
@@ -113,7 +118,7 @@ namespace ExampleWebSite
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Collection}/{action=Index}/{id?}");
                 endpoints.MapHub<CommentHub>("/chat");
             });
         }

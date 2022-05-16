@@ -18,14 +18,12 @@ namespace ExampleWebSite.Controllers
     {
         private readonly ICommentRepository _comment;
         private readonly IItemRepository _item;
-        private readonly ICollectionRepository _collection;
         private readonly UserManager<User> _userManager;
         private readonly IHubContext<CommentHub> _hubContext;
         public CommentController(ICommentRepository comment,ICollectionRepository collection,UserManager<User> userManager, IItemRepository item,IHubContext<CommentHub> hub)
         {
             _item = item;
             _comment = comment;
-            _collection = collection;
             _userManager = userManager;
             _hubContext = hub;
         }
@@ -36,7 +34,7 @@ namespace ExampleWebSite.Controllers
         {
             if (message!=null &&itemId>0)
             {
-                if (message.Length > 20)
+                if (message.Length >= 20&&message.Length<=500)
                 {
                     CommentModel commentModel = new CommentModel();
                     commentModel.Message = message;

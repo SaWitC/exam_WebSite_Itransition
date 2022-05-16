@@ -2,29 +2,40 @@
 
 @if (Model != null)
 {
-    @foreach (var item in Model.Users)
+    if (Model.Users.Count() > 0)
     {
-<div class="col-md-4 w-50">
-    <div class="card-body card_Height lightBlueGreen btn-lg active w-100 h-auto" role="button" aria-pressed="true">
-        <h5 class="card-text text-wrap">@ViewResourcesModel["UserName"]: @item.UserName</h5>
-        @if (!string.IsNullOrEmpty(item.PhoneNumber))
+        @foreach (var item in Model.Users)
         {
-            <p class="card-text text-wrap">@ViewResourcesModel["PhoneNumber"]: @item.PhoneNumber</p>
-        }
-        else
-        {
-            <p class="card-text text-wrap">@ViewResourcesModel["PhoneNumber"]: @ViewResourcesModel["PhoneNumber_is_null"]</p>
-        }
-        <div class="btn-group">
-            <a asp-route-UserName="@item.UserName" asp-controller="Account" asp-action="CheckInfoAboutUser" type="button" class="btn text_color bg-info btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From: ">
-                @ViewResourcesModel["MoreInfo"]
-            </a>
-            <form method="post" asp-controller="Account" asp-action="DeleteUser">
-                <input hidden name="UserName" value="@item.UserName" />
-                <input type="submit" class="btn bg-danger active" data-bs-toggle="tooltip" data-bs-placement="right" value="@ViewResourcesModel["Delete"]" />
-            </form>
-        </div>
-    </div>
-</div>
+            <div class="col-md-4 w-50">
+                <div class="card-body card_Height lightBlueGreen btn-lg active w-100 h-auto" role="button" aria-pressed="true">
+                    <h5 class="card-text text-wrap">@ViewResourcesModel["UserName"]: @item.UserName</h5>
+                    @if (!string.IsNullOrEmpty(item.PhoneNumber))
+                    {
+                        <p class="card-text text-wrap">@ViewResourcesModel["PhoneNumber"]: @item.PhoneNumber</p>
+                    }
+                    else
+                    {
+                        <p class="card-text text-wrap">@ViewResourcesModel["PhoneNumber"]: @ViewResourcesModel["PhoneNumber_is_null"]</p>
+                    }
+                    <div class="btn-group">
+                        <a asp-route-UserName="@item.UserName" asp-controller="Account" asp-action="CheckInfoAboutUser" type="button" class="btn text_color bg-info btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From: ">
+                            @ViewResourcesModel["MoreInfo"]
+                        </a>
+                        <form method="post" asp-controller="Account" asp-action="DeleteUser">
+                            <input hidden name="UserName" value="@item.UserName" />
+                            <input type="submit" class="btn bg-danger active" data-bs-toggle="tooltip" data-bs-placement="right" value="@ViewResourcesModel["Delete"]" />
+                        </form>
+                    </div>
+                </div>
+                }
+            </div>
+        } 
     }
+    else
+    {
+        <div class="col-12">
+            <p><b>@ViewResourcesModel["Nothing found"]</b></p>
+        </div>
+    }
+
 }

@@ -1,8 +1,12 @@
 ﻿@model CollectionModel
 
-<h1>@Model.Title</h1>
-<h2>@Model.ShortDesc</h2>
+<div class="col-md-9">
+    <p>@ViewResourcesModel["AreYouSureWannaDeleteColection"]<b>@Model.Title</b></p>
+    <form method="post" asp-action="Delete" asp-controller="Collection">
+        <input class="bg-danger" type="submit" asp-route-id="@Model.Id" value="@ViewResourcesModel["Delete"]"/>
+    </form>
+</div>
 
-<form method="post" asp-action="Delete" asp-controller="Collection">
-    <input class="bg-danger" type="submit" asp-route-id="@Model.Id" value="@ViewResourcesModel["Delete"]"/>
-</form>
+<div class="col-md-3">
+    @await Html.PartialAsync("Partials/_Sidebar.cshtml")
+</div>

@@ -47,7 +47,7 @@ namespace ExampleWebSite.Data.Repositories
                        join sa in _context.ItemTagsrelationships on s.Id equals sa.TagId
                        where sa.ItemId ==itemId
                        select s;
-            return tags;
+            return tags.ToList();
         }
 
         public IEnumerable<string> GetTagsTitlesByItemId(int itemId)

@@ -20,12 +20,13 @@ using ExampleWebSite.Data.ConfigurationModels;
 using Microsoft.Extensions.Options;
 using ExampleWebSite.Models.ModelsForProcessing;
 using ExampleWebSite.ViewModels.Collections;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace ExampleWebSite.Controllers
 {
     public class ItemController : Controller
     {
-
+        private readonly IMemoryCache _cache;
         private readonly ITagRepository _tag;
         private readonly IItemTagsrelationshipRepository _item_Tags_Relationship;
         private readonly ICommentRepository _comment;
@@ -40,6 +41,7 @@ namespace ExampleWebSite.Controllers
 
 
         public ItemController(
+            IMemoryCache cache,
             ITagRepository tag,
             IItemTagsrelationshipRepository item_Tags_Relationship,
             IItemRepository item,
@@ -49,6 +51,7 @@ namespace ExampleWebSite.Controllers
             ICommentRepository comment,
             IOptions<AppConfigDataModel> options)
         {
+            _cache = cache;
             _tag = tag;
             _item_Tags_Relationship = item_Tags_Relationship;
             _comment = comment;
@@ -63,7 +66,7 @@ namespace ExampleWebSite.Controllers
         }
 
         [HttpGet]
-        [ResponseCache(Duration =4000,Location =ResponseCacheLocation.Client)]
+        [ResponseCache(Duration =2000,Location =ResponseCacheLocation.Client)]
         public ActionResult Details(int? id,int? p)
         {
             try
@@ -77,26 +80,25 @@ namespace ExampleWebSite.Controllers
                         return PartialView("_WriteMoreComments", GetComments((int)id, page));
                     }
 
+                    var response = _cache.Get("item"+id.ToString());
+                    if (response != null)
+                    {
+                        response = response as ItemDetailsViewModel;
+                        //response= _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
+                        return View(response);
+                    }
+
                     var itemViewModel = new ItemDetailsViewModel();
                     itemViewModel.Tags = _item_Tags_Relationship.GetTagsByItemId((int)id);
                     itemViewModel.Properties = _propertiesElements.GetPropertiesByItemId((int)id);
                     itemViewModel.Item = _item.GetItemById((int)id);
-                    itemViewModel.AvtorName = _collection.GetAvtorNameByCollectionId(itemViewModel.Item.CollectionId);
+                    itemViewModel.AvtorName = _collection.GetAvtorNameByCollectionId(itemViewModel.Item.CollectionId);  
                     itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
+                    _cache.Set("item"+id.ToString(), itemViewModel);  
                     return View(itemViewModel);
                 }
-<<<<<<< HEAD
                 else
                     return NotFound();
-=======
-                
-                var itemViewModel = new ItemDetailsViewModel();
-                itemViewModel.Tags = _item_Tags_Relationship.GetTagsByItemId((int)id);
-                itemViewModel.Properties = _propertiesElements.GetPropertiesByItemId((int)id);
-                itemViewModel.Item = _item.GetItemById((int)id);
-                itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
-                return View(itemViewModel);
->>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
             }
             catch
             {
@@ -152,7 +154,7 @@ namespace ExampleWebSite.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Collection");
             }
                 return View(model);
             }
@@ -220,7 +222,7 @@ namespace ExampleWebSite.Controllers
                             await _propertiesElements.UpdateRangeAsync(properties);
                         }
                     }
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Collection");
                 }
                 return View(model);
             }
@@ -245,7 +247,6 @@ namespace ExampleWebSite.Controllers
             return NotFound();
         }
 
-<<<<<<< HEAD
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //[Authorize]
@@ -256,20 +257,10 @@ namespace ExampleWebSite.Controllers
         //    await _item.Delete(item);
         //    return RedirectToAction("index", "Collection");
         //}
-=======
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        [ActionName("Delete")]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            var item = _item.GetItemById((int)id);
-            await _item.Delete(item);
-            return RedirectToAction("index","home");
-        }
->>>>>>> parent of 636540e (added tagCloud,updated interface; sql requests; fixed bugs)
+        [ResponseCache(Location =ResponseCacheLocation.Any,Duration =300)]
         public async Task<IActionResult> FindItemByTag(string TagString,int? page=0)
         {
+            
             FindItemViewModel model = new FindItemViewModel();
             model.TagString = TagString;
             if (page != null)
@@ -278,10 +269,10 @@ namespace ExampleWebSite.Controllers
                 var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
                 if (isAjax)
                 {
-                    return PartialView("_WriteMoreItemsByTag", await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize));
+                    return PartialView("_WriteMoreItemsByTag", await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize,User.Identity.Name));
                 }
                 
-                model.items= await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize);
+                model.items= await _item.TakeItemByTag_SkipAsync(TagString, ItemsToSkip, ItemSize,User.Identity.Name);
                 return View(model);
             }
             return View(model);
