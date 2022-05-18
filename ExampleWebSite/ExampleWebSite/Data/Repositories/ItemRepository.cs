@@ -69,7 +69,6 @@ namespace ExampleWebSite.Data.Repositories
                     //union select Comments.ItemId,Comments.AvtorName from Comments
                     //union Select PropertiesElement.ItemId,PropertiesElement.Title from PropertiesElement
 
-
                     //items = _context.Items.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
                     //    .Select(i => new SearchResoultModel { Type = "_item", id = i.Id, Title = "fefefe" })
                     //    .Union(_context.Collections.FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchCollectionOptions)
@@ -78,7 +77,6 @@ namespace ExampleWebSite.Data.Repositories
                     //    .Select(c => new SearchResoultModel { Type = "comments", id = c.Key, Title = "comment" }));
 
                     //select count(Comments.ItemId) from Comments group by ItemId
-
 
                     items = _context.Items.AsNoTracking().FullTextSearchQuery(model.SearchString, FullSearchOptions.fullTextSearchItemsOptions)
                         .Select(p => new SearchResoultModel { Type = "_item", id = p.Id, Title = p.Title })

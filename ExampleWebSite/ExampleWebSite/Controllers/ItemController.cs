@@ -80,13 +80,13 @@ namespace ExampleWebSite.Controllers
                         return PartialView("_WriteMoreComments", GetComments((int)id, page));
                     }
 
-                    var response = _cache.Get("item"+id.ToString());
-                    if (response != null)
-                    {
-                        response = response as ItemDetailsViewModel;
-                        //response= _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
-                        return View(response);
-                    }
+                    ////var response = _cache.Get("item"+id.ToString());
+                    //if (response != null)
+                    //{
+                    //    response = response as ItemDetailsViewModel;
+                    //    //response= _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
+                    //    return View(response);
+                    //}
 
                     var itemViewModel = new ItemDetailsViewModel();
                     itemViewModel.Tags = _item_Tags_Relationship.GetTagsByItemId((int)id);
@@ -94,7 +94,7 @@ namespace ExampleWebSite.Controllers
                     itemViewModel.Item = _item.GetItemById((int)id);
                     itemViewModel.AvtorName = _collection.GetAvtorNameByCollectionId(itemViewModel.Item.CollectionId);  
                     itemViewModel.comments = _comment.TakeCommentsByBlogId_Skip(0, CommentSize, (int)id);
-                    _cache.Set("item"+id.ToString(), itemViewModel);  
+                    //_cache.Set("item"+id.ToString(), itemViewModel);  
                     return View(itemViewModel);
                 }
                 else
